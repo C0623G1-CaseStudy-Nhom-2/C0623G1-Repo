@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{layout::head}">
+</head>
+<body>
+<div class="container">
+    <header th:replace="~{layout::header}"></header>
+    <section>
+        <div class="row my-5 dashboard-admin">
+            <div class="col-lg-3 sidebar-admin">
+                <h4>MENU</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item active"><a href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a>
+                    </li>
+                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-ticket"></i> Quản lý đơn hàng</a></li>
+                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-clapperboard"></i> Quản lý phim</a>
+                    </li>
+                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-user-pen"></i></i> Quản lý nhân
+                        viên</a></li>
+                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-users-viewfinder"></i></i> Quản lý
+                        khách hàng</a></li>
+                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-file-lines"></i></i> Quản lý bài viết</a>
+                    </li>
+                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-9 ps-5 table-dashboard order">
+                <div class="create">
+                    <a href="#"><i class="fa-solid fa-square-plus"></i> Thêm đơn hàng</a>
+                </div>
+                <div>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td colspan="2">Larry the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<footer th:replace="~{layout::footer}"></footer>
+</body>
+</html>
