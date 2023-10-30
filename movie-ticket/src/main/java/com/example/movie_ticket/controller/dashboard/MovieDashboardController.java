@@ -21,7 +21,7 @@ public class MovieDashboardController {
 
     @GetMapping("/movies")
     public ModelAndView showMovieLIst(@PageableDefault(value = 6) Pageable pageable, Model model) {
-        Page<Movie> movies = movieService.getAllMovie(pageable);
+        Page<Movie> movies = movieService.findAllMovie(pageable);
         model.addAttribute("newMovie", new Movie());
         return new ModelAndView("/dashboard/movies", "movies", movies);
     }
