@@ -8,9 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -29,5 +27,19 @@ public class MovieDashboardController {
     public String addNewMovie(@ModelAttribute Movie movie) {
         movieService.saveMovie(movie);
         return "redirect:/dashboard/movies";
+    }
+    @GetMapping("/delete/{id}")
+    public String deleteMovie(@PathVariable Long id) {
+        movieService.deleteMovie(id);
+        return "redirect:/dashboard/movies";
+    }
+    @GetMapping("/search")
+    public ModelAndView searchMovie(@RequestParam String keyword, @PageableDefault(value = 10) Pageable pageable) {
+        Page<Movie> movies = movieService.findMovieByName(keyword, pageable);
+        if (movies.isEmpty()) {
+            return new ModelAndView("/dashboard/movies", "empty", "Không có kết quả");
+        } else {
+            return new ModelAndView("/dashboard/movies", "movies", movies);
+        }
     }
 }

@@ -13,5 +13,7 @@ public interface IMovieService {
     Movie findMovieById(Long id);
     Map<Date, List<String>> showTimesMap(Long id);
     void saveMovie(Movie movie);
+    void deleteMovie(Long id);
     Page<Movie> findAllMovie(Pageable pageable);
+    Page<Movie> findMovieByName(String keyword, Pageable pageable);
 }

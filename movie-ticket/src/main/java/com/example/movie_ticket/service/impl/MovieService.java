@@ -38,7 +38,17 @@ public class MovieService implements IMovieService {
     }
 
     @Override
+    public void deleteMovie(Long id) {
+        movieRepo.deleteById(id);
+    }
+
+    @Override
     public Page<Movie> findAllMovie(Pageable pageable) {
         return movieRepo.findAll(pageable);
+    }
+
+    @Override
+    public Page<Movie> findMovieByName(String keyword, Pageable pageable) {
+        return movieRepo.findByTitleContaining(keyword, pageable);
     }
 }

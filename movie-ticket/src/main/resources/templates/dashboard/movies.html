@@ -8,21 +8,24 @@
     <header th:replace="~{layout::header}"></header>
     <div class="row">
         <div class="col-lg-4">
-            <h4>MENU</h4>
-            <ul style="text-decoration: none; list-style: none">
-                <li><a href="#"><i class="fa-solid fa-circle-info"></i> Tổng quan</a></li>
-                <li><a href="#"><i class="fa-solid fa-ticket"></i> Quản lý đơn hàng</a></li>
-                <li><a href="#"><i class="fa-solid fa-clapperboard"></i> Quản lý phim</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-gear"></i> Quản lý nhân viên</a></li>
-                <li><a href="#"><i class="fa-solid fa-user"></i> Quản lý khách hàng</a></li>
-                <li><a href="#"><i class="fa-regular fa-file-lines"></i> Quản lý bài viết</a></li>
-                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
-            </ul>
+<!--            <h4>MENU</h4>-->
+<!--            <ul>-->
+<!--                <li><a href="#"><i class="fa-solid fa-circle-info"></i> Tổng quan</a></li>-->
+<!--                <li><a href="#"><i class="fa-solid fa-ticket"></i> Quản lý đơn hàng</a></li>-->
+<!--                <li><a href="#"><i class="fa-solid fa-clapperboard"></i> Quản lý phim</a></li>-->
+<!--                <li><a href="#"><i class="fa-solid fa-user-gear"></i> Quản lý nhân viên</a></li>-->
+<!--                <li><a href="#"><i class="fa-solid fa-user"></i> Quản lý khách hàng</a></li>-->
+<!--                <li><a href="#"><i class="fa-regular fa-file-lines"></i> Quản lý bài viết</a></li>-->
+<!--                <li><a href="#" data-bs-toggle="modal" data-bs-target="#addNewMovie">-->
+<!--                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>-->
+<!--            </ul>-->
         </div>
         <div class="col-lg-8">
+<!--            <a href="#" data-bs-toggle="modal" data-bs-target="#addNewMovie"><i class="fa-solid fa-square-plus"></i> Thêm phim mới</a>-->
+            <a href="#"></i> Thêm phim mới</a>
             <form class="d-flex" role="search">
                 <input aria-label="Search" class="form-control me-2" placeholder="Search" type="search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
             </form>
             <table class="table table-hover" style="text-align: center">
                 <tr>
@@ -49,6 +52,71 @@
         </div>
     </div>
 </div>
+
+<!--ADD NEW MOVIE-->
+<!--<div class="modal fade" id="addNewMovie" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm phim mới</h1>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <form th:object="${newMovie}" action="/dashboard/add" method="post">-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="title" class="col-form-label">Movie title:</label>-->
+<!--                        <input th:field="*{title}" type="text" name="title" class="form-control" id="title">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="desc" class="col-form-label">Movie description:</label>-->
+<!--                        <input th:field="*{description}" type="text" name="code" class="form-control" id="desc">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="date" class="col-form-label">Release date:</label>-->
+<!--                        <input th:field="*{releaseDate}" type="date" name="code" class="form-control" id="date">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="category" class="col-form-label">Category:</label>-->
+<!--                        <input th:field="*{category}" type="text" name="category" class="form-control" id="category">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="director" class="col-form-label">Director:</label>-->
+<!--                        <input th:field="*{director}" type="text" name="code" class="form-control" id="director">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="avatar" class="col-form-label">Image:</label>-->
+<!--                        <input th:field="*{avatar}" type="text" name="code" class="form-control" id="avatar">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="bg" class="col-form-label">Background:</label>-->
+<!--                        <input th:field="*{banner}" type="text" name="code" class="form-control" id="bg">-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>-->
+<!--                        <button type="submit" class="btn btn-primary">Xác nhận</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--UPDATE MOVIE-->
 <footer th:replace="~{layout::footer}"></footer>
+<script>
+    const exampleModal = document.getElementById('exampleModal')
+    if (exampleModal) {
+        exampleModal.addEventListener('show.bs.modal', event => {
+            // Button that triggered the modal
+            const button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+
+            // Update the modal's content.
+            const modalTitle = exampleModal.querySelector('.modal-title')
+            const modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+        })
+    }
+</script>
 </body>
 </html>
