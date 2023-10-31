@@ -16,4 +16,5 @@ public interface IMovieService {
     void deleteMovie(Long id);
     Page<Movie> findAllMovie(Pageable pageable);
     Page<Movie> findMovieByName(String keyword, Pageable pageable);
+    Page<Movie> sortMovieByCategory(Pageable pageable);
 }
