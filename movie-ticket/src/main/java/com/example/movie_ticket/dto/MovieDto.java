@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 public class MovieDto {
+    private Long id;
     @NotBlank(message = "Không được để trống tên phim")
     private String title;
     @NotBlank(message = "Không được để trống mô tả")
@@ -28,7 +29,8 @@ public class MovieDto {
     public MovieDto() {
     }
 
-    public MovieDto(String title, String description, String releaseDate, Category category, String director, String avatar, String banner, Set<ShowTime> showTimes) {
+    public MovieDto(Long id, String title, String description, String releaseDate, Category category, String director, String avatar, String banner, Set<ShowTime> showTimes) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.releaseDate = releaseDate;
@@ -101,5 +103,13 @@ public class MovieDto {
 
     public void setShowTimes(Set<ShowTime> showTimes) {
         this.showTimes = showTimes;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
