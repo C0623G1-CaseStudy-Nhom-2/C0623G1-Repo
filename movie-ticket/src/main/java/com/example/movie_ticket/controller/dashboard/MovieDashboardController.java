@@ -1,15 +1,20 @@
 package com.example.movie_ticket.controller.dashboard;
 
+import com.example.movie_ticket.dto.MovieDto;
 import com.example.movie_ticket.model.Movie;
 import com.example.movie_ticket.service.IMovieService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -20,13 +25,19 @@ public class MovieDashboardController {
     @GetMapping("/movies")
     public ModelAndView showMovieLIst(@PageableDefault(value = 6) Pageable pageable, Model model) {
         Page<Movie> movies = movieService.findAllMovie(pageable);
-        model.addAttribute("newMovie", new Movie());
+        model.addAttribute("newMovie", new MovieDto());
         return new ModelAndView("/dashboard/movies", "movies", movies);
     }
     @GetMapping("/add")
-    public String addNewMovie(@ModelAttribute Movie movie) {
-        movieService.saveMovie(movie);
-        return "redirect:/dashboard/movies";
+    public String addNewMovie(@Valid BindingResult bindingResult, @ModelAttribute MovieDto movieDto) {
+        if (bindingResult.hasErrors()) {
+            return "/dashboard/movies";
+        } else {
+            Movie movie = new Movie();
+            BeanUtils.copyProperties(movieDto, movie);
+            movieService.saveMovie(movie);
+            return "redirect:/dashboard/movies";
+        }
     }
     @GetMapping("/delete/{id}")
     public String deleteMovie(@PathVariable Long id) {
