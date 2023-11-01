@@ -3,22 +3,27 @@ package com.example.movie_ticket.controller;
 import com.example.movie_ticket.model.Category;
 import com.example.movie_ticket.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/dashboard/category")
-public class DashboardCategory {
+public class DashboardCategoryController {
     @Autowired
     private ICategoryService categoryService;
 
     @GetMapping
-    public String showDashboardCategory(Model model) {
-        model.addAttribute("categories",categoryService.getAllCategory());
+    public String showDashboardCategory(@PageableDefault(value = 2) Pageable pageable,
+                                        Model model) {
+        model.addAttribute("categories",categoryService.getAllCategory(pageable));
         return "/category/dashboard-admin-category";
     }
 
@@ -63,6 +68,18 @@ public class DashboardCategory {
     public String deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
         return "redirect:/dashboard/category";
+    }
+
+    @GetMapping("/search")
+    public ModelAndView searchCategory(@PageableDefault(value = 2) Pageable pageable,
+                                       @RequestParam(name = "idCategory",defaultValue = "0") Long idCategory,
+                                       String nameCategory, Model model){
+        Page<Category> categories = categoryService.searchByIdAndName(idCategory,nameCategory,pageable);
+        model.addAttribute("nameCategory",nameCategory);
+        if (idCategory == 0) {
+            model.addAttribute("idCategory",null);
+        }
+        return new ModelAndView("/category/dashboard-admin-category","categories",categories);
     }
 
 }

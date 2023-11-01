@@ -1,5 +1,7 @@
 package com.example.movie_ticket.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -14,6 +16,7 @@ public class Movie {
     @Column(columnDefinition = "DATE")
     private String releaseDate;
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "category_id",referencedColumnName = "id")
     private Category category;
     private String director;

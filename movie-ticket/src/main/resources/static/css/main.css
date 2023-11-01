@@ -549,3 +549,49 @@ form.edit-item .img-thumbnail img {
     color: #848484;
     font-weight: 700;
 }
+
+.modal-content {
+    border-radius: 15px;
+    background: #171718;
+    box-shadow: 0px 2px 2px 2px rgb(65 67 76 / 40%);
+}
+
+.box-header-modal h1 {
+    color: #FFF;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.modal-body {
+    color: #848484;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+button.btn-close i {
+    color: #fff;
+    font-size: 16px;
+}
+
+.modal-body span {
+    color: #E20442;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.modal-header {
+    border-color: #848484;
+}
+
+.modal-footer {
+    border-top: unset;
+}
+.modal-content .icon {
+    font-size: 40px;
+    padding-right: 15px;
+    color: #fff;
+}
