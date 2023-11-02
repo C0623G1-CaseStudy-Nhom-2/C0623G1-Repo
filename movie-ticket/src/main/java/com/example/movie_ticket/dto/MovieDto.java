@@ -1,12 +1,12 @@
 package com.example.movie_ticket.dto;
 
 import com.example.movie_ticket.model.Category;
-import com.example.movie_ticket.model.ShowTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.time.LocalDate;
 
 public class MovieDto {
     private Long id;
@@ -16,7 +16,8 @@ public class MovieDto {
     @Size(max = 10000)
     private String description;
     @FutureOrPresent(message = "Thời gian khởi chiếu không được ở quá khứ")
-    private String releaseDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate releaseDate;
     private Category category;
     @NotBlank(message = "Không được để trống tên đạo diễn")
     private String director;
@@ -24,12 +25,11 @@ public class MovieDto {
     private String avatar;
     @NotBlank(message = "Không được để trống link ảnh")
     private String banner;
-    private Set<ShowTime> showTimes;
 
     public MovieDto() {
     }
 
-    public MovieDto(Long id, String title, String description, String releaseDate, Category category, String director, String avatar, String banner, Set<ShowTime> showTimes) {
+    public MovieDto(Long id, String title, String description, LocalDate releaseDate, Category category, String director, String avatar, String banner) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -38,7 +38,14 @@ public class MovieDto {
         this.director = director;
         this.avatar = avatar;
         this.banner = banner;
-        this.showTimes = showTimes;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -57,11 +64,11 @@ public class MovieDto {
         this.description = description;
     }
 
-    public String getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -95,21 +102,5 @@ public class MovieDto {
 
     public void setBanner(String banner) {
         this.banner = banner;
-    }
-
-    public Set<ShowTime> getShowTimes() {
-        return showTimes;
-    }
-
-    public void setShowTimes(Set<ShowTime> showTimes) {
-        this.showTimes = showTimes;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

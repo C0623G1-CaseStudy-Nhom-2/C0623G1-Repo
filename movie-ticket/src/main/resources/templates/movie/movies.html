@@ -27,7 +27,7 @@
             </div>
             <div class="col-lg-9 ps-5 table-dashboard order">
                 <div class="create">
-                    <a href="/dashboard/add"><i class="fa-solid fa-square-plus"></i> Thêm phim mới</a>
+                    <a href="/dashboard/movies/add"><i class="fa-solid fa-square-plus"></i> Thêm phim mới</a>
                 </div>
                 <div class="table-main">
                     <div class="search-table">
@@ -79,9 +79,9 @@
                             <td th:text="${movie.releaseDate}">15h30 28/10/2023</td>
                             <td th:text="${movie.category.nameCategory}">Hành động</td>
                             <td>
-                                <a th:href="@{/movie/detail/__${movie.id}__}" title="Xem chi tiết"><i class="fa-solid fa-file-lines"></i></a>
-                                <a th:href="@{/dashboard/update/__${movie.id}__}" title="Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a th:href="@{/dashboard/delete/__${movie.id}__}" title="Xóa"><i class="fa-solid fa-trash-can"></i></a>
+                                <a th:href="@{/dashboard/movies/detail/__${movie.id}__}" title="Xem chi tiết"><i class="fa-solid fa-file-lines"></i></a>
+                                <a th:href="@{/dashboard/movies/update/__${movie.id}__}" title="Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a th:href="@{/dashboard/movies/delete/__${movie.id}__}" title="Xóa"><i class="fa-solid fa-trash-can"></i></a>
                             </td>
                         </tr>
                         </tbody>

@@ -1,6 +1,7 @@
 package com.example.movie_ticket.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity(name = "movies")
@@ -12,7 +13,7 @@ public class Movie {
     @Column(columnDefinition = "TEXT")
     private String description;
     @Column(columnDefinition = "DATE")
-    private String releaseDate;
+    private LocalDate releaseDate;
     @ManyToOne
     @JoinColumn(name = "category_id",referencedColumnName = "id")
     private Category category;
@@ -49,11 +50,11 @@ public class Movie {
         this.description = description;
     }
 
-    public String getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
