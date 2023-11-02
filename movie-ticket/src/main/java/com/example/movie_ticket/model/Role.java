@@ -1,5 +1,7 @@
 package com.example.movie_ticket.model;
 
+import org.apache.catalina.User;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,9 +13,8 @@ public class Role {
 
     @Column(name = "name_role")
     private String nameRole;
-    @OneToMany(mappedBy = "role")
-    private Set<Account> account;
-
+    @ManyToMany(mappedBy = "roles")
+    private Set<Account> accounts;
     public Role() {
     }
 
@@ -33,11 +34,11 @@ public class Role {
         this.nameRole = nameRole;
     }
 
-    public Set<Account> getAccount() {
-        return account;
+    public Set<Account> getAccounts() {
+        return accounts;
     }
 
-    public void setAccount(Set<Account> account) {
-        this.account = account;
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
     }
 }

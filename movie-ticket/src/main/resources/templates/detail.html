@@ -60,7 +60,8 @@
                 <a th:href="@{/showtime/detail/__${showTime.id}__}">
                     <div class="info">
                         <h4 th:text="${showTime.startTime+' - '+showTime.endTime}">15:30 - 17:30</h4>
-                        <h5>Còn 30 ghế ngồi</h5>
+                        <h5 th:text="${'Giá vé: '+#numbers.formatDecimal(showTime.price, 0, 'POINT', 0, 'COMMA')} + ' đ'">
+                            100.000 đ</h5>
                     </div>
                 </a>
             </div>

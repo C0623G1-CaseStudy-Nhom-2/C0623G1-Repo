@@ -1,6 +1,7 @@
 package com.example.movie_ticket.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "accounts")
 public class Account {
@@ -9,9 +10,14 @@ public class Account {
     private Long id;
     private String username;
     private String password;
-    @ManyToOne
-    @JoinColumn(name = "id_role",referencedColumnName = "id")
-    private Role role;
+    private boolean isEnabled;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "account_role",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles;
     @OneToOne(mappedBy = "account")
     private Customer customer;
 
@@ -46,14 +52,6 @@ public class Account {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -68,5 +66,21 @@ public class Account {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }
