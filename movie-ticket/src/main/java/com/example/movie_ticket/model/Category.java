@@ -1,5 +1,7 @@
 package com.example.movie_ticket.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public class Category {
     }
 
     @OneToMany(mappedBy = "category")
+    @JsonManagedReference
     private Set<Movie> movies;
 
     public Category() {
