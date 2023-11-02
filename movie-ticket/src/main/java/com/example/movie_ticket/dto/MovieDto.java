@@ -21,9 +21,9 @@ public class MovieDto implements Validator {
     private Category category;
     @NotBlank(message = "Không được để trống tên đạo diễn")
     private String director;
-    @NotBlank(message = "Không được để trống link ảnh")
+//    @NotBlank(message = "Không được để trống link ảnh")
     private String avatar;
-    @NotBlank(message = "Không được để trống link ảnh")
+//    @NotBlank(message = "Không được để trống link ảnh")
     private String banner;
 
     public MovieDto() {
@@ -114,7 +114,7 @@ public class MovieDto implements Validator {
         MovieDto movieDto = (MovieDto) target;
         System.out.println(LocalDate.parse(movieDto.getReleaseDate()));
         System.out.println(LocalDate.now());
-        if (LocalDate.now().isBefore(LocalDate.parse(movieDto.getReleaseDate()))){
+        if (LocalDate.now().isAfter(LocalDate.parse(movieDto.getReleaseDate()))){
             errors.rejectValue("releaseDate",null,"Không được chọn ngày quá khứ");
         }
     }

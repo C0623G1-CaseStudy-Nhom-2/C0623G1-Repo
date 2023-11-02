@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout::head}">
 </head>
 <body>
@@ -35,26 +35,26 @@
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="col-lg-6 form-floating mb-3">
-                                        <input type="text" class="form-control" id="codeOrder"
-                                               placeholder="name@example.com" th:value="${idMovie}">
+                                        <input class="form-control" id="codeOrder" placeholder="" th:value="${idMovie}"
+                                               type="text" name="idMovie">
                                         <label for="codeOrder"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo mã
                                             phim</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-7 d-flex justify-content-between">
                                     <div class="col-auto form-floating mb-3">
-                                        <input type="text" class="form-control" id="nameFilm"
-                                               placeholder="name@example.com" th:value="${nameMovie}">
+                                        <input class="form-control" id="nameFilm" placeholder="" th:value="${nameMovie}"
+                                               type="text" name="nameMovie">
                                         <label for="nameFilm"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo tên
                                             phim</label>
                                     </div>
                                     <div class="col-auto form-floating mb-3">
-                                        <input type="date" class="form-control" id="dateOrder">
+                                        <input class="form-control" id="dateOrder" type="date">
                                         <label for="dateOrder"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo
                                             thời gian</label>
                                     </div>
                                     <div class="col-lg-2 form-floating mb-3">
-                                        <input type="submit" class="form-control btn btn-primary" value="Tìm">
+                                        <input class="form-control btn btn-primary" type="submit" value="Tìm">
                                     </div>
                                 </div>
                             </div>
@@ -79,11 +79,13 @@
                             <td th:text="${movie.releaseDate}">15h30 28/10/2023</td>
                             <td th:text="${movie.category.nameCategory}">Hành động</td>
                             <td>
-                                <a th:href="@{/dashboard/movies/detail/__${movie.id}__}" title="Xem chi tiết"><i class="fa-solid fa-file-lines"></i></a>
-                                <a th:href="@{/dashboard/movies/update/__${movie.id}__}" title="Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
-<!--                                <a th:href="@{/dashboard/movies/delete/__${movie.id}__}" title="Xóa"><i class="fa-solid fa-trash-can"></i></a>-->
-                                <a th:attr="onclick=|sendDataModal('${movie.id}','${movie.title}')|" title="Xóa"
-                                   role="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                <a th:href="@{/dashboard/movies/detail/__${movie.id}__}" title="Xem chi tiết"><i
+                                        class="fa-solid fa-file-lines"></i></a>
+                                <a th:href="@{/dashboard/movies/update/__${movie.id}__}" title="Sửa"><i
+                                        class="fa-solid fa-pen-to-square"></i></a>
+                                <!--                                <a th:href="@{/dashboard/movies/delete/__${movie.id}__}" title="Xóa"><i class="fa-solid fa-trash-can"></i></a>-->
+                                <a data-bs-target="#exampleModal" data-bs-toggle="modal"
+                                   role="button" th:attr="onclick=|sendDataModal('${movie.id}','${movie.title}')|" title="Xóa"><i
                                         class="fa-solid fa-trash-can"></i></a>
                             </td>
                         </tr>
@@ -96,16 +98,17 @@
                             <a class="page-link" th:href="@{
                             ${#httpServletRequest.getRequestURI()}+ '?page=' +
                             ${movies.number - 1} +
-                            ${movies != null && nameMovie != '' ? '&nameMovie='+nameMovie:''} +
+                            ${nameMovie != null && nameMovie != '' ? '&nameMovie='+nameMovie:''} +
                             ${idMovie != null && idMovie != '' ? '&idMovie='+idMovie:''}
                             }">Trước</a>
                         </li>
-                        <li th:each="i : ${#numbers.sequence(0, movies.totalPages - 1)}" th:class="${i == movies.number ? 'page-item active' : 'page-item'}">
-                            <a class="page-link" th:text="${i + 1}" th:href="@{
+                        <li th:class="${i == movies.number ? 'page-item active' : 'page-item'}"
+                            th:each="i : ${#numbers.sequence(0, movies.totalPages - 1)}">
+                            <a class="page-link" th:href="@{
                             ${#httpServletRequest.getRequestURI()} + '?page=' + ${i} +
                             ${nameMovie != null && nameMovie != '' ? '&nameMovie='+nameMovie:''} +
                             ${idMovie != null && idMovie != '' ? '&idMovie='+idMovie:''}
-                            }"></a>
+                            }" th:text="${i + 1}"></a>
                         </li>
                         <li th:class="${movies.hasNext() ? 'page-item' : 'page-item disabled'}">
                             <a class="page-link" th:href="@{
@@ -123,8 +126,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+     tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -137,17 +140,17 @@
                         <p>Hành động nguy hiểm !</p>
                     </div>
                 </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"><i
                         class="fa-solid fa-circle-xmark"></i></button>
             </div>
             <div class="modal-body">
-                Bạn có chắc chắn muốn xóa phim <span id="name-delete"
-                                                              class="text-danger"></span> này không?
+                Bạn có chắc chắn muốn xóa phim <span class="text-danger"
+                                                     id="name-delete"></span> này không?
                 Hành động này sẽ không thể khôi phục lại!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <a role="button" id="active-delete" class="btn btn-danger">Xóa</a>
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Đóng</button>
+                <a class="btn btn-danger" id="active-delete" role="button">Xóa</a>
             </div>
         </div>
     </div>

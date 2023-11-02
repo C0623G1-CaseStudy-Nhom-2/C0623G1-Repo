@@ -5,7 +5,7 @@ const uploadedURLs = [];
 async function handleUpload(e) {
     console.dir(e);
     // kết nối tới firebase storage với thư mục images
-    const ref = firebase.storage().ref("images");
+    const ref = firebase.storage().ref();
     const files = e.target.files;
 
     for (const file of files) {
@@ -22,7 +22,7 @@ async function handleUpload(e) {
             uploadedURLs.push(url);
             if (uploadedURLs.length === files.length) {
                 // upload image thành công lên firebase
-                document.getElementById("image2").value = uploadedURLs[0];
+                document.getElementById("image3").value = uploadedURLs[0];
             }
         } catch (error) {
             console.error(error);
@@ -30,6 +30,6 @@ async function handleUpload(e) {
     }
 }
 
-document.getElementById("upload-file").addEventListener("change", function (e) {
+document.getElementById("upload-banner").addEventListener("change", function (e) {
     handleUpload(e)
 });

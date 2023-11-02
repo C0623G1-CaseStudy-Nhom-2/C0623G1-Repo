@@ -30,7 +30,7 @@ public class MovieDashboardController {
     private ICategoryService categoryService;
 
     @GetMapping
-    public ModelAndView showMovieLIst(@PageableDefault(value = 1) Pageable pageable) {
+    public ModelAndView showMovieLIst(@PageableDefault(value = 10) Pageable pageable) {
         Page<Movie> movies = movieService.findAllMovie(pageable);
         return new ModelAndView("/movie/movies", "movies", movies);
     }
@@ -66,7 +66,7 @@ public class MovieDashboardController {
     @GetMapping("/search")
     public ModelAndView searchMovie(@RequestParam(name = "idMovie", required = false) Long idMovie,
                                     String nameMovie, String date, Model model,
-                                    @PageableDefault(value = 1) Pageable pageable) {
+                                    @PageableDefault(value = 10) Pageable pageable) {
         Page<Movie> movies = movieService.findMovieByIdAndName(idMovie, nameMovie, pageable);
         model.addAttribute("nameMovie", nameMovie);
         model.addAttribute("idMovie",idMovie);

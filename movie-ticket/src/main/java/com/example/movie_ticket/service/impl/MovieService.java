@@ -61,4 +61,9 @@ public class MovieService implements IMovieService {
     public Page<Movie> findMovieByIdAndName(Long idMovie, String nameMovie, Pageable pageable) {
         return movieRepo.findByIdAndTitleContaining(idMovie, nameMovie, pageable);
     }
+
+    @Override
+    public Page<Movie> findMovieByDate(String date, Pageable pageable) {
+        return movieRepo.findByReleaseDate(date, pageable);
+    }
 }
