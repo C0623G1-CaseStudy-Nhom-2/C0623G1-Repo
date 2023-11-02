@@ -19,8 +19,8 @@
                 <p style="color: red" th:if="${#fields.hasErrors('director')}" th:errors="*{director}"></p>
             </div>
             <div class="mb-3">
-                <label for="release" class="form-label">Ngày công chiếu</label>
-                <input th:field="*{releaseDate}" type="date" class="form-control" id="release">
+                <label for="releaseDate" class="form-label">Ngày công chiếu</label>
+                <input th:field="*{releaseDate}" type="date" class="form-control" id="releaseDate">
                 <p style="color: red" th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}"></p>
             </div>
             <div class="mb-3">

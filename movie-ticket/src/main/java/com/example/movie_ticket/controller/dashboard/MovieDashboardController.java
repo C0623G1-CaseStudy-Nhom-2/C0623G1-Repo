@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,9 +30,8 @@ public class MovieDashboardController {
     private ICategoryService categoryService;
 
     @GetMapping
-    public ModelAndView showMovieLIst(@PageableDefault(value = 6) Pageable pageable, Model model) {
+    public ModelAndView showMovieLIst(@PageableDefault(value = 1) Pageable pageable) {
         Page<Movie> movies = movieService.findAllMovie(pageable);
-        model.addAttribute("newMovie", new MovieDto());
         return new ModelAndView("/movie/movies", "movies", movies);
     }
 
@@ -43,7 +43,10 @@ public class MovieDashboardController {
     }
 
     @PostMapping("/confirm-add")
-    public String addNewMovie(@Valid @ModelAttribute MovieDto movieDto, BindingResult bindingResult) {
+    public String addNewMovie(@Valid @ModelAttribute MovieDto movieDto, BindingResult bindingResult, Model model) {
+        new MovieDto().validate(movieDto,bindingResult);
+        List<Category> categoryList = categoryService.getAllCategory();
+        model.addAttribute("categoryList", categoryList);
         if (bindingResult.hasErrors()) {
             return "/movie/add";
         } else {
@@ -52,7 +55,6 @@ public class MovieDashboardController {
             movieService.saveMovie(movie);
             return "redirect:/dashboard/movies";
         }
-
     }
 
     @GetMapping("/delete/{id}")
@@ -61,14 +63,14 @@ public class MovieDashboardController {
         return "redirect:/dashboard/movies";
     }
 
-    @GetMapping("/search/")
-    public ModelAndView searchMovie(@RequestParam String keyword, @PageableDefault(value = 10) Pageable pageable) {
-        Page<Movie> movies = movieService.findMovieByName(keyword, pageable);
-        if (movies.isEmpty()) {
-            return new ModelAndView("/movie/movies", "empty", "Không có kết quả");
-        } else {
-            return new ModelAndView("/movie/movies", "movies", movies);
-        }
+    @GetMapping("/search")
+    public ModelAndView searchMovie(@RequestParam(name = "idMovie", required = false) Long idMovie,
+                                    String nameMovie, String date, Model model,
+                                    @PageableDefault(value = 1) Pageable pageable) {
+        Page<Movie> movies = movieService.findMovieByIdAndName(idMovie, nameMovie, pageable);
+        model.addAttribute("nameMovie", nameMovie);
+        model.addAttribute("idMovie",idMovie);
+        return new ModelAndView("/movie/movies", "movies", movies);
     }
 
     @GetMapping("/update/{id}")

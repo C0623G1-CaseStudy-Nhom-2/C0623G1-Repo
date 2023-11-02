@@ -31,12 +31,12 @@
                 </div>
                 <div class="table-main">
                     <div class="search-table">
-                        <form>
+                        <form action="/dashboard/movies/search">
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="col-lg-6 form-floating mb-3">
                                         <input type="text" class="form-control" id="codeOrder"
-                                               placeholder="name@example.com">
+                                               placeholder="name@example.com" th:value="${idMovie}">
                                         <label for="codeOrder"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo mã
                                             phim</label>
                                     </div>
@@ -44,7 +44,7 @@
                                 <div class="col-lg-7 d-flex justify-content-between">
                                     <div class="col-auto form-floating mb-3">
                                         <input type="text" class="form-control" id="nameFilm"
-                                               placeholder="name@example.com">
+                                               placeholder="name@example.com" th:value="${nameMovie}">
                                         <label for="nameFilm"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo tên
                                             phim</label>
                                     </div>
@@ -92,14 +92,28 @@
                 </div>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link">Trước</a>
+                        <li th:class="${movies.hasPrevious() ? 'page-item' : 'page-item disabled'}">
+                            <a class="page-link" th:href="@{
+                            ${#httpServletRequest.getRequestURI()}+ '?page=' +
+                            ${movies.number - 1} +
+                            ${movies != null && nameMovie != '' ? '&nameMovie='+nameMovie:''} +
+                            ${idMovie != null && idMovie != '' ? '&idMovie='+idMovie:''}
+                            }">Trước</a>
                         </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Sau</a>
+                        <li th:each="i : ${#numbers.sequence(0, movies.totalPages - 1)}" th:class="${i == movies.number ? 'page-item active' : 'page-item'}">
+                            <a class="page-link" th:text="${i + 1}" th:href="@{
+                            ${#httpServletRequest.getRequestURI()} + '?page=' + ${i} +
+                            ${nameMovie != null && nameMovie != '' ? '&nameMovie='+nameMovie:''} +
+                            ${idMovie != null && idMovie != '' ? '&idMovie='+idMovie:''}
+                            }"></a>
+                        </li>
+                        <li th:class="${movies.hasNext() ? 'page-item' : 'page-item disabled'}">
+                            <a class="page-link" th:href="@{
+                            ${#httpServletRequest.getRequestURI()} + '?page=' +
+                            ${movies.number + 1} +
+                            ${nameMovie != null && nameMovie != '' ? '&nameMovie='+nameMovie:''} +
+                            ${idMovie != null && idMovie != '' ? '&idMovie='+idMovie:''}
+                            }">Tiếp</a>
                         </li>
                     </ul>
                 </nav>

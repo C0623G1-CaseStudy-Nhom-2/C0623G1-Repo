@@ -56,4 +56,9 @@ public class MovieService implements IMovieService {
     public Page<Movie> sortMovieByCategory(Pageable pageable) {
         return movieRepo.findAllOrderByCategory(pageable);
     }
+
+    @Override
+    public Page<Movie> findMovieByIdAndName(Long idMovie, String nameMovie, Pageable pageable) {
+        return movieRepo.findByIdAndTitleContaining(idMovie, nameMovie, pageable);
+    }
 }

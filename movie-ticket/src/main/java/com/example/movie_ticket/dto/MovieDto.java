@@ -2,22 +2,22 @@ package com.example.movie_ticket.dto;
 
 import com.example.movie_ticket.model.Category;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-public class MovieDto {
+public class MovieDto implements Validator {
     private Long id;
     @NotBlank(message = "Không được để trống tên phim")
     private String title;
     @NotBlank(message = "Không được để trống mô tả")
     @Size(max = 10000)
     private String description;
-    @FutureOrPresent(message = "Thời gian khởi chiếu không được ở quá khứ")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate releaseDate;
+    private String releaseDate;
     private Category category;
     @NotBlank(message = "Không được để trống tên đạo diễn")
     private String director;
@@ -29,7 +29,7 @@ public class MovieDto {
     public MovieDto() {
     }
 
-    public MovieDto(Long id, String title, String description, LocalDate releaseDate, Category category, String director, String avatar, String banner) {
+    public MovieDto(Long id, String title, String description, String releaseDate, Category category, String director, String avatar, String banner) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -64,11 +64,11 @@ public class MovieDto {
         this.description = description;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -102,5 +102,20 @@ public class MovieDto {
 
     public void setBanner(String banner) {
         this.banner = banner;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        MovieDto movieDto = (MovieDto) target;
+        System.out.println(LocalDate.parse(movieDto.getReleaseDate()));
+        System.out.println(LocalDate.now());
+        if (LocalDate.now().isBefore(LocalDate.parse(movieDto.getReleaseDate()))){
+            errors.rejectValue("releaseDate",null,"Không được chọn ngày quá khứ");
+        }
     }
 }
