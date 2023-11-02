@@ -21,9 +21,9 @@ public class MovieDto implements Validator {
     private Category category;
     @NotBlank(message = "Không được để trống tên đạo diễn")
     private String director;
-//    @NotBlank(message = "Không được để trống link ảnh")
+    @NotBlank(message = "Không được để trống link ảnh")
     private String avatar;
-//    @NotBlank(message = "Không được để trống link ảnh")
+    @NotBlank(message = "Không được để trống link ảnh")
     private String banner;
 
     public MovieDto() {

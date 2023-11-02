@@ -1,103 +1,98 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout::head}">
 </head>
 <body>
 
 <div class="container" style="margin-top: 40px">
     <header th:replace="~{layout::header}"></header>
-    <div class="row">
-        <form action="/dashboard/movies/confirm-add" method="post" th:object="${movieDto}">
-            <div class="mb-3">
-                <label class="form-label" for="title">Tên phim</label>
-                <input class="form-control" id="title" th:field="*{title}" type="text">
-                <p style="color: red" th:errors="*{title}" th:if="${#fields.hasErrors('title')}"></p>
+    <section>
+        <div class="row my-5 dashboard-admin">
+            <div class="col-lg-3 sidebar-admin">
+                <div th:replace="~{layout::sidebar-admin}"></div>
             </div>
-            <div class="mb-3">
-                <label class="form-label" for="director">Đạo diễn</label>
-                <input class="form-control" id="director" th:field="*{director}" type="text">
-                <p style="color: red" th:errors="*{director}" th:if="${#fields.hasErrors('director')}"></p>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="releaseDate">Ngày công chiếu</label>
-                <input class="form-control" id="releaseDate" th:field="*{releaseDate}" type="date">
-                <p style="color: red" th:errors="*{releaseDate}" th:if="${#fields.hasErrors('releaseDate')}"></p>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="category">Thể loại</label>
-                <select aria-label="Default select example" class="form-select" id="category" name="category"
-                        th:field="*{category}">
-                    <option th:each="category : ${categoryList}" th:text="${category.nameCategory}"
-                            th:value="${category.id}">Open this select menu
-                    </option>
-                </select>
-            </div>
-            <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Hình ảnh danh mục</label>
-                <div class="col-sm-10">
-                    <div>
-                        <input class="form-control" type="file" id="upload-file" multiple
-                               accept=".jpg, .jpeg, .png" onchange="limitFiles(this,1)">
-                        <input name="image2" type="hidden" id="image2" th:field="*{avatar}" required>
+            <div class="col-lg-9 ps-5 table-dashboard category">
+                <h3>Thêm mới phim</h3>
+                <form action="/dashboard/movies/confirm-add" method="post" th:object="${movieDto}">
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Tên phim</label>
+                        <input class="form-control" id="title" th:field="*{title}" type="text">
+                        <p style="color: red" th:errors="*{title}" th:if="${#fields.hasErrors('title')}"></p>
                     </div>
-                </div>
-            </div>
-            <div id="preview-image-add" class="row mb-3" style="display: none">
-                <div class="col-sm-2"><label class="col-form-label">Hình ảnh xem trước</label></div>
-                <div class="col-sm-10">
-                    <div id="image-preview-container2" class="img-thumbnail">
-                        <img th:src="*{avatar}" alt="image chose" src=""/>
-                        <input type="hidden" th:value="*{avatar}" required>
+                    <div class="mb-3">
+                        <label class="form-label" for="director">Đạo diễn</label>
+                        <input class="form-control" id="director" th:field="*{director}" type="text">
+                        <p style="color: red" th:errors="*{director}" th:if="${#fields.hasErrors('director')}"></p>
                     </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Hình ảnh danh mục</label>
-                <div class="col-sm-10">
-                    <div>
-                        <input class="form-control" type="file" id="upload-banner" multiple
-                               accept=".jpg, .jpeg, .png" onchange="limitFiles(this,1)">
-                        <input name="image3" id="image3" type="hidden"  th:field="*{banner}" required>
+                    <div class="mb-3">
+                        <label class="form-label" for="releaseDate">Ngày công chiếu</label>
+                        <input class="form-control" id="releaseDate" th:field="*{releaseDate}" type="date">
+                        <p style="color: red" th:errors="*{releaseDate}"
+                           th:if="${#fields.hasErrors('releaseDate')}"></p>
                     </div>
-                </div>
-            </div>
-            <div id="preview-banner-add" class="row mb-3" style="display: none">
-                <div class="col-sm-2"><label class="col-form-label">Hình ảnh xem trước</label></div>
-                <div class="col-sm-10">
-                    <div id="image-preview-banner" class="img-thumbnail">
-                        <img th:src="*{banner}" alt="image chose" src=""/>
-                        <input type="hidden" th:value="*{banner}" required>
+                    <div class="mb-3">
+                        <label class="form-label" for="category">Thể loại</label>
+                        <select aria-label="Default select example" class="form-select" id="category" name="category"
+                                th:field="*{category}">
+                            <option th:each="category : ${categoryList}" th:text="${category.nameCategory}"
+                                    th:value="${category.id}">Open this select menu
+                            </option>
+                        </select>
                     </div>
-                </div>
-            </div>
-<!--            <div class="mb-3">-->
-<!--                <label class="form-label" for="banner">Ảnh phim</label>-->
-<!--                <input accept=".jpg, .jpeg, .png" class="form-control" id="upload-banner" multiple-->
-<!--                       onchange="limitFiles(this,1)" type="file">-->
-<!--                <input id="banner" name="image2" required th:field="*{banner}" type="hidden">-->
-<!--                <p style="color: red" th:errors="*{banner}" th:if="${#fields.hasErrors('banner')}"></p>-->
-<!--            </div>-->
-<!--            <div class="row mb-3" id="preview-banner-add" style="display: none">-->
-<!--                <div class="col-sm-2"><label class="col-form-label">Hình ảnh xem trước</label></div>-->
-<!--                <div class="col-sm-10">-->
-<!--                    <div class="img-thumbnail" id="image-preview-banner">-->
-<!--                        <img alt="image chose" src="" th:src="*{banner}"/>-->
-<!--                        <input type="hidden" th:value="*{banner}" required>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-            <div class="mb-3">
-                <label class="form-label" for="description">Mô tả phim</label>
-                <input class="form-control" id="description" th:field="*{description}" type="text">
-                <p style="color: red" th:errors="*{description}" th:if="${#fields.hasErrors('description')}"></p>
-            </div>
-            <div class="mb3">
-                <input class="btn btn-primary" type="submit" value="Xác nhận">
+                    <div class="row mb-3">
+                        <div class="col-sm-12">
+                            <div>
+                                <label for="image2" class="col-sm-2 col-form-label">Ảnh phim</label>
+                                <input accept=".jpg, .jpeg, .png" class="form-control" id="upload-file" multiple
+                                       onchange="limitFiles(this,1)" type="file">
+                                <input id="image2" name="image2" required th:field="*{avatar}" type="hidden">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="preview-image-add" style="display: none">
+                        <div class="col-sm-2"><label class="col-form-label">Hình ảnh xem trước</label></div>
+                        <div class="col-sm-10">
+                            <div class="img-thumbnail" id="image-preview-container2">
+                                <img alt="image chose" src="" th:src="*{avatar}"/>
+                                <input required th:value="*{avatar}" type="hidden">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-12">
+                            <div>
+                                <label for="image3" class="col-sm-2 col-form-label">Ảnh bìa</label>
+                                <input accept=".jpg, .jpeg, .png" class="form-control" id="upload-banner" multiple
+                                       onchange="limitFiles(this,1)" type="file">
+                                <input id="image3" name="image3" required th:field="*{banner}" type="hidden">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="preview-banner-add" style="display: none">
+                        <div class="col-sm-2"><label class="col-form-label">Hình ảnh xem trước</label></div>
+                        <div class="col-sm-10">
+                            <div class="img-thumbnail" id="image-preview-banner">
+                                <img alt="image chose" src="" th:src="*{banner}"/>
+                                <input required th:value="*{banner}" type="hidden">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Mô tả phim</label>
+                        <input class="form-control" id="description" th:field="*{description}" type="text">
+                        <p style="color: red" th:errors="*{description}"
+                           th:if="${#fields.hasErrors('description')}"></p>
+                    </div>
+                    <div class="mb3">
+                        <input class="btn btn-primary" type="submit" value="Xác nhận">
 
-                <a class="btn btn-secondary" href="http://localhost:8080/dashboard/movies" role="button">Quay lại</a>
+                        <a class="btn btn-secondary" href="http://localhost:8080/dashboard/movies" role="button">Quay
+                            lại</a>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
+        </div>
+    </section>
 </div>
 <footer th:replace="~{layout::footer}"></footer>
 <script>
