@@ -8,16 +8,7 @@
   <section>
     <div class="row my-5 dashboard-admin">
       <div class="col-lg-3 sidebar-admin">
-        <h4>MENU</h4>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item active"><a href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
-          <li class="list-group-item"><a href="#"><i class="fa-solid fa-ticket"></i> Quản lý đơn hàng</a></li>
-          <li class="list-group-item"><a href="#"><i class="fa-solid fa-clapperboard"></i> Quản lý phim</a></li>
-          <li class="list-group-item"><a href="#"><i class="fa-solid fa-user-pen"></i></i> Quản lý nhân viên</a></li>
-          <li class="list-group-item"><a href="#"><i class="fa-solid fa-users-viewfinder"></i></i> Quản lý khách hàng</a></li>
-          <li class="list-group-item"><a href="#"><i class="fa-solid fa-file-lines"></i></i> Quản lý bài viết</a></li>
-          <li class="list-group-item"><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
-        </ul>
+        <div th:replace="~{layout::sidebar-admin}"></div>
       </div>
       <div class="col-lg-9 ps-5">
         <h3>Thống kê doanh thu</h3>
