@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -37,7 +38,7 @@ public class ShowTimeController {
     @GetMapping("/detail/{id}")
     public String showSeat(@PathVariable Long id, Model model){
         model.addAttribute("seats",seatService.showSeats());
-        model.addAttribute("id",id);
+        model.addAttribute("showTime",showTimeService.getShowTimeById(id));
         model.addAttribute("seatsActive",seatBookingService.getSeatsOrderedByShowTimes(id));
         return "seat";
     }
@@ -56,13 +57,23 @@ public class ShowTimeController {
     }
 
     @PostMapping("/booking-success")
-    public ModelAndView saveBooking(@ModelAttribute Booking booking,
+    public ModelAndView saveBooking(@RequestParam Set<String> seatSelect,
                                     @RequestParam Long customer,
+                                    @RequestParam Float totalPrice,
                                     @RequestParam Long showTimeOrder){
         Customer customerFind = customerService.findCustomerbyId(customer);
+        ShowTime showTimeFind = showTimeService.getShowTimeById(showTimeOrder);
+        Booking booking = new Booking();
         booking.setCustomer(customerFind);
-        booking.setShowTime(showTimeService.getShowTimeById(showTimeOrder));
+        booking.setShowTime(showTimeFind);
+        booking.setTotalPrice(totalPrice);
         bookingService.saveBooking(booking);
-        return new ModelAndView("redirect:/index");
+        for (String seat : seatSelect) {
+            SeatBooking seatBooking = new SeatBooking();
+            seatBooking.setBooking(booking);
+            seatBooking.setSeat(seat);
+            seatBookingService.saveSeatBooking(seatBooking);
+        }
+        return new ModelAndView("redirect:/");
     }
 }

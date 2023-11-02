@@ -102,7 +102,7 @@ h3 {
 }
 
 #list-fim-home img.card-img {
-    max-height: 275px;
+    height: 275px;
 }
 
 #category-film .card-img-overlay {
@@ -593,4 +593,7 @@ button.btn-close i {
     font-size: 40px;
     padding-right: 15px;
     color: #fff;
+}
+.table-dashboard table a {
+    color: #848484;
 }

@@ -30,16 +30,6 @@ public class HomeController {
         return new ModelAndView("checkout");
     }
 
-    @GetMapping("/dashboard-user")
-    public ModelAndView showDashboardUser(){
-        return new ModelAndView("dashboard-user");
-    }
-
-    @GetMapping("/dashboard-admin")
-    public ModelAndView showDashboardAdmin(){
-        return new ModelAndView("dashboard-admin");
-    }
-
     @GetMapping("/dashboard-admin-order")
     public ModelAndView showDashboardAdminOrder(){
         return new ModelAndView("dashboard-admin-table");

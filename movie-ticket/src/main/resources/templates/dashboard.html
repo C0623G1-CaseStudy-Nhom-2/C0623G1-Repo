@@ -9,12 +9,7 @@
   <section sec:authorize="hasRole('USER') && !hasRole('ADMIN')">
     <div class="row my-5 dashboard-user">
       <div class="col-lg-3 sidebar-user">
-        <h4>MENU</h4>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item active"><a href="#"><i class="fa-solid fa-circle-info"></i> Thông tin cá nhân</a></li>
-          <li class="list-group-item"><a href="#"><i class="fa-solid fa-ticket"></i> Vé xem phim đã mua</a></li>
-          <li class="list-group-item"><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
-        </ul>
+          <div th:replace="~{layout::sidebar-user}"></div>
       </div>
       <div class="col-lg-7 ms-3">
         <div class="d-flex">
@@ -22,34 +17,34 @@
             <img src="https://github.com/mdo.png" alt="mdo" width="100px" height="100px" class="rounded-circle">
           </div>
           <div class="info-user">
-            <h3>Phạm Văn Thành</h3>
-            <p>@thanhpv</p>
+            <h3 th:text="${account.customer.fullName}">Phạm Văn Thành</h3>
+            <p th:text="${'@'+account.username}">@thanhpv</p>
           </div>
         </div>
         <div class="row">
           <div class="info col-lg-4">
             <h4>Họ và tên</h4>
-            <p class="text-secondary-custom">Phạm Văn Thành</p>
+            <p class="text-secondary-custom" th:text="${account.customer.fullName}">Phạm Văn Thành</p>
           </div>
           <div class="info col-lg-4">
             <h4>Số điện thoại</h4>
-            <p class="text-secondary-custom">0987 654 321</p>
+            <p class="text-secondary-custom" th:text="${account.customer.phoneNumber}">0987 654 321</p>
           </div>
           <div class="info col-lg-4">
             <h4>Email</h4>
-            <p class="text-secondary-custom">phamthanhx18@gmail.com</p>
+            <p class="text-secondary-custom" th:text="${account.customer.email}">phamthanhx18@gmail.com</p>
           </div>
           <div class="info col-lg-4">
             <h4>Birthday</h4>
-            <p class="text-secondary-custom">01/01/2001</p>
+            <p class="text-secondary-custom" th:text="${account.customer.birthday}">01/01/2001</p>
           </div>
           <div class="info col-lg-4">
             <h4>Số CMND/CCCD</h4>
-            <p class="text-secondary-custom">187800000000</p>
+            <p class="text-secondary-custom" th:text="${account.customer.idCard}">187800000000</p>
           </div>
           <div class="info col-lg-4">
             <h4>Địa chỉ</h4>
-            <p class="text-secondary-custom">282 Trần Hưng Đạo, Sơn Trà, Đà Nẵng</p>
+            <p class="text-secondary-custom" th:text="${account.customer.address}">282 Trần Hưng Đạo, Sơn Trà, Đà Nẵng</p>
           </div>
         </div>
         <div class="row">

@@ -24,6 +24,43 @@
         </li>
         <li class="list-group-item"><a href="#"><i class="fa-solid fa-file-lines"></i></i> Quản lý bài viết</a></li>
         <li class="list-group-item">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#logOutAdmin"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+        </li>
+    </ul>
+    <div class="modal fade" id="logOutAdmin" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex">
+                        <div class="icon">
+                            <i class="fa-regular fa-bell"></i>
+                        </div>
+                        <div class="box-header-modal">
+                            <h1 class="modal-title fs-5" id="logOutAdminLabel">Thông báo</h1>
+                            <p>Thông báo quan trọng !</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa-solid fa-circle-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn đăng xuất tài khoản này không ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <a type="button" href="/logout" class="btn btn-danger">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="sidebar-user">
+    <h4>MENU</h4>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a href="/dashboard"><i class="fa-solid fa-circle-info"></i> Thông tin cá nhân</a></li>
+        <li class="list-group-item"><a href="/dashboard/purchased"><i class="fa-solid fa-ticket"></i> Vé xem phim đã mua</a></li>
+        <li class="list-group-item">
             <a href="#" data-bs-toggle="modal" data-bs-target="#logOut"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
         </li>
     </ul>
@@ -85,10 +122,8 @@
                                 data-bs-toggle="dropdown" aria-expanded="false" sec:authentication="name">
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="/dashboard/course">Quản lý khóa học</a></li>
-                            <li><a class="dropdown-item" href="/dashboard/order">Quản lý đơn hàng</a></li>
-                            <li><a class="dropdown-item" href="/dashboard/member">Quản lý thành viên</a></li>
+                            <li><a class="dropdown-item" href="/dashboard">Tổng quan</a></li>
+                            <li sec:authorize="hasRole('USER') && !hasRole('ADMIN')"><a class="dropdown-item" href="/dashboard/purchased">Vé đã mua</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

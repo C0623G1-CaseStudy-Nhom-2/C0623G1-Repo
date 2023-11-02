@@ -30,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/dashboard/purchased**").hasRole("USER")
+                .antMatchers("/dashboard/category**").hasRole("ADMIN")
                 .antMatchers("/dashboard","/showtime/check-out/**").hasAnyRole("ADMIN","USER")
                 .anyRequest().permitAll()
                 .and()
