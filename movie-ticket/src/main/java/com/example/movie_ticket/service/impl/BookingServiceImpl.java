@@ -34,4 +34,28 @@ public class BookingServiceImpl implements IBookingService {
     public void deleteBooking(Long id) {
         bookingRepo.delete(findBookingById(id).get());
     }
+    @Override
+    public Page<Booking> showAllBooking(Pageable pageable, String phone, String name) {
+        return bookingRepo.showAllBooking(pageable, "%"+phone+"%","%"+ name+"%");
+    }
+
+    @Override
+    public Booking findByIdBooking(Long id) {
+        return bookingRepo.findById(id).get();
+    }
+
+    @Override
+    public void cancelBooking(Long id) {
+        bookingRepo.cancelBooking(id);
+    }
+
+    @Override
+    public Booking findById(Long id) {
+        return bookingRepo.findById(id).get();
+    }
+
+    @Override
+    public void updateBooking(Booking booking) {
+        bookingRepo.save(booking);
+    }
 }

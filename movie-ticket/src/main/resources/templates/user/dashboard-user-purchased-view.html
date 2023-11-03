@@ -12,12 +12,12 @@
                 <div th:replace="~{layout::sidebar-user}"></div>
             </div>
             <div class="col-lg-9 ps-5 table-dashboard user-purchased">
-                <h3 th:text="${'Xem đơn mua vé xem phim ' + booking.id}" class="my-4">Xem mua vé xem phim</h3>
+                <h3 th:text="${'Xem đơn mua vé xem phim ' + booking.codeBooking}" class="my-4">Xem mua vé xem phim</h3>
                 <div class="mb-3 row">
                     <label for="idBooking" class="col-sm-2 col-form-label">ID Đơn Hàng</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="idBooking"
-                               th:value="${booking.id}">
+                               th:value="${booking.codeBooking}">
                     </div>
                 </div>
                 <div class="mb-3 row">

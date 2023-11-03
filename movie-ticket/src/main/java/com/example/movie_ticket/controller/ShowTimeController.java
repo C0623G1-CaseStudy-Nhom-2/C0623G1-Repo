@@ -2,6 +2,7 @@ package com.example.movie_ticket.controller;
 
 import com.example.movie_ticket.model.*;
 import com.example.movie_ticket.service.*;
+import com.example.movie_ticket.ultils.NumberRandom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -65,6 +66,7 @@ public class ShowTimeController {
         ShowTime showTimeFind = showTimeService.getShowTimeById(showTimeOrder);
         Booking booking = new Booking();
         booking.setCustomer(customerFind);
+        booking.setCodeBooking(NumberRandom.codeRandom());
         booking.setShowTime(showTimeFind);
         booking.setTotalPrice(totalPrice);
         bookingService.saveBooking(booking);

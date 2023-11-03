@@ -15,7 +15,7 @@ public interface IBookingRepo extends JpaRepository<Booking, Long> {
             nativeQuery = true)
     Page<Booking> findBookingUsername(@Param("param1") String username, Pageable pageable);
 
-    @Query(value = "select bk.id,cus.full_name,cus.phone_number,cus.email,st.movie_id,st.price,st.show_date,bk.code_booking,bk.customer_id,bk.showtime_id,bk.is_deleted " +
+    @Query(value = "select bk.id,cus.full_name,cus.phone_number,cus.email,st.movie_id,st.price,st.show_date,bk.code_booking,bk.customer_id,bk.showtime_id,bk.is_deleted,bk.date_purchased,bk.total_price " +
             "            from bookings bk " +
             "            join customer cus on cus.id = bk.customer_id " +
             "            join show_time st on st.id = bk.showtime_id " +
