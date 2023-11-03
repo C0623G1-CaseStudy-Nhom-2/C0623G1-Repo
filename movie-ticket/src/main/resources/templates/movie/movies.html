@@ -61,7 +61,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="movie, count : ${movies}">
-                            <td th:text="${'#' + count.count}">#12921</td>
+                            <td th:text="${(movies.number)*movies.pageable.pageSize+count.count}">#12921</td>
                             <td th:text="${movie.title}">Vầng Trăng Máu</td>
                             <td th:text="${movie.director}">Phạm Văn Thành</td>
                             <td th:text="${movie.releaseDate}">15h30 28/10/2023</td>
@@ -71,7 +71,7 @@
                                         class="fa-solid fa-file-lines"></i></a>
                                 <a th:href="@{/dashboard/movies/update/__${movie.id}__}" title="Sửa"><i
                                         class="fa-solid fa-pen-to-square"></i></a>
-                                <!--                                <a th:href="@{/dashboard/movies/delete/__${movie.id}__}" title="Xóa"><i class="fa-solid fa-trash-can"></i></a>-->
+                                <!--<a th:href="@{/dashboard/movies/delete/__${movie.id}__}" title="Xóa"><i class="fa-solid fa-trash-can"></i></a>-->
                                 <a data-bs-target="#exampleModal" data-bs-toggle="modal"
                                    role="button" th:attr="onclick=|sendDataModal('${movie.id}','${movie.title}')|"
                                    title="Xóa"><i
