@@ -50,4 +50,11 @@ public class DashboardCustomerController {
         model.addAttribute("customerDto",customerDto);
         return "/customer/edit-customer";
     }
+
+    @GetMapping("/create")
+    public String formCreateCustomer(Model model){
+        CustomerDto customerDto = new CustomerDto();
+        model.addAttribute("customerDto",customerDto);
+        return "/customer/create-customer";
+    }
 }
