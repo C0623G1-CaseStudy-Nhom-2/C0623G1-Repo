@@ -37,7 +37,7 @@
                                             phim</label>
                                     </div>
                                     <div class="col-auto form-floating mb-3">
-                                        <input class="form-control" id="dateOrder" type="date">
+                                        <input class="form-control" id="dateOrder" type="date" disabled>
                                         <label for="dateOrder"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo
                                             thời gian</label>
                                     </div>
@@ -60,7 +60,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="movie, count : ${movies}">
+                        <tr><td colspan="6" th:if="${movies.isEmpty()}" style="text-align: center">Không có kết quả</td></tr>
+                        <tr th:unless="${movies.isEmpty()}" th:each="movie, count : ${movies}">
                             <td th:text="${(movies.number)*movies.pageable.pageSize+count.count}">#12921</td>
                             <td th:text="${movie.title}">Vầng Trăng Máu</td>
                             <td th:text="${movie.director}">Phạm Văn Thành</td>
@@ -81,7 +82,7 @@
                         </tbody>
                     </table>
                 </div>
-                <nav aria-label="Page navigation example">
+                <nav aria-label="Page navigation example" th:unless="${movies.isEmpty()}">
                     <ul class="pagination justify-content-center">
                         <li th:class="${movies.hasPrevious() ? 'page-item' : 'page-item disabled'}">
                             <a class="page-link" th:href="@{
