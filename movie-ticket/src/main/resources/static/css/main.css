@@ -597,3 +597,8 @@ button.btn-close i {
 .table-dashboard table a {
     color: #848484;
 }
+p.field-error {
+    color: red;
+    font-size: 14px;
+    margin: 5px 0;
+}

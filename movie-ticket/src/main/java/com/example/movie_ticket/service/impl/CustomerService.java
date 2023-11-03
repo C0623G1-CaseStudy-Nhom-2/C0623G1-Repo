@@ -10,17 +10,20 @@ import java.util.List;
 
 @Service
 public class CustomerService implements ICustomerService {
-
     @Autowired
     private ICustomerRepo customerRepo;
     @Override
     public List<Customer> getAllCustomer() {
         return customerRepo.findAllCusromer();
     }
-
     @Override
     public void deleteCustomerById(Long id) {
         customerRepo.deleteCustomerById(id);
+    }
+
+    @Override
+    public void saveCustomer(Customer customer) {
+        customerRepo.save(customer);
     }
 
     @Override
