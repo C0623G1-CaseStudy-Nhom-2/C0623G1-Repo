@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -14,17 +14,83 @@
 <div th:fragment="sidebar-admin">
     <h4>MENU</h4>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item active"><a href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
-        <li class="list-group-item"><a href="#"><i class="fa-solid fa-ticket"></i> Quản lý đơn hàng</a></li>
+        <li class="list-group-item active"><a href="/dashboard"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
+        <li class="list-group-item"><a href="/dashboard/booking"><i class="fa-solid fa-ticket"></i> Quản lý đơn hàng</a></li>
         <li class="list-group-item"><a href="/dashboard/movies"><i class="fa-solid fa-clapperboard"></i> Quản lý phim</a></li>
         <li class="list-group-item"><a href="/dashboard/category"><i class="fa-solid fa-bookmark"></i> Quản lý danh
             mục phim</a></li>
-        <li class="list-group-item"><a href="#"><i class="fa-solid fa-user-pen"></i></i> Quản lý nhân viên</a></li>
-        <li class="list-group-item"><a href="#"><i class="fa-solid fa-users-viewfinder"></i></i> Quản lý khách hàng</a>
+        <li class="list-group-item"><a href="/dashboard/employee"><i class="fa-solid fa-user-pen"></i></i> Quản lý nhân viên</a></li>
+        <li class="list-group-item"><a href="/dashboard/customer/"><i class="fa-solid fa-users-viewfinder"></i></i> Quản lý khách hàng</a>
         </li>
-        <li class="list-group-item"><a href="#"><i class="fa-solid fa-file-lines"></i></i> Quản lý bài viết</a></li>
-        <li class="list-group-item"><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+        <li class="list-group-item"><a href="/dashboard/blogs"><i class="fa-solid fa-file-lines"></i></i> Quản lý bài viết</a></li>
+        <li class="list-group-item">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#logOutAdmin"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+        </li>
     </ul>
+    <div class="modal fade" id="logOutAdmin" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex">
+                        <div class="icon">
+                            <i class="fa-regular fa-bell"></i>
+                        </div>
+                        <div class="box-header-modal">
+                            <h1 class="modal-title fs-5" id="logOutAdminLabel">Thông báo</h1>
+                            <p>Thông báo quan trọng !</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa-solid fa-circle-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn đăng xuất tài khoản này không ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <a type="button" href="/logout" class="btn btn-danger">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="sidebar-user">
+    <h4>MENU</h4>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a href="/dashboard"><i class="fa-solid fa-circle-info"></i> Thông tin cá nhân</a></li>
+        <li class="list-group-item"><a href="/dashboard/purchased"><i class="fa-solid fa-ticket"></i> Vé xem phim đã mua</a></li>
+        <li class="list-group-item">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#logOut"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+        </li>
+    </ul>
+    <div class="modal fade" id="logOut" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex">
+                        <div class="icon">
+                            <i class="fa-regular fa-bell"></i>
+                        </div>
+                        <div class="box-header-modal">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
+                            <p>Thông báo quan trọng !</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa-solid fa-circle-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn đăng xuất tài khoản này không ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <a type="button" href="/logout" class="btn btn-danger">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <header th:fragment="header" class="my-3">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -46,30 +112,27 @@
             <form class="d-flex px-3" role="search" action="/search">
                 <input type="search" class="form-control" name="search-film" placeholder="Tìm kiếm" aria-label="Search">
             </form>
-            <div th:if="${session.user}" class="d-flex">
+            <div sec:authorize="isAuthenticated()" class="d-flex">
                 <div class="avatar-user">
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                 </div>
                 <div class="info-user-header">
                     <div class="dropdown d-flex justify-content-end">
                         <button class="btn-login btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Phạm Văn Thành
+                                data-bs-toggle="dropdown" aria-expanded="false" sec:authentication="name">
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="/dashboard/course">Quản lý khóa học</a></li>
-                            <li><a class="dropdown-item" href="/dashboard/order">Quản lý đơn hàng</a></li>
-                            <li><a class="dropdown-item" href="/dashboard/member">Quản lý thành viên</a></li>
+                            <li><a class="dropdown-item" href="/dashboard">Tổng quan</a></li>
+                            <li sec:authorize="hasRole('USER') && !hasRole('ADMIN')"><a class="dropdown-item" href="/dashboard/purchased">Vé đã mua</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/user/logout">Đăng xuất</a></li>
+                            <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div th:unless="${session.user}" id="modal-login">
+            <div sec:authorize="!isAuthenticated()" id="modal-login">
                 <a class="btn-login btn btn-primary" data-bs-toggle="modal" href="#userLogin" role="button">Đăng
                     nhập</a>
                 <div class="modal fade" id="userSignup" aria-hidden="true" aria-labelledby="userSignupLabel"
@@ -132,7 +195,7 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div id="log-in" class="wrapper">
-                                <form id="form-login">
+                                <form id="form-login" action="/login" method="post">
                                     <div class="card text-bg-dark">
                                         <img src="/image/5b636a2a0d9e069d6a5852547ea877e7.png" class="card-img"
                                              alt="...">
@@ -151,11 +214,11 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="usernameLogIn" class="form-label">Tên đăng nhập</label>
-                                                <input id="usernameLogIn" type="text" class="form-control">
+                                                <input id="usernameLogIn" type="text" class="form-control" name="username">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="passwordLogIn" class="form-label">Mật khẩu</label>
-                                                <input id="passwordLogIn" type="password" class="form-control">
+                                                <input id="passwordLogIn" type="password" class="form-control" name="password">
                                             </div>
                                             <div class="col-lg-12">
                                                 <button type="submit" class="btn btn-primary w-100">Tiếp tục</button>
