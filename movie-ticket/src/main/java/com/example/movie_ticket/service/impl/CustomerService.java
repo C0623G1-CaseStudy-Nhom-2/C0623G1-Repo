@@ -15,6 +15,16 @@ public class CustomerService implements ICustomerService {
     private ICustomerRepo customerRepo;
     @Override
     public List<Customer> getAllCustomer() {
-        return customerRepo.findAll();
+        return customerRepo.findAllCusromer();
+    }
+
+    @Override
+    public void deleteCustomerById(Long id) {
+        customerRepo.deleteCustomerById(id);
+    }
+
+    @Override
+    public Customer getCustomerById(Long id) {
+        return customerRepo.findById(id).get();
     }
 }
