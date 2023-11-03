@@ -106,8 +106,9 @@ public class EmployeeDTO implements Validator {
             errors.rejectValue("idCard",null,"ID card chỉ được nhập từ 9 hoặc 12 số");
         }
         LocalDate now = LocalDate.now();
-        Period period = Period.between(now,LocalDate.parse(formDTO.birthday));
+        Period period = Period.between(LocalDate.parse(formDTO.birthday),now);
         int year = period.getYears();
+        System.out.printf(String.valueOf(year));
         if (year <18){
             errors.rejectValue("birthday",null,"phải trên 18 tuổi");
         }
