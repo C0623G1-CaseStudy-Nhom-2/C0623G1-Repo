@@ -82,7 +82,7 @@
                         </tbody>
                     </table>
                 </div>
-                <nav aria-label="Page navigation example" th:unless="${movies.isEmpty()}">
+                <nav aria-label="Page navigation example" th:unless="${movies.totalPages > 2}">
                     <ul class="pagination justify-content-center">
                         <li th:class="${movies.hasPrevious() ? 'page-item' : 'page-item disabled'}">
                             <a class="page-link" th:href="@{

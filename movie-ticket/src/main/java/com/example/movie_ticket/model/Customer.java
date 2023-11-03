@@ -10,13 +10,14 @@ public class Customer {
     private Long id;
     @Column(name = "full_name")
     private String fullName;
-    @Column(name = "email",unique = true)
+
+    @Column(name = "email")
     private String email;
+
     private String phoneNumber;
     private String birthday;
     private Long idCard;
     private String address;
-    private boolean statis = true;
     @OneToOne
     @JoinColumn(name = "account_id",referencedColumnName = "id")
     private Account account;
@@ -97,13 +98,5 @@ public class Customer {
 
     public void setBookings(Set<Booking> bookings) {
         this.bookings = bookings;
-    }
-
-    public boolean isStatis() {
-        return statis;
-    }
-
-    public void setStatis(boolean statis) {
-        this.statis = statis;
     }
 }
