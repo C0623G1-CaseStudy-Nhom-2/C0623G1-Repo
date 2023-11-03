@@ -11,7 +11,7 @@
                 <div th:replace="~{layout::sidebar-admin}"></div>
             </div>
             <div class="col-lg-9 ps-5 table-dashboard category">
-                <h3 th:text="${'Mã Booking ' + booking.codeBooking}" class="my-4"></h3>
+                <h3 th:text="${'Đơn hàng ' + booking.codeBooking}" class="my-4"></h3>
                 <div class="mb-3 row">
                     <label for="customer" class="col-sm-2 col-form-label">Khách Hàng</label>
                     <div class="col-sm-10">
@@ -28,8 +28,10 @@
                 </div>
                 <div class="mb-3 row">
                     <label for="movie" class="col-sm-2 col-form-label">Ghế đặt</label>
-                    <div class="col-sm-10">
-                        <input th:value="${seat.seat}" th:each="seat: ${seatBookings}" th:if="${seat.booking.id == booking.id}" style="color: black" disabled/>
+                    <div class="col-sm-10" style="padding-top: 6px; border-bottom-width: 6px;  padding-bottom: 6px;">
+                        <span th:value="${seat.seat}" th:each="seat: ${seatBookings}"
+                              th:if="${seat.booking.id == booking.id}" th:text="${seat.seat+' '}"
+                              style="color: #848484; font-weight: 700"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">

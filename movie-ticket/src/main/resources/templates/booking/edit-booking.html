@@ -11,7 +11,8 @@
                 <div th:replace="~{layout::sidebar-admin}"></div>
             </div>
             <div class="col-lg-9 ps-5 table-dashboard category">
-                <h3 th:text="${'Chỉnh sửa đơn hàng ' + bookingDto.codeBooking}">Chỉnh sửa đơn hàng</h3>
+                <h3 th:text="${'Chỉnh sửa đơn hàng ' + bookingDto.codeBooking}">Chỉnh sửa đơn hàng</h3><span><button type="button" class="btn btn-warning">
+                <a  type="button" th:attr="onclick=|sendDataModal('${bookingDto.id}','${bookingDto.codeBooking}')|" title="Hủy" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >Hủy đơn hàng</a></button></span>
                 <form class="edit-item my-4" action="/booking/edit" th:object="${bookingDto}" method="post">
                     <input type="hidden" th:field="*{id}">
                     <input type="hidden" th:field="*{codeBooking}">
@@ -34,18 +35,54 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="d-flex justify-content-center">
-                        <a href="/booking"> <button type="button" class="btn btn-warning" style="pointer-events: none">Quay Lại</a></button>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                        <a href="/booking"> <button type="button" class="btn btn-warning">Quay Lại</button></a>
+                        <button type="submit" class="btn btn-primary"  style="margin-left: 320px">Cập Nhật</button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/booking/delete" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex">
+                        <div class="icon">
+                            <i class="fa-regular fa-bell"></i>
+                        </div>
+                        <div class="box-header-modal">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Cảnh báo</h1>
+                            <p>Hành động nguy hiểm !</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa-solid fa-circle-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn hủy đơn hàng <span id="name-delete"
+                                                                  class="text-danger"></span> này không ?
+                    Hành động này sẽ không thể khôi phục lại !
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button id="active-delete" type="button" class="btn btn-danger">Xóa</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <footer th:replace="~{layout::footer}"></footer>
+
+<script>
+    function sendDataModal(id, name) {
+        $("#name-delete").html(name)
+        $("#active-delete").attr("href", "/booking/delete/" + id)
+    }
+</script>
 </body>
 </html>
