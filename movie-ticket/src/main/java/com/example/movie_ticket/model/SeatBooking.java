@@ -1,6 +1,7 @@
 package com.example.movie_ticket.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 public class SeatBooking{

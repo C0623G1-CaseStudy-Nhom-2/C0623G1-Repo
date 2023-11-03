@@ -12,6 +12,7 @@ import java.util.List;
 public class SeatBookingService implements ISeatBookingService {
     @Autowired
     private ISeatBookingRepo seatBookingRepo;
+
     @Override
     public List<String> getSeatsOrderedByShowTimes(Long showTimeId) {
         return seatBookingRepo.getSeatsOrderedByShowTimes(showTimeId);
@@ -20,5 +21,9 @@ public class SeatBookingService implements ISeatBookingService {
     @Override
     public void saveSeatBooking(SeatBooking seatBooking) {
         seatBookingRepo.save(seatBooking);
+    }
+
+    public List<SeatBooking> getAll() {
+        return seatBookingRepo.findAll();
     }
 }

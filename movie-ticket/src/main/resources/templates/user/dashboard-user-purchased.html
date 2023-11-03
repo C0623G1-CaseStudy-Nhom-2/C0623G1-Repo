@@ -46,7 +46,7 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">STT</th>
+                            <th scope="col">MÃ ĐƠN HÀNG</th>
                             <th scope="col">TÊN FILM</th>
                             <th scope="col">NGÀY MUA</th>
                             <th scope="col">SUẤT CHIẾU</th>
@@ -56,7 +56,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="item,loop: ${bookings}">
-                            <td th:text="${loop.count}">#12921</td>
+                            <td th:text="${item.codeBooking}">#12921</td>
                             <td th:text="${item.showTime.movie.title}">Vầng Trăng Máu</td>
                             <td th:text="${item.datePurchased}">Phạm Văn Thành</td>
                             <td th:text="${item.showTime.startTime + ' '+item.showTime.showDate}">15h30 28/10/2023</td>

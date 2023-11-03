@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="~{layout::head}">
 </head>
 <body>
 <div class="container">
     <header th:replace="~{layout::header}"></header>
-    <!--  Danh cho role User-->
-    <section sec:authorize="hasRole('USER') && !hasRole('ADMIN')">
-        <div class="row my-5 dashboard-user">
-            <div class="col-lg-3 sidebar-user">
-                <div th:replace="~{layout::sidebar-user}"></div>
+    <section>
+        <div class="row my-5 dashboard-admin">
+            <div class="col-lg-3 sidebar-admin">
+                <div th:replace="~{layout::sidebar-admin}"></div>
             </div>
             <div class="col-lg-9 ps-5 table-dashboard user-purchased">
                 <h3 th:text="${'Xem đơn mua vé xem phim ' + booking.codeBooking}" class="my-4">Xem mua vé xem phim</h3>
