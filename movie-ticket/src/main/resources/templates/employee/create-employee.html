@@ -17,34 +17,35 @@
                         <label for="name" class="col-sm-2 col-form-label">Tên Nhân Viên</label>
                         <div class="col-sm-10">
                             <input th:field="*{fullName}" type="text" class="form-control" id="name" required>
-                            <td th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
+                            <p class="field-error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
                             <input th:field="*{email}" type="text" class="form-control" id="email" required>
-                            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</td>
+                            <p class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="phoneNumber" class="col-sm-2 col-form-label">SĐT</label>
                         <div class="col-sm-10">
                             <input th:field="*{phoneNumber}" type="text" class="form-control" id="phoneNumber" required>
-                            <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Name Error</td>
+                            <p class="field-error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="birthday" class="col-sm-2 col-form-label">Ngày, tháng, năm sinh</label>
                         <div class="col-sm-10">
                             <input th:field="*{birthday}" type="date" class="form-control" id="birthday" required>
+                            <p class="field-error" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></p>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="idCard" class="col-sm-2 col-form-label">ID Card</label>
                         <div class="col-sm-10">
                             <input th:field="*{idCard}" type="text" class="form-control" id="idCard" required>
-                            <td th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}">Name Error</td>
+                            <p class="field-error" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></p>
                         </div>
                     </div>
                     <div class="row mb-3">
