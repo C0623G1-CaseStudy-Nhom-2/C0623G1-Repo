@@ -10,12 +10,14 @@ import java.util.List;
 
 @Service
 public class CustomerService implements ICustomerService {
+
     @Autowired
     private ICustomerRepo customerRepo;
     @Override
     public List<Customer> getAllCustomer() {
         return customerRepo.findAllCusromer();
     }
+
     @Override
     public void deleteCustomerById(Long id) {
         customerRepo.deleteCustomerById(id);
@@ -33,5 +35,10 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer findCustomerbyId(Long id) {
         return customerRepo.findById(id).get();
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        customerRepo.save(customer);
     }
 }
