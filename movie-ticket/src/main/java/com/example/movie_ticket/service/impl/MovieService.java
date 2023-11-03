@@ -59,11 +59,14 @@ public class MovieService implements IMovieService {
 
     @Override
     public Page<Movie> findMovieByIdAndName(Long idMovie, String nameMovie, Pageable pageable) {
+        if (idMovie == null) {
+            return movieRepo.findByTitleContaining(nameMovie, pageable);
+        }
         return movieRepo.findByIdAndTitleContaining(idMovie, nameMovie, pageable);
     }
 
     @Override
-    public Page<Movie> findMovieByDate(String date, Pageable pageable) {
-        return movieRepo.findByReleaseDate(date, pageable);
+    public Page<Movie> findMovieOrderByDate(Pageable pageable) {
+        return movieRepo.findAllOrderByDate(pageable);
     }
 }
