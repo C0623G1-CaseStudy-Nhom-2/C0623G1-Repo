@@ -31,11 +31,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/dashboard/purchased**").hasRole("USER")
+                .antMatchers("/dashboard/purchased**").hasRole("USER")
                 .antMatchers("/dashboard/category**").hasRole("ADMIN")
                 .antMatchers("/dashboard","/showtime/check-out/**").hasAnyRole("ADMIN","USER")
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
+                .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard").permitAll();
 
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
