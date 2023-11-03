@@ -28,6 +28,11 @@ public class BookingService implements IBookingService {
     }
 
     @Override
+    public void cancelBooking(Long id) {
+        bookingRepo.cancelBooking(id);
+    }
+
+    @Override
     public Booking findById(Long id) {
         return bookingRepo.findById(id).get();
     }

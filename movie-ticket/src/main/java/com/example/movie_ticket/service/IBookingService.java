@@ -8,6 +8,7 @@ public interface IBookingService {
     Page<Booking> showAllBooking(Pageable pageable,String phone,String name);
     Booking findByIdBooking(Long id);
     void deleteBooking(Long id);
+    void cancelBooking(Long id);
     Booking findById(Long id);
     void updateBooking(Booking booking);
 }

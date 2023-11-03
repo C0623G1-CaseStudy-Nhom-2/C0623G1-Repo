@@ -47,7 +47,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
-        <form action="/booking/delete" method="post">
+        <form action="/booking/cancel" method="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="d-flex">
@@ -59,17 +59,25 @@
                             <p>Hành động nguy hiểm !</p>
                         </div>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                            class="fa-solid fa-circle-xmark"></i></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i
+                                class="fa-solid fa-circle-xmark"></i></button>
                 </div>
+
                 <div class="modal-body">
-                    Bạn có chắc chắn muốn hủy đơn hàng <span id="name-delete"
-                                                                  class="text-danger"></span> này không ?
+                    <label for="id">
+                        <input type="text" hidden="hidden" name="idCancel" id="idCancel">
+                    </label>
+                    Bạn có chắc chắn muốn xóa đơn hàng <span id="name"
+                                                             class="text-danger"></span> này không
+                    ?
                     Hành động này sẽ không thể khôi phục lại !
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button id="active-delete" type="button" class="btn btn-danger">Xóa</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
+                    </button>
+                    <button type="submit" class="btn btn-danger">Xác Nhận</button>
                 </div>
             </div>
         </form>
@@ -80,8 +88,8 @@
 
 <script>
     function sendDataModal(id, name) {
-        $("#name-delete").html(name)
-        $("#active-delete").attr("href", "/booking/delete/" + id)
+        document.getElementById("name").innerHTML = name;
+        document.getElementById("idCancel").value = id;
     }
 </script>
 </body>

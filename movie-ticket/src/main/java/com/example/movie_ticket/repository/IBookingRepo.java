@@ -20,7 +20,12 @@ public interface IBookingRepo extends JpaRepository<Booking,Long> {
 
     @Modifying
     @Transactional
-    @Query(value = " update bookings set is_deleted" +
+    @Query(value = " update bookings set is_deleted = 1" +
             " where bookings.id =:id",nativeQuery = true)
     void deleteById(@Param("id") Long id);
+    @Modifying
+    @Transactional
+    @Query(value = " update bookings set is_deleted = 2" +
+            " where bookings.id =:id",nativeQuery = true)
+    void cancelBooking(@Param("id") Long id);
 }

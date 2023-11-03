@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -62,10 +63,22 @@ public class BookingController {
         return "/booking/view-booking";
     }
     @PostMapping("/delete")
-    public String deleteBooking(@RequestParam Long id){
-        Booking booking = bookingService.findByIdBooking(id);
+    public String deleteBooking(@RequestParam Long id,
+                                RedirectAttributes redirectAttributes){
+        Booking booking = bookingService.findById(id);
         if (booking != null){
             bookingService.deleteBooking(id);
+            redirectAttributes.addFlashAttribute("success","Xóa đơn hàng thành công");
+        }
+        return "redirect:/booking";
+    }
+    @PostMapping("/cancel")
+    public String cancelBooking(@RequestParam Long idCancel,
+                                RedirectAttributes redirectAttributes){
+        Booking booking = bookingService.findById(idCancel);
+        if (booking != null){
+            bookingService.cancelBooking(idCancel);
+            redirectAttributes.addFlashAttribute("success","Hủy đơn hàng thành công");
         }
         return "redirect:/booking";
     }
