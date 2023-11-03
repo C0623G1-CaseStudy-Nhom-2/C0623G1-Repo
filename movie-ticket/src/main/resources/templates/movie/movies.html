@@ -57,8 +57,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="movie : ${movies}">
-                            <td th:text="${'#' + movie.id}">#12921</td>
+                        <tr th:each="movie, count : ${movies}">
+                            <td th:text="${'#' + count.count}">#12921</td>
                             <td th:text="${movie.title}">Vầng Trăng Máu</td>
                             <td th:text="${movie.director}">Phạm Văn Thành</td>
                             <td th:text="${movie.releaseDate}">15h30 28/10/2023</td>
