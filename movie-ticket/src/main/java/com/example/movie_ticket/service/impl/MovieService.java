@@ -66,7 +66,7 @@ public class MovieService implements IMovieService {
     }
 
     @Override
-    public Page<Movie> findMovieByDate(String date, Pageable pageable) {
-        return movieRepo.findByReleaseDate(date, pageable);
+    public Page<Movie> findMovieOrderByDate(Pageable pageable) {
+        return movieRepo.findAllOrderByDate(pageable);
     }
 }
