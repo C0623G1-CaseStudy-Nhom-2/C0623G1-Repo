@@ -30,7 +30,7 @@ public class MovieDashboardController {
 
     @GetMapping
     public ModelAndView showMovieLIst(@PageableDefault(value = 6) Pageable pageable) {
-        Page<Movie> movies = movieService.findAllMovie(pageable);
+        Page<Movie> movies = movieService.findMovieOrderByDate(pageable);
         return new ModelAndView("/movie/movies", "movies", movies);
     }
 
