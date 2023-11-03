@@ -27,9 +27,12 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-7 d-flex justify-content-between">
+                                    <div class="col-auto form-floating mt-1">
+                                        <a style="font-size: 1.4em; color: #e20442" href="/dashboard/movies" title="Tải lại"><i class="fa-solid fa-rotate-right"></i></a>
+                                    </div>
                                     <div class="col-auto form-floating mb-3">
                                         <input class="form-control" id="nameFilm" name="nameMovie" placeholder=""
-                                               th:value="${nameMovie}" type="text">
+                                               th:value="${nameMovie}" type="text" required>
                                         <label for="nameFilm"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo tên
                                             phim</label>
                                     </div>
