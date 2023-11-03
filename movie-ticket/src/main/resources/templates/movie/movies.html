@@ -53,7 +53,7 @@
                             <th scope="col">ĐẠO DIỄN</th>
                             <th scope="col">NGÀY CÔNG CHIẾU</th>
                             <th scope="col">DANH MỤC</th>
-                            <th scope="col">THAO TÁC</th>
+                            <th scope="col" style="text-align: center">THAO TÁC</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -63,7 +63,7 @@
                             <td th:text="${movie.director}">Phạm Văn Thành</td>
                             <td th:text="${movie.releaseDate}">15h30 28/10/2023</td>
                             <td th:text="${movie.category.nameCategory}">Hành động</td>
-                            <td>
+                            <td style="text-align: center">
                                 <a th:href="@{/dashboard/movies/detail/__${movie.id}__}" title="Xem chi tiết"><i
                                         class="fa-solid fa-file-lines"></i></a>
                                 <a th:href="@{/dashboard/movies/update/__${movie.id}__}" title="Sửa"><i
@@ -102,7 +102,7 @@
                             ${movies.number + 1} +
                             ${nameMovie != null && nameMovie != '' ? '&nameMovie='+nameMovie:''} +
                             ${idMovie != null && idMovie != '' ? '&idMovie='+idMovie:''}
-                            }">Tiếp</a>
+                            }">Sau</a>
                         </li>
                     </ul>
                 </nav>
@@ -148,7 +148,6 @@
         $("#name-delete").html(name)
         $("#active-delete").attr("href", "/dashboard/movies/delete/" + id)
     }
-
 </script>
 </body>
 </html>
