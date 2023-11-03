@@ -3,7 +3,6 @@ package com.example.movie_ticket.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.*;
 
 @Entity(name = "movies")
@@ -15,7 +14,7 @@ public class Movie {
     @Column(columnDefinition = "TEXT")
     private String description;
     @Column(columnDefinition = "DATE")
-    private LocalDate releaseDate;
+    private String releaseDate;
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "category_id",referencedColumnName = "id")
@@ -53,11 +52,11 @@ public class Movie {
         this.description = description;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 

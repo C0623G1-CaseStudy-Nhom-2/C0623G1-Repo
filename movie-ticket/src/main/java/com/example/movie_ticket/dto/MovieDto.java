@@ -17,6 +17,7 @@ public class MovieDto implements Validator {
     @NotBlank(message = "Không được để trống mô tả")
     @Size(max = 10000)
     private String description;
+    @NotBlank(message = "Không được để trống ngày công chiếu")
     private String releaseDate;
     private Category category;
     @NotBlank(message = "Không được để trống tên đạo diễn")

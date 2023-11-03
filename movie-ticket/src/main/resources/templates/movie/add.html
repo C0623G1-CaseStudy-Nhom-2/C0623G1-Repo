@@ -46,6 +46,7 @@
                                 <input accept=".jpg, .jpeg, .png" class="form-control" id="upload-file" multiple
                                        onchange="limitFiles(this,1)" type="file">
                                 <input id="image2" name="image2" required th:field="*{avatar}" type="hidden">
+                                <p style="color: red" th:errors="*{avatar}" th:if="${#fields.hasErrors('avatar')}"></p>
                             </div>
                         </div>
                     </div>
@@ -65,6 +66,7 @@
                                 <input accept=".jpg, .jpeg, .png" class="form-control" id="upload-banner" multiple
                                        onchange="limitFiles(this,1)" type="file">
                                 <input id="image3" name="image3" required th:field="*{banner}" type="hidden">
+                                <p style="color: red" th:errors="*{banner}" th:if="${#fields.hasErrors('banner')}"></p>
                             </div>
                         </div>
                     </div>

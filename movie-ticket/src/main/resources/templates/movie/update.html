@@ -45,15 +45,16 @@
                                 <label for="image2" class="col-sm-2 col-form-label">Ảnh phim</label>
                                 <input accept=".jpg, .jpeg, .png" class="form-control" id="upload-file" multiple
                                        onchange="limitFiles(this,1)" type="file">
-                                <input id="image2" name="image2" required th:field="*{avatar}" type="hidden">
+                                <input id="image2" name="image2" required th:value="${movieDto.avatar}" th:field="*{avatar}" type="hidden">
+                                <p style="color: red" th:errors="*{avatar}" th:if="${#fields.hasErrors('avatar')}"></p>
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3" id="preview-image-add" style="display: none">
-                        <div class="col-sm-2"><label class="col-form-label">Hình ảnh xem trước</label></div>
+                    <div class="row mb-3" id="preview-image-add">
+                        <div class="col-sm-2"><label class="col-form-label">Ảnh phim xem trước</label></div>
                         <div class="col-sm-10">
                             <div class="img-thumbnail" id="image-preview-container2">
-                                <img alt="image chose" src="" th:src="*{avatar}"/>
+                                <img height="150px" alt="image chose" src="" th:src="*{avatar}"/>
                                 <input required th:value="*{avatar}" type="hidden">
                             </div>
                         </div>
@@ -64,15 +65,16 @@
                                 <label for="image3" class="col-sm-2 col-form-label">Ảnh bìa</label>
                                 <input accept=".jpg, .jpeg, .png" class="form-control" id="upload-banner" multiple
                                        onchange="limitFiles(this,1)" type="file">
-                                <input id="image3" name="image3" required th:field="*{banner}" type="hidden">
+                                <input id="image3" name="image3" required th:value="${movieDto.banner}" th:field="*{banner}" type="hidden">
+                                <p style="color: red" th:errors="*{banner}" th:if="${#fields.hasErrors('banner')}"></p>
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3" id="preview-banner-add" style="display: none">
-                        <div class="col-sm-2"><label class="col-form-label">Hình ảnh xem trước</label></div>
+                    <div class="row mb-3" id="preview-banner-add">
+                        <div class="col-sm-2"><label class="col-form-label">Ảnh bìa xem trước</label></div>
                         <div class="col-sm-10">
                             <div class="img-thumbnail" id="image-preview-banner">
-                                <img alt="image chose" src="" th:src="*{banner}"/>
+                                <img height="150px" alt="image chose" src="" th:src="*{banner}"/>
                                 <input required th:value="*{banner}" type="hidden">
                             </div>
                         </div>
@@ -104,7 +106,6 @@
     }
 
     document.getElementById("upload-file").addEventListener("change", function (e) {
-        document.getElementById("preview-image-add").style.display = "flex";
         const container = document.getElementById("image-preview-container2");
         container.innerHTML = "";
         const maxFiles = 1;
@@ -126,7 +127,6 @@
 </script>
 <script>
     document.getElementById("upload-banner").addEventListener("change", function (e) {
-        document.getElementById("preview-banner-add").style.display = "flex";
         const container = document.getElementById("image-preview-banner");
         container.innerHTML = "";
         const maxFiles = 1;

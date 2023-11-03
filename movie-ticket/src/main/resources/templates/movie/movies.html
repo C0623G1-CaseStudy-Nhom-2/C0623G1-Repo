@@ -8,22 +8,7 @@
     <section>
         <div class="row my-5 dashboard-admin">
             <div class="col-lg-3 sidebar-admin">
-                <h4>MENU</h4>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item active"><a href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a>
-                    </li>
-                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-ticket"></i> Quản lý đơn hàng</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-clapperboard"></i> Quản lý phim</a>
-                    </li>
-                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-user-pen"></i></i> Quản lý nhân
-                        viên</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-users-viewfinder"></i></i> Quản lý
-                        khách hàng</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-file-lines"></i></i> Quản lý bài viết</a>
-                    </li>
-                    <li class="list-group-item"><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
-                    </li>
-                </ul>
+                <div th:replace="~{layout::sidebar-admin}"></div>
             </div>
             <div class="col-lg-9 ps-5 table-dashboard order">
                 <div class="create">
@@ -35,16 +20,16 @@
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="col-lg-6 form-floating mb-3">
-                                        <input class="form-control" id="codeOrder" placeholder="" th:value="${idMovie}"
-                                               type="text" name="idMovie">
-                                        <label for="codeOrder"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo mã
+                                        <input class="form-control" id="idMovie" name="idMovie" placeholder=""
+                                               th:value="${idMovie}" type="text">
+                                        <label for="idMovie"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo mã
                                             phim</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-7 d-flex justify-content-between">
                                     <div class="col-auto form-floating mb-3">
-                                        <input class="form-control" id="nameFilm" placeholder="" th:value="${nameMovie}"
-                                               type="text" name="nameMovie">
+                                        <input class="form-control" id="nameFilm" name="nameMovie" placeholder=""
+                                               th:value="${nameMovie}" type="text">
                                         <label for="nameFilm"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo tên
                                             phim</label>
                                     </div>
@@ -54,7 +39,7 @@
                                             thời gian</label>
                                     </div>
                                     <div class="col-lg-2 form-floating mb-3">
-                                        <input class="form-control btn btn-primary" type="submit" value="Tìm">
+                                        <input class="form-control btn btn-primary" type="submit" value="Tìm" >
                                     </div>
                                 </div>
                             </div>
@@ -72,6 +57,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <tr th:if="${empty != null}" th:text="${empty}"></tr>
                         <tr th:each="movie : ${movies}">
                             <td th:text="${'#' + movie.id}">#12921</td>
                             <td th:text="${movie.title}">Vầng Trăng Máu</td>
@@ -85,7 +71,8 @@
                                         class="fa-solid fa-pen-to-square"></i></a>
                                 <!--                                <a th:href="@{/dashboard/movies/delete/__${movie.id}__}" title="Xóa"><i class="fa-solid fa-trash-can"></i></a>-->
                                 <a data-bs-target="#exampleModal" data-bs-toggle="modal"
-                                   role="button" th:attr="onclick=|sendDataModal('${movie.id}','${movie.title}')|" title="Xóa"><i
+                                   role="button" th:attr="onclick=|sendDataModal('${movie.id}','${movie.title}')|"
+                                   title="Xóa"><i
                                         class="fa-solid fa-trash-can"></i></a>
                             </td>
                         </tr>
