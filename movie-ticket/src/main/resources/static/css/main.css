@@ -37,6 +37,13 @@ a {
     padding: 7px 20px;
     font-weight: 700;
 }
+.btn-warning {
+    border-radius: 15px;
+    border: unset;
+    padding: 7px 20px;
+    font-weight: 700;
+}
+
 
 li.nav-item {
     padding: 0 20px;

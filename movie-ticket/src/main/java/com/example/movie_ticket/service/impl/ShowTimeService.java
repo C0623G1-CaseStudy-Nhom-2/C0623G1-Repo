@@ -6,6 +6,8 @@ import com.example.movie_ticket.service.IShowTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShowTimeService implements IShowTimeService {
     @Autowired
@@ -15,4 +17,8 @@ public class ShowTimeService implements IShowTimeService {
     public ShowTime getShowTimeById(Long id) {
         return showTimeRepo.findById(id).get();
     }
+    public List<ShowTime> getAllShowTime() {
+        return showTimeRepo.findAll();
+    }
+
 }

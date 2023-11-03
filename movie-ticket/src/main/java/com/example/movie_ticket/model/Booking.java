@@ -2,6 +2,10 @@ package com.example.movie_ticket.model;
 
 import javax.persistence.*;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity(name = "bookings")
@@ -10,14 +14,17 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "customer_id",referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "showtime_id",referencedColumnName = "id")
+    @JoinColumn(name = "showtime_id", referencedColumnName = "id")
     private ShowTime showTime;
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     private Set<SeatBooking> seatBookings;
-
+    @Column(columnDefinition = "int(1) default 0")
+    private boolean isDeleted;
+    private String codeBooking;
     @Column(columnDefinition = "DATE")
     private Date datePurchased;
     private Float totalPrice;
@@ -72,8 +79,25 @@ public class Booking {
     public void setTotalPrice(Float totalPrice) {
         this.totalPrice = totalPrice;
     }
+
     @PrePersist
     public void prePersist() {
         this.datePurchased = new Date();
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public String getCodeBooking() {
+        return codeBooking;
+    }
+
+    public void setCodeBooking(String codeBooking) {
+        this.codeBooking = codeBooking;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }
