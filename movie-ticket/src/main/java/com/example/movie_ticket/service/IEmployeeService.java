@@ -17,5 +17,5 @@ public interface IEmployeeService {
     void updateEmployee(Employee employee);
     void deleteEmployee(Long id);
     List<Employee> getEmployeeAccountId(Long AccountId);
-    Page<Employee> searchByIdAndName(String nameEmployee,Pageable pageable);
+    Page<Employee> searchByName(String nameEmployee,Pageable pageable);
 }

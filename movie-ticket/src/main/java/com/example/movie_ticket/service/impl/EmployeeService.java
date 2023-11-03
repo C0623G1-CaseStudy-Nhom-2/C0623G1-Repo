@@ -53,7 +53,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public Page<Employee> searchByIdAndName(String nameEmployee, Pageable pageable) {
+    public Page<Employee> searchByName(String nameEmployee, Pageable pageable) {
             return employeeRepo.findByFullNameContaining(nameEmployee, pageable);
     }
 }

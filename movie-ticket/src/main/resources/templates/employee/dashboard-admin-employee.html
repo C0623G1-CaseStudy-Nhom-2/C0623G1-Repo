@@ -47,6 +47,7 @@
                             <th scope="col">TÊN NHÂN VIÊN</th>
                             <th scope="col">SĐT</th>
                             <th scope="col">EMAIL</th>
+                            <th scope="col">TÀI KHOẢN</th>
                             <th scope="col" colspan="3">THAO TÁC</th>
                         </tr>
                         </thead>
@@ -56,6 +57,7 @@
                             <td th:text="${item.fullName}"></td>
                             <td th:text="${item.phoneNumber}"></td>
                             <td th:text="${item.email}"></td>
+                            <td th:text="${item.account.username}"></td>
                             <td>
                                 <a th:href="@{/dashboard/employee/view/__${item.id}__}" title="Xem chi tiết"><i
                                         class="fa-solid fa-file-lines"></i></a>
@@ -68,28 +70,19 @@
                         </tr>
                         </tbody>
                     </table>
+
                 </div>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li th:class="${employees.hasPrevious() ? 'page-item' : 'page-item disabled'}">
-                            <a class="page-link" th:href="@{
-                            ${#httpServletRequest.getRequestURI()}+ '?page=' +
-                            ${employees.number - 1} +
-                            ${fullName != null && fullName != '' ? '&nameEmployee='+fullName:''} +
-                            }">Trước</a>
+                            <a class="page-link" th:href="@{${#httpServletRequest.getRequestURI()}+ '?page=' + ${employees.number - 1}}">Trước</a>
                         </li>
                         <li th:each="i : ${#numbers.sequence(0, employees.totalPages - 1)}" th:class="${i == employees.number ? 'page-item active' : 'page-item'}">
                             <a class="page-link" th:text="${i + 1}" th:href="@{
-                            ${#httpServletRequest.getRequestURI()} + '?page=' + ${i} +
-                            ${fullName != null && fullName != '' ? '&fullName='+fullName:''} +
-                            }"></a>
+                            ${#httpServletRequest.getRequestURI()} + '?page=' + ${i}}"></a>
                         </li>
                         <li th:class="${employees.hasNext() ? 'page-item' : 'page-item disabled'}">
-                            <a class="page-link" th:href="@{
-                            ${#httpServletRequest.getRequestURI()} + '?page=' +
-                            ${employees.number + 1} +
-                            ${fullName != null && fullName != '' ? '&nameCategory='+fullName:''} +
-                            }">Tiếp</a>
+                            <a class="page-link" th:href="@{${#httpServletRequest.getRequestURI()}+ '?page=' + ${employees.number + 1}}">Tiếp</a>
                         </li>
                     </ul>
                 </nav>
