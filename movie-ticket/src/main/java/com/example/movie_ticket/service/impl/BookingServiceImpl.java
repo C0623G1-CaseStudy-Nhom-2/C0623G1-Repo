@@ -1,6 +1,7 @@
 package com.example.movie_ticket.service.impl;
 
 import com.example.movie_ticket.model.Booking;
+import com.example.movie_ticket.model.Customer;
 import com.example.movie_ticket.repository.IBookingRepo;
 import com.example.movie_ticket.service.IBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,31 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
-public class BookingService implements IBookingService {
+public class BookingServiceImpl implements IBookingService {
     @Autowired
     private IBookingRepo bookingRepo;
+    @Override
+    public void saveBooking(Booking booking) {
+        bookingRepo.save(booking);
+    }
+
+    @Override
+    public Page<Booking> findBookingUsername(String username, Pageable pageable) {
+        return bookingRepo.findBookingUsername(username, pageable);
+    }
+
+    @Override
+    public Optional<Booking> findBookingById(Long id) {
+        return bookingRepo.findById(id);
+    }
+
+    @Override
+    public void deleteBooking(Long id) {
+        bookingRepo.delete(findBookingById(id).get());
+    }
     @Override
     public Page<Booking> showAllBooking(Pageable pageable, String phone, String name) {
         return bookingRepo.showAllBooking(pageable, "%"+phone+"%","%"+ name+"%");
@@ -20,11 +42,6 @@ public class BookingService implements IBookingService {
     @Override
     public Booking findByIdBooking(Long id) {
         return bookingRepo.findById(id).get();
-    }
-
-    @Override
-    public void deleteBooking(Long id) {
-            bookingRepo.deleteById(id);
     }
 
     @Override

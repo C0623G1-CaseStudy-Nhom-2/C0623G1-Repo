@@ -1,6 +1,5 @@
 package com.example.movie_ticket.service.impl;
 
-import com.example.movie_ticket.model.Movie;
 import com.example.movie_ticket.model.ShowTime;
 import com.example.movie_ticket.repository.IShowTimeRepo;
 import com.example.movie_ticket.service.IShowTimeService;
@@ -15,6 +14,9 @@ public class ShowTimeService implements IShowTimeService {
     private IShowTimeRepo showTimeRepo;
 
     @Override
+    public ShowTime getShowTimeById(Long id) {
+        return showTimeRepo.findById(id).get();
+    }
     public List<ShowTime> getAllShowTime() {
         return showTimeRepo.findAll();
     }

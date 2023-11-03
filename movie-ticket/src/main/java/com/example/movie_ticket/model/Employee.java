@@ -3,7 +3,7 @@ package com.example.movie_ticket.model;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
+@Entity(name = "employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

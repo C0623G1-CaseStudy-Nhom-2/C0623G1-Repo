@@ -1,5 +1,8 @@
 package com.example.movie_ticket.model;
 
+import javax.persistence.*;
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -17,11 +20,14 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "showtime_id", referencedColumnName = "id")
     private ShowTime showTime;
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     private Set<SeatBooking> seatBookings;
     @Column(columnDefinition = "int(1) default 0")
     private boolean isDeleted;
     private String codeBooking;
+    @Column(columnDefinition = "DATE")
+    private Date datePurchased;
+    private Float totalPrice;
 
     public Booking() {
     }
@@ -56,6 +62,27 @@ public class Booking {
 
     public void setSeatBookings(Set<SeatBooking> seatBookings) {
         this.seatBookings = seatBookings;
+    }
+
+    public Date getDatePurchased() {
+        return datePurchased;
+    }
+
+    public void setDatePurchased(Date datePurchased) {
+        this.datePurchased = datePurchased;
+    }
+
+    public Float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.datePurchased = new Date();
     }
 
     public boolean isDeleted() {

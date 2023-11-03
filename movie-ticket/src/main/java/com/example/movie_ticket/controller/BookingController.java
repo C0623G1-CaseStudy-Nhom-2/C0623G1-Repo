@@ -56,8 +56,6 @@ public class BookingController {
     @GetMapping("/view")
     public String showBookingDetail(@RequestParam Long id,
                                     Model model){
-        List<SeatBooking> seatBookings = seatBookingService.getAll();
-        model.addAttribute("seatBookings",seatBookings);
         Booking booking = bookingService.findByIdBooking(id);
         model.addAttribute("booking",booking);
         return "/booking/view-booking";
