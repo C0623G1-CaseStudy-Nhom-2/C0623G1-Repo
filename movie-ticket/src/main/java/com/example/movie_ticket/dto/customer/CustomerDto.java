@@ -8,6 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.lang.annotation.Annotation;
 
 public class CustomerDto implements Validator {
@@ -17,6 +19,7 @@ public class CustomerDto implements Validator {
     private String email;
     private String phoneNumber;
     private String birthday;
+    @Pattern(regexp = "(^\\d{9}$)|(^\\d{12}$)",message = "Số CCCD|CMND của bạn chưa đúng xin vui lòng nhập lại")
     private Long idCard;
     private String address;
     private Account account;
@@ -111,8 +114,12 @@ public class CustomerDto implements Validator {
             errors.rejectValue("fullName",null,"Tổng số ký tự của tên phải lớn hơn hoặc bằng 5");
         } else if (customerDto.getFullName().length() > 45) {
             errors.rejectValue("fullName",null,"Tổng số ký tự của tên phải bé hơn hoặc bằng 45");
-        } else if () {
-            
+        } else if (!customerDto.getEmail().matches("(^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@(gmail)|(email)(\\.com)|(\\.email)|(\\.com)?[\\.vn]{3}$)")) {
+            errors.rejectValue("email",null,"Gmail bạn nhập chưa đứng yêu cầu xin vui lòng nhập lại");
+        } else if (!customerDto.getPhoneNumber().matches("\"((09|03|07|08|05)+([0-9]{8})\\\\b)\"")) {
+            errors.rejectValue("phoneNumber",null,"Số điện thoại bạn nhập chưa đúng xin lòng nhập lại");
+        } else if (!customerDto.getBirthday().matches("^(0[1-9]|[12][0-9]|3[01])[-/.]([0-9]|0[0-9]|1[012])[-/.]\\d\\d\\d\\d$")) {
+            errors.rejectValue("birthday",null,"Ngày tháng năm sinh bạn nhập chưa đúng yêu cầu xin vui lòng nhập lại");
         }
     }
 }
