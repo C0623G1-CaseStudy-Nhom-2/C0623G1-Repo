@@ -7,7 +7,7 @@
     <header th:replace="~{layout::header}"></header>
     <section id="select-seats">
         <div class="row my-5 justify-content-center">
-            <h3 class="text-center mb-5">Chọn ghế xem phim Cú Máy Ăn Tiền</h3>
+            <h3 class="text-center mb-5" th:text="${'Chọn ghế xem phim '+showTime.movie.title}">Chọn ghế xem phim Cú Máy Ăn Tiền</h3>
             <div class="col-lg-9 map">
                 <form th:action="@{/showtime/check-out/__${id}__}" method="post">
                     <div class="d-flex flex-column align-items-center text-center">

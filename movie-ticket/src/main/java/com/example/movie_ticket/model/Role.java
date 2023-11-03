@@ -13,7 +13,7 @@ public class Role {
 
     @Column(name = "name_role")
     private String nameRole;
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL)
     private Set<Account> accounts;
     public Role() {
     }

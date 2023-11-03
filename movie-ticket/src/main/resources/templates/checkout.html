@@ -6,7 +6,7 @@
 <div class="container">
     <header th:replace="~{layout::header}"></header>
     <section id="check-out">
-        <form th:object="${booking}" action="/showtime/booking-success" method="post">
+        <form action="/showtime/booking-success" method="post">
             <div class="row my-5">
                 <div class="col-lg-6 info-user">
                     <h2>Thông tin khách hàng</h2>
@@ -54,7 +54,7 @@
                                 <h5>Ghế đã chọn</h5>
                                 <div class="example user-select">
                                     <div class="box" th:each="item: ${seats}">
-                                        <input th:id="${item}" name="seat-select" type="checkbox" class="btn-check" th:value="${item}" th:text="${item}">
+                                        <input th:id="${item}" checked name="seatSelect" type="checkbox" class="btn-check" th:value="${item}" th:text="${item}">
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +89,9 @@
                             <th:block th:with="var = ${showTime.price * seats.length}">
                                 <p class="text-secondary-custom text-end"
                                    th:text="${#numbers.formatDecimal(var, 0, 'POINT', 0, 'COMMA')} + ' đ'">
-                                    100.000 đ</p>
+                                    100.000 đ
+                                </p>
+                                <input type="hidden" name="totalPrice" th:value="${var}">
                             </th:block>
                         </div>
                     </div>
