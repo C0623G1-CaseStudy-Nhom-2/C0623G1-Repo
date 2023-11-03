@@ -27,4 +27,9 @@ public class CustomerService implements ICustomerService {
     public Customer getCustomerById(Long id) {
         return customerRepo.findById(id).get();
     }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        customerRepo.save(customer);
+    }
 }

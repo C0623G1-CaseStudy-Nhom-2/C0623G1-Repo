@@ -10,4 +10,6 @@ public interface ICustomerService {
     void deleteCustomerById(Long id);
 
     Customer getCustomerById(Long id);
+
+    void updateCustomer(Customer customer);
 }
