@@ -57,7 +57,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:if="${empty != null}" th:text="${empty}"></tr>
                         <tr th:each="movie : ${movies}">
                             <td th:text="${'#' + movie.id}">#12921</td>
                             <td th:text="${movie.title}">Vầng Trăng Máu</td>

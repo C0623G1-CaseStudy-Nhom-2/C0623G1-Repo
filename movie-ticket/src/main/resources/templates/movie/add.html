@@ -12,6 +12,9 @@
                 <div th:replace="~{layout::sidebar-admin}"></div>
             </div>
             <div class="col-lg-9 ps-5 table-dashboard category">
+                <div class="create mb-4">
+                    <a href="/dashboard/movies"><i class="fa-solid fa-arrow-left"></i> &nbsp; Quay lại</a>
+                </div>
                 <h3>Thêm mới phim</h3>
                 <form action="/dashboard/movies/confirm-add" method="post" th:object="${movieDto}">
                     <div class="mb-3">
@@ -81,15 +84,13 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="description">Mô tả phim</label>
-                        <input class="form-control" id="description" th:field="*{description}" type="text">
+<!--                        <input class="form-control" id="description" th:field="*{description}" type="text">-->
+                        <textarea style="width: 100%" id="description" th:field="*{description}"></textarea>
                         <p style="color: red" th:errors="*{description}"
                            th:if="${#fields.hasErrors('description')}"></p>
                     </div>
                     <div class="mb3">
                         <input class="btn btn-primary" type="submit" value="Xác nhận">
-
-                        <a class="btn btn-secondary" href="http://localhost:8080/dashboard/movies" role="button">Quay
-                            lại</a>
                     </div>
                 </form>
             </div>
