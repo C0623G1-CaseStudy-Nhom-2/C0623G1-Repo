@@ -42,8 +42,8 @@ public class DashboardEmployeeController {
 
     @PostMapping("/add")
     public ModelAndView saveEmployee(@Valid @ModelAttribute("employee") EmployeeDTO employeeDTO, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()){
+        employeeDTO.validate(employeeDTO,bindingResult);
+        if (bindingResult.hasFieldErrors()){
             return new ModelAndView("employee/create-employee","employee", employeeDTO);
         } else {
             Employee employee = new Employee();
@@ -81,7 +81,8 @@ public class DashboardEmployeeController {
                                        BindingResult bindingResult,
                                        Model model,
                                        @PathVariable Long id) {
-        if (bindingResult.hasErrors()){
+        employeeDTO.validate(employeeDTO,bindingResult);
+        if (bindingResult.hasFieldErrors()){
             model.addAttribute("id", id);
             model.addAttribute("accountList", accountService.findAllAccount());
             return new ModelAndView("employee/edit-employee","employeeDTO", employeeDTO);
