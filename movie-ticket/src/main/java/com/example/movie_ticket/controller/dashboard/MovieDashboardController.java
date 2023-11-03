@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -44,7 +43,7 @@ public class MovieDashboardController {
 
     @PostMapping("/confirm-add")
     public String addNewMovie(@Valid @ModelAttribute MovieDto movieDto, BindingResult bindingResult, Model model) {
-        new MovieDto().validate(movieDto,bindingResult);
+        new MovieDto().validate(movieDto, bindingResult);
         List<Category> categoryList = categoryService.getAllCategory();
         model.addAttribute("categoryList", categoryList);
         if (bindingResult.hasErrors()) {
@@ -72,7 +71,7 @@ public class MovieDashboardController {
             return new ModelAndView("/movie/movies", "empty", "Không có kết quả");
         }
         model.addAttribute("nameMovie", nameMovie);
-        model.addAttribute("idMovie",idMovie);
+        model.addAttribute("idMovie", idMovie);
         return new ModelAndView("/movie/movies", "movies", movies);
     }
 
