@@ -37,6 +37,13 @@ a {
     padding: 7px 20px;
     font-weight: 700;
 }
+.btn-warning {
+    border-radius: 15px;
+    border: unset;
+    padding: 7px 20px;
+    font-weight: 700;
+}
+
 
 li.nav-item {
     padding: 0 20px;
@@ -102,7 +109,7 @@ h3 {
 }
 
 #list-fim-home img.card-img {
-    max-height: 275px;
+    height: 275px;
 }
 
 #category-film .card-img-overlay {
@@ -173,8 +180,7 @@ section#banner-footer .card.text-bg-dark {
 }
 
 footer p, li.list-group-item a {
-    color: #848484;
-    font-family: Quicksand;
+    color: #848484 !important;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -594,4 +600,12 @@ button.btn-close i {
     font-size: 40px;
     padding-right: 15px;
     color: #fff;
+}
+.table-dashboard table a {
+    color: #848484;
+}
+p.field-error {
+    color: red;
+    font-size: 14px;
+    margin: 5px 0;
 }
