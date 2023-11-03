@@ -102,8 +102,8 @@ public class EmployeeDTO implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         EmployeeDTO formDTO = (EmployeeDTO) target;
-        if (formDTO.idCard.toString().length() != 9 || formDTO.idCard.toString().length() != 12) {
-            errors.rejectValue("idCard",null,"ID card chỉ được nhập từ 9 hoặc 12 số");
+        if (formDTO.idCard.toString().length() != 9 && formDTO.idCard.toString().length() != 12) {
+            errors.rejectValue("idCard","","ID card chỉ được nhập từ 9 hoặc 12 số");
         }
         LocalDate now = LocalDate.now();
         Period period = Period.between(LocalDate.parse(formDTO.birthday),now);
