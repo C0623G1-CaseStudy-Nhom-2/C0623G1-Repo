@@ -45,7 +45,7 @@
                     <div class="row mb-3">
                         <label for="idCard" class="col-sm-2 col-form-label">ID Card</label>
                         <div class="col-sm-10">
-                            <input th:field="*{idCard}" type="text" class="form-control" id="idCard" required>
+                            <input th:field="*{idCard}" type="number" class="form-control" id="idCard" required>
                             <p class="field-error" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></p>
                         </div>
                     </div>
