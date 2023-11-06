@@ -28,7 +28,7 @@ public class EmployeeDTO implements Validator {
 
     @NotEmpty
     private String birthday;
-    private Long idCard;
+    private String idCard;
 
     @NotEmpty
     private String address;
@@ -62,11 +62,12 @@ public class EmployeeDTO implements Validator {
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getIdCard() {
+
+    public String getIdCard() {
         return idCard;
     }
 
-    public void setIdCard(Long idCard) {
+    public void setIdCard(String idCard) {
         this.idCard = idCard;
     }
 
@@ -103,7 +104,7 @@ public class EmployeeDTO implements Validator {
     public void validate(Object target, Errors errors) {
         EmployeeDTO formDTO = (EmployeeDTO) target;
         if (formDTO.idCard.toString().length() != 9 && formDTO.idCard.toString().length() != 12) {
-            errors.rejectValue("idCard","","ID card chỉ được nhập từ 9 hoặc 12 số");
+            errors.rejectValue("idCard",null,"ID card chỉ được nhập từ 9 hoặc 12 số");
         }
         LocalDate now = LocalDate.now();
         Period period = Period.between(LocalDate.parse(formDTO.birthday),now);
