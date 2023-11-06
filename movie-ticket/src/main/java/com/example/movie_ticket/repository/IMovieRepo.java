@@ -14,6 +14,7 @@ public interface IMovieRepo extends JpaRepository<Movie, Long> {
     Page<Movie> findByReleaseDate(String date, Pageable pageable);
 
     Page<Movie> findByIdAndTitleContaining(Long idMovie, String nameMovie, Pageable pageable);
+    Page<Movie> findMoviesByCategoryId(Long id, Pageable pageable);
 
     @Query(nativeQuery = true, value = "SELECT * from movies ORDER BY category_id")
     Page<Movie> findAllOrderByCategory(Pageable pageable);

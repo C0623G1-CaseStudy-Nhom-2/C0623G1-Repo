@@ -47,4 +47,9 @@ public class ShowTimeService implements IShowTimeService {
     }
         return null;
     }
+
+    @Override
+    public List<ShowTime> findAll() {
+        return showTimeRepo.findAll();
+    }
 }
