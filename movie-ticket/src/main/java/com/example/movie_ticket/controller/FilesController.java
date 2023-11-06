@@ -1,5 +1,9 @@
 package com.example.movie_ticket.controller;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,10 +34,8 @@ public class FilesController {
 
     @PostMapping("/upload/image")
     public ResponseEntity<FileInfo> uploadFile(@RequestParam("file") MultipartFile file) {
-        storageService.save(file);
-        String filename = file.getOriginalFilename().toString();
-        String url = MvcUriComponentsBuilder
-                .fromMethodName(FilesController.class, "getFile", file.getOriginalFilename().toString()).build().toString();
+        String filename = storageService.save(file);;
+        String url = MvcUriComponentsBuilder.fromMethodName(FilesController.class, "getFile", filename).build().toString();
         return ResponseEntity.status(HttpStatus.OK).body(new FileInfo(filename, url));
     }
 

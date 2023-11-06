@@ -1,22 +1,49 @@
 tinymce.init({
-    selector: 'textarea', // Chọn các thẻ <textarea> để biến chúng thành trình soạn thảo TinyMCE
+    selector: 'textarea',
     plugins: 'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table paste code help wordcount',
     toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | link image media | removeformat | code',
-    images_file_types: 'jpg,png,svg,webp',
-    file_picker_callback: function(callback, value, meta) {
-        // Provide file and text for the link dialog
-        if (meta.filetype == 'file') {
-            callback('mypage.html', {text: 'My text'});
-        }
+    image_title: true,
+    automatic_uploads: true,
+    file_picker_types: 'image',
+    file_picker_callback: (cb, value, meta) => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
 
-        // Provide image and alt text for the image dialog
-        if (meta.filetype == 'image') {
-            callback('myimage.jpg', {alt: 'My alt text'});
-        }
+        input.addEventListener('change', (e) => {
+            const file = e.target.files[0];
 
-        // Provide alternative source and posted for the media dialog
-        if (meta.filetype == 'media') {
-            callback('movie.mp4', {source2: 'alt.ogg', poster: 'image.jpg'});
-        }
-    }
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+                const formData = new FormData();
+                formData.append('file', file);
+                debugger;
+                fetch('/upload/image', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('Lỗi khi tải lên file ảnh');
+                        }
+                    })
+                    .then(data => {
+                        const imageUrl = data.url;
+                        const id = 'blobid' + (new Date()).getTime();
+                        const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                        const blobInfo = blobCache.create(id, file, imageUrl);
+                        blobCache.add(blobInfo);
+                        cb(blobInfo.blobUri(), {title: file.name});
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi tải lên
+                        console.error(error);
+                    });
+            });
+            reader.readAsDataURL(file);
+        });
+        input.click();
+    },
 });
