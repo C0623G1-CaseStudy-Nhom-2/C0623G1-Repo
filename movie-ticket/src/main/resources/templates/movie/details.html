@@ -73,12 +73,13 @@
                                        type="text">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-12">
                         <div class="mb-3 row">
                             <label class="col-sm-5 col-form-label" for="description">Mô tả</label>
-                            <div class="col-sm-12">
-                                <div id="description" th:utext="${movie.description}"></div>
+                            <div class="col-sm-10">
+                                <!--                                <input class="form-control-plaintext" id="description" readonly-->
+                                <!--                                       th:value="${movie.description}"-->
+                                <!--                                       type="text">-->
+                                <p style="height: 200px; overflow-y: scroll" id="description" th:text="${movie.description}"></p>
                             </div>
                         </div>
                     </div>

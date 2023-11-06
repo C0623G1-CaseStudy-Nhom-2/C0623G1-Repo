@@ -16,7 +16,7 @@ public class Customer {
 
     private String phoneNumber;
     private String birthday;
-    private String idCard;
+    private Long idCard;
     private String address;
     @OneToOne
     @JoinColumn(name = "account_id",referencedColumnName = "id")
@@ -26,18 +26,6 @@ public class Customer {
     private Set<Booking> bookings;
 
     public Customer() {
-    }
-
-    public Customer(Long id, String fullName, String email, String phoneNumber, String birthday, String idCard, String address, Account account, Set<Booking> bookings) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.birthday = birthday;
-        this.idCard = idCard;
-        this.address = address;
-        this.account = account;
-        this.bookings = bookings;
     }
 
     public Long getId() {
@@ -80,11 +68,11 @@ public class Customer {
         this.birthday = birthday;
     }
 
-    public String getIdCard() {
+    public Long getIdCard() {
         return idCard;
     }
 
-    public void setIdCard(String idCard) {
+    public void setIdCard(Long idCard) {
         this.idCard = idCard;
     }
 

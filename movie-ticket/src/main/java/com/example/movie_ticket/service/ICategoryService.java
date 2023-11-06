@@ -14,5 +14,5 @@ public interface ICategoryService {
     void addCategory(Category category);
     Optional<Category> findById(Long id);
     void deleteCategory(Long id);
-    Page<Category> searchByIdAndName(Long idCategory,String nameCategory,Pageable pageable);
+    Page<Category> searchByIdAndName(Long idCategory,String nameCategroy,Pageable pageable);
 }
