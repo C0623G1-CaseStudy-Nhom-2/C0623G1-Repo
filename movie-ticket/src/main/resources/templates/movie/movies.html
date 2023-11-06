@@ -72,6 +72,7 @@
                                         class="fa-solid fa-file-lines"></i></a>
                                 <a th:href="@{/dashboard/movies/update/__${movie.id}__}" title="Sửa"><i
                                         class="fa-solid fa-pen-to-square"></i></a>
+                                <a th:href="@{/dashboard/showtime/update/__${movie.id}__}"></a>
                                 <!--<a th:href="@{/dashboard/movies/delete/__${movie.id}__}" title="Xóa"><i class="fa-solid fa-trash-can"></i></a>-->
                                 <a data-bs-target="#exampleModal" data-bs-toggle="modal"
                                    role="button" th:attr="onclick=|sendDataModal('${movie.id}','${movie.title}')|"

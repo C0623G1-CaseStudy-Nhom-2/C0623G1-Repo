@@ -29,7 +29,7 @@ public class MovieDashboardController {
     private ICategoryService categoryService;
 
     @GetMapping
-    public ModelAndView showMovieLIst(@PageableDefault(value = 6) Pageable pageable) {
+    public ModelAndView showMovieList(@PageableDefault(value = 6) Pageable pageable) {
         Page<Movie> movies = movieService.findMovieOrderByDate(pageable);
         return new ModelAndView("/movie/movies", "movies", movies);
     }
