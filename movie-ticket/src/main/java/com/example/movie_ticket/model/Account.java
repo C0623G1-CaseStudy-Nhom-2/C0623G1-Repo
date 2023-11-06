@@ -1,6 +1,7 @@
 package com.example.movie_ticket.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "accounts")
 public class Account {
@@ -11,7 +12,7 @@ public class Account {
     private String password;
     @ManyToOne
     @JoinColumn(name = "id_role",referencedColumnName = "id")
-    private Role role;
+    private List<Role> roles;
     @OneToOne(mappedBy = "account")
     private Customer customer;
 
