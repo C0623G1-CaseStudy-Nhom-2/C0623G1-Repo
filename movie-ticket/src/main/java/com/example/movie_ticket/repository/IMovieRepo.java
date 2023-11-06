@@ -19,7 +19,7 @@ public interface IMovieRepo extends JpaRepository<Movie, Long> {
     @Query(nativeQuery = true, value = "SELECT * from movies ORDER BY category_id")
     Page<Movie> findAllOrderByCategory(Pageable pageable);
 
-    @Query(nativeQuery = true, value = "SELECT * from movies ORDER BY release_date ")
+    @Query(nativeQuery = true, value = "SELECT * from movies where  deleted = 0 ORDER BY release_date")
     Page<Movie> findAllOrderByDate(Pageable pageable);
 
 }

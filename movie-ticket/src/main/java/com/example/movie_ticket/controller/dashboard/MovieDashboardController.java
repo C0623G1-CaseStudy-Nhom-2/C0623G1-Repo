@@ -58,7 +58,9 @@ public class MovieDashboardController {
 
     @GetMapping("/delete/{id}")
     public String deleteMovie(@PathVariable Long id) {
-        movieService.deleteMovie(id);
+        Movie movie = movieService.findMovieById(id);
+        movie.setDeleted(1);
+        movieService.saveMovie(movie);
         return "redirect:/dashboard/movies";
     }
 
