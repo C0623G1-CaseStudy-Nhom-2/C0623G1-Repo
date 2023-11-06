@@ -35,7 +35,7 @@ tinymce.init({
                         const blobCache = tinymce.activeEditor.editorUpload.blobCache;
                         const blobInfo = blobCache.create(id, file, imageUrl);
                         blobCache.add(blobInfo);
-                        cb(blobInfo.blobUri(), {title: file.name});
+                        cb(imageUrl, {title: file.name});
                     })
                     .catch(error => {
                         // Xử lý lỗi tải lên
