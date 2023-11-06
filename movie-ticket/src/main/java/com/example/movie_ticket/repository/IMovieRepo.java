@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface IMovieRepo extends JpaRepository<Movie, Long> {
     Page<Movie> findByTitleContaining(String nameMovie, Pageable pageable);
 
@@ -18,4 +20,5 @@ public interface IMovieRepo extends JpaRepository<Movie, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * from movies ORDER BY release_date ")
     Page<Movie> findAllOrderByDate(Pageable pageable);
+
 }

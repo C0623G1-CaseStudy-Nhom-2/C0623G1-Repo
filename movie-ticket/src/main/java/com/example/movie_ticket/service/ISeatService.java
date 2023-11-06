@@ -4,5 +4,4 @@ import java.util.List;
 
 public interface ISeatService {
     List<String> showSeats();
-
 }
