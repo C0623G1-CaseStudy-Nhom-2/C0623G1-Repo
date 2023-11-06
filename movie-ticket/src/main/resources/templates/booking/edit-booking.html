@@ -16,37 +16,48 @@
                 <a type="button" th:attr="onclick=|sendDataModal('${bookingDto.id}','${bookingDto.codeBooking}')|"
                    title="Hủy" role="button" data-bs-toggle="modal"
                    data-bs-target="#exampleModal">Hủy đơn hàng</a></button></span>
-                <form class="edit-item my-4" action="/booking/edit" th:object="${bookingDto}" method="post">
+                <form class="edit-item my-4" action="/dashboard/booking/edit" th:object="${bookingDto}" method="post">
                     <input type="hidden" th:field="*{id}">
-<!--                    <input type="hidden" th:field="*{codeBooking}">-->
-<!--                    <input type="hidden" th:field="*{customer}">-->
-                    <div class="row mb-3">
-<!--                        <label for="inputTime" class="col-sm-2 col-form-label">Khung giờ xem</label>-->
+                    <input type="hidden" th:field="*{customer}">
+                    <input type="hidden" th:field="*{codeBooking}">
+                    <div class="mb-3 row">
+                        <label for="customer" class="col-sm-2 col-form-label">Khách hàng</label>
                         <div class="col-sm-10">
-<!--                            <select class="form-select form-select-sm"-->
-<!--                                    aria-label=".form-select-sm example" id="inputTime">-->
-<!--                                <option th:if="${time.movie.id == movies.id}" th:each="time:${showTimeList}"-->
-<!--                                        th:value="${time.id}"-->
-<!--                                        th:text="${time.showDate + ' to '+ time.startTime + '&#45;&#45;'+time.endTime}">Hãy lựa-->
-<!--                                    chọn một khung giờ-->
-<!--                                </option>-->
-<!--                            </select>-->
+                            <input type="text" readonly class="form-control-plaintext" id="customer"
+                                   th:value="${bookingDto.customer.fullName}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="price" class="col-sm-2 col-form-label">Giá</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control-plaintext" id="price" th:field="*{totalPrice}">
                         </div>
                     </div>
                     <div class="row mb-3">
-<!--                        <label for="inputSeat" class="col-sm-2 col-form-label">Chọn ghế xem</label>-->
+                        <label for="inputTimes" class="col-sm-2 col-form-label">Khung giờ</label>
                         <div class="col-sm-10">
-<!--                            <select th:field="*{seatBookings}" class="form-select form-select-sm"-->
-<!--                                    aria-label=".form-select-sm example" id="inputSeat">-->
-<!--                                <option disabled th:if="${bookingDto.id == seat.booking.id}"-->
-<!--                                        th:each="seat:${seatBooking}" th:value="${seat.id}" th:text="${seat.seat}">Hãy-->
-<!--                                    lựa chọn một khung giờ-->
-<!--                                </option>-->
-<!--                            </select>-->
+                            <select class="form-select form-select-sm"
+                                    aria-label=".form-select-sm example" id="inputTimes" th:field="*{showTime}">
+                                <option th:each="time:${showTimeList}"
+                                        th:value="${time.id}"
+                                        th:text="${time.showDate + ' to '+ time.startTime + '--'+time.endTime}">Hãy lựa
+                                    chọn một khung giờ
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="seats" class="col-sm-2 col-form-label">Ghế bạn đã mua</label>
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-lg-1" th:each="seat:${bookingDto.seatBookings}">
+                                    <input type="text" readonly class="form-control-plaintext" id="seats" th:value="${seat.seat}">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a href="/booking">
+                        <a href="/dashboard/booking">
                             <button type="button" class="btn btn-warning">Quay Lại</button>
                         </a>
                         <button type="submit" class="btn btn-primary" style="margin-left: 320px">Cập Nhật</button>
@@ -59,7 +70,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
-        <form action="/booking/cancel" method="post">
+        <form action="/dashboard/booking/cancel" method="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="d-flex">

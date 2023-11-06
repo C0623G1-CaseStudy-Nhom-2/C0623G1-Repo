@@ -6,6 +6,7 @@ import com.example.movie_ticket.model.ShowTime;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.Date;
 import java.util.Set;
 
 public class BookingDto implements Validator {
@@ -14,23 +15,10 @@ public class BookingDto implements Validator {
     private ShowTime showTime;
     private Set<SeatBooking> seatBookings;
     private String codeBooking;
+    private Date datePurchased;
+    private Float totalPrice;
 
     public BookingDto() {
-    }
-
-    public BookingDto(Long id, Customer customer, ShowTime showTime, Set<SeatBooking> seatBookings, String codeBooking) {
-        this.id = id;
-        this.customer = customer;
-        this.showTime = showTime;
-        this.seatBookings = seatBookings;
-        this.codeBooking = codeBooking;
-    }
-
-    public BookingDto(Long id, ShowTime showTime, Set<SeatBooking> seatBookings, String codeBooking) {
-        this.id = id;
-        this.showTime = showTime;
-        this.seatBookings = seatBookings;
-        this.codeBooking = codeBooking;
     }
 
     public Long getId() {
@@ -73,6 +61,22 @@ public class BookingDto implements Validator {
         this.codeBooking = codeBooking;
     }
 
+    public Date getDatePurchased() {
+        return datePurchased;
+    }
+
+    public void setDatePurchased(Date datePurchased) {
+        this.datePurchased = datePurchased;
+    }
+
+    public Float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     @Override
     public boolean supports(Class<?> clazz) {
         return false;
@@ -81,8 +85,5 @@ public class BookingDto implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         BookingDto bookingDto = (BookingDto) target;
-        if (bookingDto.showTime.getMovie().getTitle().equals("")){
-            errors.reject("showTime",null,"Không được để trống");
-        }
     }
 }
