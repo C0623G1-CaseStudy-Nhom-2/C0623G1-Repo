@@ -54,9 +54,9 @@
                             <td th:text="${item.title}">Vầng Trăng Máu</td>
                             <td th:text="${item.createdAt}">Vầng Trăng Máu</td>
                             <td>
-                                <a th:href="@{/dashboard/post/view/__${item.id}__}" title="Xem chi tiết"><i
+                                <a th:href="@{/dashboard/posts/view/__${item.id}__}" title="Xem chi tiết"><i
                                         class="fa-solid fa-file-lines"></i></a>
-                                <a th:href="@{/dashboard/post/edit/__${item.id}__}" title="Sửa"><i
+                                <a th:href="@{/dashboard/posts/edit/__${item.id}__}" title="Sửa"><i
                                         class="fa-solid fa-pen-to-square"></i></a>
                                 <a th:attr="onclick=|sendDataModal('${item.id}','${item.title}')|" title="Xóa"
                                    role="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
@@ -132,7 +132,7 @@
 <script>
     function sendDataModal(id, name) {
         $("#name-delete").html(name)
-        $("#active-delete").attr("href", "/dashboard/category/delete/" + id)
+        $("#active-delete").attr("href", "/dashboard/posts/delete/" + id)
     }
 
 </script>

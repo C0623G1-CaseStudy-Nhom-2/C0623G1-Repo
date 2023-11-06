@@ -45,7 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/dashboard").permitAll();
 
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
-
     }
 
 }

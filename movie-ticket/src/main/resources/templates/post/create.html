@@ -18,13 +18,13 @@
                 <h3>Thêm bài viết mới</h3>
                 <form action="/dashboard/posts/add" method="post" th:object="${post}">
                     <div class="mb-3">
-                        <label class="form-label" for="title">Tên phim</label>
+                        <label class="form-label" for="title">Tiêu đề phim</label>
                         <input class="form-control" id="title" th:field="*{title}" type="text" required>
                         <p style="color: #e20442" th:errors="*{title}" th:if="${#fields.hasErrors('title')}"></p>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="description">Mô tả phim</label>
-                        <textarea style="width: 100%" id="description" th:field="*{content}" required></textarea>
+                        <label class="form-label" for="description">Nội dung bài viết</label>
+                        <textarea style="width: 100%" id="description" th:field="*{content}"></textarea>
                         <p style="color: red" th:errors="*{content}"
                            th:if="${#fields.hasErrors('content')}"></p>
                     </div>
