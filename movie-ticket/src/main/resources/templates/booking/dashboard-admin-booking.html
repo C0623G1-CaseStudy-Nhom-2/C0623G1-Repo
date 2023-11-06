@@ -16,7 +16,7 @@
             <div class="col-lg-9 ps-5 table-dashboard category">
                 <div class="table-main">
                     <div class="search-table">
-                        <form action="/booking/">
+                        <form action="/dashboard/booking/">
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="col-lg-6 form-floating mb-3">
@@ -45,7 +45,7 @@
                         <thead>
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">TÊN KHÁCH HÀNG</th>
+                            <th scope="col">KHÁCH HÀNG</th>
                             <th scope="col">TÊN PHIM</th>
                             <th scope="col">SỐ ĐIỆN THOẠI</th>
                             <th scope="col">NGÀY CHIẾU</th>
@@ -63,9 +63,9 @@
                             <td th:text="${item.showTime.showDate}">Vầng Trăng Máu</td>
                             <td th:text="${#numbers.formatDecimal(item.showTime.price, 0, 'COMMA', 0, 'POINT')}"></td>
                             <td>
-                                <a th:href="@{/booking/view(id=${item.id})}" title="Xem chi tiết"><i
+                                <a th:href="@{/dashboard/booking/view(id=${item.id})}" title="Xem chi tiết"><i
                                         class="fa-solid fa-file-lines"></i></a>
-                                <a th:href="@{/booking/edit/__${item.id}__(movie=${item.showTime.movie.id})}"
+                                <a th:href="@{/dashboard/booking/edit/__${item.id}__(movie=${item.showTime.movie.id})}"
                                    title="Sửa"><i
                                         class="fa-solid fa-pen-to-square"></i></a>
                                 <a type="button" th:attr="onclick=|sendDataModal('${item.id}','${item.codeBooking}')|"
@@ -111,7 +111,7 @@
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
-                        <form action="/booking/delete" method="post">
+                        <form action="/dashboard/booking/delete" method="post">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <div class="d-flex">
