@@ -24,7 +24,11 @@ public class MovieService implements IMovieService {
 
     @Override
     public Movie findMovieById(Long id) {
+        if (movieRepo.findById(id).isPresent()) {
         return movieRepo.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     @Override
