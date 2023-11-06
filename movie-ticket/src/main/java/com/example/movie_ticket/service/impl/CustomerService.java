@@ -1,9 +1,12 @@
 package com.example.movie_ticket.service.impl;
 
+import com.example.movie_ticket.model.Account;
 import com.example.movie_ticket.model.Customer;
 import com.example.movie_ticket.repository.ICustomerRepo;
 import com.example.movie_ticket.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,5 +41,10 @@ public class CustomerService implements ICustomerService {
     @Override
     public void updateCustomer(Customer customer) {
         customerRepo.save(customer);
+    }
+
+    @Override
+    public Page<Customer> getAllCustomerPageable(Pageable pageable, String name,String phone) {
+        return customerRepo.getAllCustomerPageable(pageable,'%'+name+'%','%'+phone+'%');
     }
 }
