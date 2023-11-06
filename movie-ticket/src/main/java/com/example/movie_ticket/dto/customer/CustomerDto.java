@@ -3,16 +3,10 @@ package com.example.movie_ticket.dto.customer;
 import com.example.movie_ticket.model.Account;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.lang.annotation.Annotation;
+
 
 public class CustomerDto implements Validator {
 
@@ -29,7 +23,6 @@ public class CustomerDto implements Validator {
     private String idCard;
     private String address;
     private Account account;
-
     public CustomerDto() {
     }
 

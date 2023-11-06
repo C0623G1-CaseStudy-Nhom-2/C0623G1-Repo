@@ -11,20 +11,22 @@
                 <div th:replace="~{layout::sidebar-admin}"></div>
             </div>
             <div class="col-lg-9 ps-5 table-dashboard category">
-                <h3 th:text="${'Thêm mới thông tin khách hàng'}">Chỉnh sửa danh mục phim</h3>
-                <form class="edit-item my-4" th:object="${customerDto}" method="post" action="/dashboard/customer/edit">
+                <h3 th:text="${'Thêm khách hàng mới'}">Chỉnh sửa danh mục phim</h3>
+                <form class="edit-item my-4" th:object="${c}" method="post" action="/dashboard/customer/create">
                     <div class="row mb-3">
                         <label for="inputNameCategory" class="col-sm-2 col-form-label">Tên khách hàng</label>
+                        <input th:field="*{id}" style="display: none">
+                        <input th:field="*{account.id}" style="display: none">
                         <div class="col-sm-10">
                             <input th:field="*{fullName}" type="text" class="form-control" id="inputNameCategory">
+                            <span  th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" style="color: red"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Địa chỉ khách hàng</label>
                         <div class="col-sm-10">
                             <div>
-                                <select style="width: 300px ; height: 35px ; border-radius: 30px ; background: unset;color: #848484;border: 2px solid #686868;"
-                                        th:field="*{address}">
+                                <select style="width: 300px ; height: 35px ; border-radius: 30px ; background: unset;color: #848484;border: 2px solid #686868;" th:field="*{address}">
                                     <option value="Hà Giang">Hà Giang</option>
                                     <option value="Cao Bằng">Cao Bằng</option>
                                     <option value="Lào Cai">Lào Cai</option>
@@ -98,6 +100,8 @@
                         <div class="col-sm-10">
                             <div>
                                 <input th:field="*{email}" type="text" class="form-control" id="inputEmailCustomer">
+                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></span>
+                                <p style="color: red" th:text="${messageEmail}"></p>
                             </div>
                         </div>
                     </div>
@@ -106,6 +110,7 @@
                         <label class="col-sm-2 col-form-label">Ngày tháng năm sinh khách hàng</label>
                         <div class="col-sm-10">
                             <input type="date" class="form-control" id="dateOrder" th:field="*{birthday}">
+                            <span th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" style="color: red"></span>
                         </div>
                     </div>
 
@@ -114,6 +119,8 @@
                         <div class="col-sm-10">
                             <div>
                                 <input th:field="*{phoneNumber}" type="text" class="form-control" id="inputPhoneNumberCustomer">
+                                <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color: red"></span>
+                                <p style="color: red" th:text="${messagePhoneNumber}"></p>
                             </div>
                         </div>
                     </div>
@@ -122,10 +129,34 @@
                         <label class="col-sm-2 col-form-label">Sổ thẻ CCCD/CMND khách hàng</label>
                         <div class="col-sm-10">
                             <div>
-                                <input th:field="*{idCard}" type="text" class="form-control" id="inputIdcardCustomer">
+                                <input th:field="*{idCard}" type="text" class="form-control" id="inputIdcardCustomer" >
+                                <span th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}" style="color: red"></span>
+                                <p style="color: red" th:text="${messageIdCard}"></p>
                             </div>
                         </div>
                     </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Tên đăng nhập</label>
+                        <div class="col-sm-10">
+                            <div>
+                                <input name="inputUserNameCustomer" th:field="*{account}" type="text" class="form-control" id="inputUserNameCustomer" >
+                                <span th:if="${#fields.hasErrors('account')}" th:errors="*{account}" style="color: red"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <div>
+                                <input name="inputPassWordCustomer" th:field="*{account.password}" type="text" class="form-control" id="inputPassWordCustomer" >
+                                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></span>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="row mb-12">
                         <div class="col-sm-6 d-flex justify-content-center" >
@@ -134,7 +165,7 @@
                             </button>
                         </div>
                         <div class="col-sm-6 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary" style="background: #E20442">Thêm Mới Khách Hàng</button>
+                            <button type="submit" class="btn btn-primary" style="background: #E20442 ;width: 242px">Thêm khách hàng</button>
                         </div>
                     </div>
                 </form>
