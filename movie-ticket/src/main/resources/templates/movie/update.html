@@ -35,8 +35,9 @@
                            th:if="${#fields.hasErrors('releaseDate')}"></p>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label" for="category">Thể loại:</label>
                         <select aria-label="Default select example" class="form-select" name="category"
-                                th:field="*{category}">
+                                th:field="*{category}" id="category">
                             <option th:each="category : ${categoryList}" th:text="${category.nameCategory}"
                                     th:value="${category.id}">Open this select menu
                             </option>
@@ -97,6 +98,7 @@
     </section>
 </div>
 <footer th:replace="~{layout::footer}"></footer>
+<div th:replace="~{layout::js}"></div>
 <script>
     function limitFiles(input, maxFiles) {
         if (input.files.length > maxFiles) {

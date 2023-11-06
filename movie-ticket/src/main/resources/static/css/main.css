@@ -609,3 +609,20 @@ p.field-error {
     font-size: 14px;
     margin: 5px 0;
 }
+.form-select {
+    background: unset;
+    border-radius: 30px;
+    border: 2px solid #686868;
+    color: #848484;
+}
+
+.form-select:focus {
+    background: unset;
+    border-color: #dc3545;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem #dc354517;
+}
+
+.ck-editor__editable {
+    min-height: 200px;
+}

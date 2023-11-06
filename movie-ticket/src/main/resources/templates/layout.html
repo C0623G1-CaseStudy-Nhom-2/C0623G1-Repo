@@ -19,8 +19,12 @@
         <li class="list-group-item"><a href="/dashboard/movies"><i class="fa-solid fa-clapperboard"></i> Quản lý phim</a></li>
         <li class="list-group-item"><a href="/dashboard/category"><i class="fa-solid fa-bookmark"></i> Quản lý danh
             mục phim</a></li>
-        <li class="list-group-item"><a href="#"><i class="fa-solid fa-user-pen"></i></i> Quản lý nhân viên</a></li>
-        <li class="list-group-item"><a href="#"><i class="fa-solid fa-users-viewfinder"></i></i> Quản lý khách hàng</a>
+        <li class="list-group-item"><a href="/dashboard/employee"><i class="fa-solid fa-user-pen"></i></i> Quản lý nhân viên</a></li>
+        <li class="list-group-item"><a href="/dashboard/customer/"><i class="fa-solid fa-users-viewfinder"></i></i> Quản lý khách hàng</a>
+        </li>
+        <li class="list-group-item"><a href="/dashboard/posts"><i class="fa-solid fa-file-lines"></i></i> Quản lý bài viết</a></li>
+        <li class="list-group-item">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#logOutAdmin"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
         </li>
         <li class="list-group-item"><a href="#"><i class="fa-solid fa-file-lines"></i></i> Quản lý bài viết</a></li>
         <li class="list-group-item"><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
@@ -221,9 +225,12 @@
             <p>© 2023 Movies24h. Tất cả các quyền đã được bảo lưu.</p>
         </div>
     </div>
-    <script src="/js/jquery-3.7.1.min.js"></script>
-    <script src="/libs/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="/js/main.js"></script>
+    <div th:fragment="js">
+        <script src="/js/jquery-3.7.1.min.js"></script>
+        <script src="/libs/tinymce/tinymce.min.js"></script>
+        <script src="/libs/bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="/js/main.js"></script>
+    </div>
 </footer>
 </body>
 </html>
