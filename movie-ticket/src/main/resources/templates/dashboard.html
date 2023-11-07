@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head th:replace="~{layout::head}">
+
+  <link rel="stylesheet" type="text/css" href="/css/chart.css">
 </head>
 <body>
 <div class="container">
@@ -65,29 +67,35 @@
           <div class="col-lg-4">
             <div class="overview">
               <h5>Hôm nay</h5>
-              <p class="profit">1.600.000 đ</p>
-              <p class="number-order">32 đơn đặt hàng</p>
+              <p class="profit" th:text="${#numbers.formatDecimal(totalDate, 0, 'POINT', 0, 'COMMA')} + ' đ'">1.600.000 đ</p>
+              <p class="number-order" th:text="${countDate + ' đơn đặt hàng'}">32 đơn đặt hàng</p>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="overview">
               <h5>Tháng này</h5>
-              <p class="profit">32.600.000 đ</p>
-              <p class="number-order">650 đơn đặt hàng</p>
+              <p class="profit" th:text="${#numbers.formatDecimal(totalMonth, 0, 'POINT', 0, 'COMMA')} + ' đ'">32.600.000 đ</p>
+              <p class="number-order" th:text="${countMonth + ' đơn đặt hàng'}">650 đơn đặt hàng</p>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="overview">
               <h5>Năm nay</h5>
-              <p class="profit">350.600.000 đ</p>
-              <p class="number-order">7012 đơn đặt hàng</p>
+              <p class="profit" th:text="${#numbers.formatDecimal(totalYear, 0, 'POINT', 0, 'COMMA')} + ' đ'">350.600.000 đ</p>
+              <p class="number-order" th:text="${countYear + ' đơn đặt hàng'}">7012 đơn đặt hàng</p>
             </div>
           </div>
+          <div class="container">
+            <canvas id="canvas"></canvas>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 </div>
 <footer th:replace="~{layout::footer}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script type="text/javascript" src="/js/chart.js"></script>
 </body>
 </html>

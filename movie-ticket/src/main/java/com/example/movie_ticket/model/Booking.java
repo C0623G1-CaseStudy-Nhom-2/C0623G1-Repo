@@ -1,11 +1,10 @@
 package com.example.movie_ticket.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.*;
 import java.util.Set;
 
 @Entity(name = "bookings")
@@ -26,7 +25,7 @@ public class Booking {
     private boolean isDeleted;
     private String codeBooking;
     @Column(columnDefinition = "DATE")
-    private Date datePurchased;
+    private LocalDate datePurchased;
     private Float totalPrice;
 
     public Booking() {
@@ -64,11 +63,11 @@ public class Booking {
         this.seatBookings = seatBookings;
     }
 
-    public Date getDatePurchased() {
+    public LocalDate getDatePurchased() {
         return datePurchased;
     }
 
-    public void setDatePurchased(Date datePurchased) {
+    public void setDatePurchased(LocalDate datePurchased) {
         this.datePurchased = datePurchased;
     }
 
@@ -82,7 +81,7 @@ public class Booking {
 
     @PrePersist
     public void prePersist() {
-        this.datePurchased = new Date();
+        this.datePurchased = LocalDate.now();
     }
 
     public boolean isDeleted() {

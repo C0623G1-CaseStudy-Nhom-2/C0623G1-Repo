@@ -4,6 +4,7 @@ import com.example.movie_ticket.model.Booking;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IBookingService {
@@ -16,4 +17,9 @@ public interface IBookingService {
     void cancelBooking(Long id);
     Booking findById(Long id);
     void updateBooking(Booking booking);
+    void sendEmail(Booking booking);
+    List<Booking> showHistoryBookingDate();
+    List<Booking> showHistoryBookingMonth();
+    List<Booking> showHistoryBookingYear();
+    List<Booking> showHistoryBookingOfMonth(int month);
 }

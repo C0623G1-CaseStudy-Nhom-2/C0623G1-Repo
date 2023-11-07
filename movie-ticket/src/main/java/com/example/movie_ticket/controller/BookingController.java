@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,7 +25,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/booking")
+@RequestMapping("/dashboard/booking")
 public class BookingController {
     @Autowired
     private IBookingService bookingService;
@@ -34,7 +35,7 @@ public class BookingController {
     private IShowTimeService showTimeService;
     @Autowired
     private IMovieService movieService;
-    @GetMapping("")
+    @GetMapping
     public String showAllBooking(@RequestParam(defaultValue = "0",required = false) int page,
                                  @RequestParam(defaultValue = "",required = false) String dateSearch,
                                  @RequestParam(defaultValue = "",required = false) String phoneSearch,
@@ -45,12 +46,6 @@ public class BookingController {
         model.addAttribute("dateSearch",dateSearch);
         model.addAttribute("phoneSearch",phoneSearch);
         return "/booking/dashboard-admin-booking";
-    }
-    @GetMapping("/add")
-    public String showFormCreateBooking(Model model,
-                                        @RequestParam(defaultValue = "",required = false) String title){
-        model.addAttribute("bookingDto", new BookingDto());
-        return "/booking/create-booking";
     }
 
     @GetMapping("/view")
@@ -68,7 +63,7 @@ public class BookingController {
             bookingService.deleteBooking(id);
             redirectAttributes.addFlashAttribute("success","Xóa đơn hàng thành công");
         }
-        return "redirect:/booking";
+        return "redirect:/dashboard/booking";
     }
     @PostMapping("/cancel")
     public String cancelBooking(@RequestParam Long idCancel,
@@ -78,17 +73,14 @@ public class BookingController {
             bookingService.cancelBooking(idCancel);
             redirectAttributes.addFlashAttribute("success","Hủy đơn hàng thành công");
         }
-        return "redirect:/booking";
+        return "redirect:/dashboard/booking";
     }
     @GetMapping("/edit/{id}")
     public String showFormUpdateBooking(Model model,
-                                        @PathVariable Long id,
-                                        @RequestParam Long movie){
-        Booking booking = bookingService.findByIdBooking(id);
-        List<SeatBooking> seatBookings = seatBookingService.getAll();
+                                        @PathVariable Long id){
+              Booking booking = bookingService.findByIdBooking(id);
+              List<SeatBooking> seatBookings = seatBookingService.getAll();
         List<ShowTime> showTimeList = showTimeService.getAllShowTime();
-        Movie movies = movieService.findMovieById(movie);
-        model.addAttribute("movies", movies);
         model.addAttribute("showTimeList", showTimeList);
         model.addAttribute("seatBooking", seatBookings);
         model.addAttribute("bookingDto", booking);
@@ -97,7 +89,8 @@ public class BookingController {
     @PostMapping("/edit")
     public String updateBooking(@Valid @ModelAttribute BookingDto bookingDto,
                                 BindingResult bindingResult,
-                                Model model){
+                                Model model,
+                                RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             List<ShowTime> showTimeList = showTimeService.getAllShowTime();
             model.addAttribute("showTimeList", showTimeList);
@@ -108,6 +101,7 @@ public class BookingController {
         Booking booking = new Booking();
         BeanUtils.copyProperties(bookingDto,booking);
         bookingService.updateBooking(booking);
-        return "redirect:/booking";
+        redirectAttributes.addFlashAttribute("success","Cập nhật đơn hàng thành công");
+        return "redirect:/dashboard/booking";
     }
 }
