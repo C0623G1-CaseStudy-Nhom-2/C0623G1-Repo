@@ -20,6 +20,7 @@
                     <input type="hidden" th:field="*{id}">
                     <input type="hidden" th:field="*{customer}">
                     <input type="hidden" th:field="*{codeBooking}">
+                    <input type="hidden" th:field="*{datePurchased}">
                     <div class="mb-3 row">
                         <label for="customer" class="col-sm-2 col-form-label">Khách hàng</label>
                         <div class="col-sm-10">
@@ -33,17 +34,11 @@
                             <input type="text" class="form-control-plaintext" id="price" th:field="*{totalPrice}">
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label for="inputTimes" class="col-sm-2 col-form-label">Khung giờ</label>
+                    <div class="mb-3 row">
+                        <label for="time" class="col-sm-2 col-form-label">Ngày mua</label>
                         <div class="col-sm-10">
-                            <select class="form-select form-select-sm"
-                                    aria-label=".form-select-sm example" id="inputTimes" th:field="*{showTime}">
-                                <option th:each="time:${showTimeList}"
-                                        th:value="${time.id}"
-                                        th:text="${time.showDate + ' to '+ time.startTime + '--'+time.endTime}">Hãy lựa
-                                    chọn một khung giờ
-                                </option>
-                            </select>
+                            <input type="text" readonly class="form-control-plaintext" id="time"
+                                   th:value="${bookingDto.datePurchased}">
                         </div>
                     </div>
                     <div class="mb-3 row">

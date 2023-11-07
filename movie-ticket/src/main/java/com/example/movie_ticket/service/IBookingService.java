@@ -21,4 +21,5 @@ public interface IBookingService {
     List<Booking> showHistoryBookingDate();
     List<Booking> showHistoryBookingMonth();
     List<Booking> showHistoryBookingYear();
+    List<Booking> showHistoryBookingOfMonth(int month);
 }

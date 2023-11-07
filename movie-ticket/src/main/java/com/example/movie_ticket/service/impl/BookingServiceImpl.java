@@ -126,4 +126,9 @@ public class BookingServiceImpl implements IBookingService {
     public List<Booking> showHistoryBookingYear() {
        return bookingRepo.showHistoryBookingYear();
     }
+
+    @Override
+    public List<Booking> showHistoryBookingOfMonth(int month) {
+        return bookingRepo.showHistoryBookingOfMonth(month);
+    }
 }

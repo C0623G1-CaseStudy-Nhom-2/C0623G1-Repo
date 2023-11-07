@@ -50,6 +50,10 @@ public interface IBookingRepo extends JpaRepository<Booking, Long> {
             "            where year(date_purchased) = year(now()) " +
             "            order by date(date_purchased) ",nativeQuery = true)
     List<Booking> showHistoryBookingYear();
+    @Query(value = "select * from bookings " +
+            "            where month(date_purchased) =:month " +
+            "            order by date(date_purchased) ",nativeQuery = true)
+    List<Booking> showHistoryBookingOfMonth(@Param("month") int month);
 
 }
 

@@ -6,7 +6,7 @@ import com.example.movie_ticket.model.ShowTime;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 public class BookingDto implements Validator {
@@ -15,7 +15,7 @@ public class BookingDto implements Validator {
     private ShowTime showTime;
     private Set<SeatBooking> seatBookings;
     private String codeBooking;
-    private Date datePurchased;
+    private LocalDate datePurchased;
     private Float totalPrice;
 
     public BookingDto() {
@@ -61,11 +61,11 @@ public class BookingDto implements Validator {
         this.codeBooking = codeBooking;
     }
 
-    public Date getDatePurchased() {
+    public LocalDate getDatePurchased() {
         return datePurchased;
     }
 
-    public void setDatePurchased(Date datePurchased) {
+    public void setDatePurchased(LocalDate datePurchased) {
         this.datePurchased = datePurchased;
     }
 
