@@ -48,14 +48,14 @@
                             </div>
                         </form>
                     </div>
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="text-align: center">
                         <thead>
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">THỜI GIAN BẮT ĐẦU</th>
-                            <th scope="col">THỜI GIAN KẾT THÚC</th>
+                            <th scope="col">KHUNG GIỜ CHIẾU</th>
                             <th scope="col">NGÀY CHIẾU</th>
                             <th scope="col">NHÂN VIÊN TRỰC</th>
+                            <th scope="col">PHIM</th>
                             <th scope="col">GIÁ TIỀN</th>
                             <th scope="col" style="text-align: center">THAO TÁC</th>
                         </tr>
@@ -64,11 +64,14 @@
                         <tr><td colspan="6" th:if="${showtimeList.isEmpty()}" style="text-align: center">Không có kết quả</td></tr>
                         <tr th:unless="${showtimeList.isEmpty()}" th:each="showtime, count : ${showtimeList}">
                             <td th:text="${(showtimeList.number)*showtimeList.pageable.pageSize+count.count}">#12921</td>
-                            <td th:text="${showtime.startTime}">Vầng Trăng Máu</td>
-                            <td th:text="${showtime.endTime}">Phạm Văn Thành</td>
+                            <td th:text="${showtime.startTime + ' - ' + showtime.endTime}">Vầng Trăng Máu</td>
+<!--                            <td>- </td>-->
+<!--                            <td th:text="${showtime.endTime}">Phạm Văn Thành</td>-->
                             <td th:text="${showtime.showDate}">15h30 28/10/2023</td>
                             <td><a th:href="@{/dashboard/employee/view/__${showtime.employee.id}__}"
                                    th:text="${showtime.employee.fullName}"></a></td>
+                            <td><a th:href="@{/dashboard/movie/details/__${showtime.movie.id}__}"
+                                   th:text="${showtime.movie.title}"></a></td>
                             <td th:text="${showtime.price}">15h30 28/10/2023</td>
 
                             <td style="text-align: center">
