@@ -37,7 +37,7 @@ public class ShowTimeService implements IShowTimeService {
 
     @Override
     public Page<ShowTime> findAllShowtime(Pageable pageable) {
-        return showTimeRepo.findAll(pageable);
+        return showTimeRepo.findAllOrOrderByShowDate(pageable);
     }
 
     @Override
