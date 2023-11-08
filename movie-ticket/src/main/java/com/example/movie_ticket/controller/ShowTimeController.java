@@ -76,6 +76,7 @@ public class ShowTimeController {
             seatBooking.setSeat(seat);
             seatBookingService.saveSeatBooking(seatBooking);
         }
+        bookingService.sendEmail(booking);
         return new ModelAndView("redirect:/");
     }
 }

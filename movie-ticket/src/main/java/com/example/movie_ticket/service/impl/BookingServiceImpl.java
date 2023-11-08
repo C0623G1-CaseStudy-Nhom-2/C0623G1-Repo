@@ -79,18 +79,18 @@ public class BookingServiceImpl implements IBookingService {
         String content = "<body style=\"margin: 0; padding: 0\">\n" +
                 "<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse\">\n" +
                 "  <tr>\n" +
-                "    <td  style=\" background: #5cb1e7; \">\n" +
+                "    <td  style=\" background: #f8f8f8; \">\n" +
                 "    </td>\n" +
                 "  </tr>\n" +
                 "  <tr>\n" +
                 "    <td bgcolor=\"#eaeaea\" style=\"padding: 30px 20px 40px 30px;\">\n" +
-                "      <p>Thân gửi :<span style=\"color: #0db9e0;font-size: 14px;font-weight: bold;\"> " + booking.getCustomer().getFullName() + "</span></p>\n" +
-                "      <p>MOVIES24H xin xác nhận bạn đã huỷ vé xem phim thành công.Thông tin vé như sau:</p>\n" +
+                "      <p style=\"font-weight:bold;\">\nXin chào :<span\"> " + booking.getCustomer().getAccount().getUsername() + "</span></p>\n" +
+                "      <p>MOVIES24H xin xác nhận bạn đã đặt vé xem phim thành công.</p>\n" +
                 "      <ul>\n" +
+                "        <li>Mã đơn hàng: " + booking.getCodeBooking() + "</li>\n" +
                 "        <li>Tên phim: " + booking.getShowTime().getMovie().getTitle() + "</li>\n" +
                 "        <li>Ngày: " + booking.getShowTime().getShowDate() + "</li>\n" +
                 "        <li>Giá: " + booking.getTotalPrice() + "</li>\n" +
-                "        <li>Chúng tôi sẽ hoàn tiền trong 2 - 4 giờ</li>\n" +
                 "        <li>Cảm ơn bạn đã tin tưởng và sử dụng dịch vụ tại MOVIES24H!</li>\n" +
                 "      </ul>\n" +
                 "    </td>\n" +
