@@ -15,15 +15,15 @@
 <div th:fragment="sidebar-admin">
     <h4>MENU</h4>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item active"><a href="/dashboard"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
-        <li class="list-group-item"><a href="/dashboard/booking"><i class="fa-solid fa-ticket"></i> Quản lý đơn hàng</a></li>
-        <li class="list-group-item"><a href="/dashboard/movies"><i class="fa-solid fa-clapperboard"></i> Quản lý phim</a></li>
-        <li class="list-group-item"><a href="/dashboard/category"><i class="fa-solid fa-bookmark"></i> Quản lý danh
+        <li th:class="${#httpServletRequest.getRequestURI().equals('/dashboard') ? 'list-group-item active': 'list-group-item'}"><a href="/dashboard"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
+        <li th:class="${#httpServletRequest.getRequestURI().contains('/dashboard/booking') ? 'list-group-item active': 'list-group-item'}"><a href="/dashboard/booking"><i class="fa-solid fa-ticket"></i> Quản lý đơn hàng</a></li>
+        <li th:class="${#httpServletRequest.getRequestURI().contains('/dashboard/movies') ? 'list-group-item active': 'list-group-item'}"><a href="/dashboard/movies"><i class="fa-solid fa-clapperboard"></i> Quản lý phim</a></li>
+        <li th:class="${#httpServletRequest.getRequestURI().contains('/dashboard/category') ? 'list-group-item active': 'list-group-item'}"><a href="/dashboard/category"><i class="fa-solid fa-bookmark"></i> Quản lý danh
             mục phim</a></li>
-        <li class="list-group-item"><a href="/dashboard/employee"><i class="fa-solid fa-user-pen"></i></i> Quản lý nhân viên</a></li>
-        <li class="list-group-item"><a href="/dashboard/customer/"><i class="fa-solid fa-users-viewfinder"></i></i> Quản lý khách hàng</a>
+        <li th:class="${#httpServletRequest.getRequestURI().contains('/dashboard/employee') ? 'list-group-item active': 'list-group-item'}"><a href="/dashboard/employee"><i class="fa-solid fa-user-pen"></i></i> Quản lý nhân viên</a></li>
+        <li th:class="${#httpServletRequest.getRequestURI().contains('/dashboard/customer') ? 'list-group-item active': 'list-group-item'}"><a href="/dashboard/customer/"><i class="fa-solid fa-users-viewfinder"></i></i> Quản lý khách hàng</a>
         </li>
-        <li class="list-group-item"><a href="/dashboard/posts"><i class="fa-solid fa-file-lines"></i></i> Quản lý bài viết</a></li>
+        <li th:class="${#httpServletRequest.getRequestURI().contains('/dashboard/posts') ? 'list-group-item active': 'list-group-item'}"><a href="/dashboard/posts"><i class="fa-solid fa-file-lines"></i></i> Quản lý bài viết</a></li>
         <li class="list-group-item">
             <a href="#" data-bs-toggle="modal" data-bs-target="#logOutAdmin"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
         </li>
@@ -59,8 +59,8 @@
 <div th:fragment="sidebar-user">
     <h4>MENU</h4>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="/dashboard"><i class="fa-solid fa-circle-info"></i> Thông tin cá nhân</a></li>
-        <li class="list-group-item"><a href="/dashboard/purchased"><i class="fa-solid fa-ticket"></i> Vé xem phim đã mua</a></li>
+        <li th:class="${#httpServletRequest.getRequestURI().equals('/dashboard') ? 'list-group-item active': 'list-group-item'}"><a href="/dashboard"><i class="fa-solid fa-circle-info"></i> Thông tin cá nhân</a></li>
+        <li th:class="${#httpServletRequest.getRequestURI().contains('/dashboard/purchased') ? 'list-group-item active' :'list-group-item'}"><a href="/dashboard/purchased"><i class="fa-solid fa-ticket"></i> Vé xem phim đã mua</a></li>
         <li class="list-group-item">
             <a href="#" data-bs-toggle="modal" data-bs-target="#logOut"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
         </li>

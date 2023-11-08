@@ -25,7 +25,7 @@
                         <input type="tel" class="form-control" id="phone" th:value="${account.customer.phoneNumber}">
                     </div>
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="confirm-payment">
+                        <input type="checkbox" class="form-check-input" id="confirm-payment" checked>
                         <label class="form-check-label" for="confirm-payment">Bạn đồng ý với chính sách sử dụng dữ liệu
                             của chúng tôi</label>
                     </div>
@@ -100,7 +100,7 @@
                             <h5>Phương thức thanh toán</h5>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="payment" id="banking"
-                                       value="vnpay">
+                                       value="vnpay" checked>
                                 <label class="form-check-label" for="banking">
                                     Thanh toán bằng VNPay
                                 </label>
@@ -109,7 +109,7 @@
                                 <input class="form-check-input" type="radio" name="payment" id="card-payment"
                                        value="momo">
                                 <label class="form-check-label" for="card-payment">
-                                    Thanh toán qua momo
+                                    Thanh toán qua Momo
                                 </label>
                             </div>
                         </div>

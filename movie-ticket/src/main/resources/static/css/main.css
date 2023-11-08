@@ -97,10 +97,15 @@ h3 {
 }
 
 #banner-home .card-img-overlay {
-    background: linear-gradient(83deg, #000 30.74%, rgba(0, 0, 0, 0.00) 61.91%) no-repeat;
+    background: linear-gradient(359deg, #000 30.74%, rgba(0, 0, 0, 0.00) 61.91%) no-repeat;
     border-radius: 30px;
 }
-
+#banner-home .carousel-inner {
+    border: unset;
+    border-radius: 30px;
+    box-shadow: #dc35455c 0px 4px 12px;
+    height: 500px;
+}
 #list-fim-home .card-img-overlay {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.21) 53.24%, rgba(0, 0, 0, 0.83) 100%) no-repeat;
     display: flex;
@@ -180,7 +185,7 @@ section#banner-footer .card.text-bg-dark {
 }
 
 footer p, li.list-group-item a {
-    color: #848484 !important;
+    color: #848484;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -268,7 +273,7 @@ label.btn.seat {
     color: #FFFFFF;
     border: 2px #fff solid;
     border-radius: 5px;
-    background: #E20442;
+    background: #198754;
 }
 
 .example .box {
@@ -292,11 +297,15 @@ label.btn.seat {
 }
 
 .example.user-select .box {
-    background: #E20442;
+    background: #198754;
     border: 2px solid #FFF;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#check-out .example.user-select .box {
+    background: #E20442;
 }
 
 label.form-label, label.form-check-label {

@@ -201,6 +201,7 @@ public class PaymentController {
         }
         model.addAttribute("booking", booking);
         model.addAttribute("seatBookings", seatSelect);
+        bookingService.sendEmail(booking);
         return "payment-success";
     }
 
