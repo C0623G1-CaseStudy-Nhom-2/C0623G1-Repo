@@ -52,4 +52,9 @@ public class ShowTimeService implements IShowTimeService {
     public List<ShowTime> findAll() {
         return showTimeRepo.findAll();
     }
+
+    @Override
+    public Page<ShowTime> findByMovieId(Long id, Pageable pageable) {
+        return showTimeRepo.findShowTimeByMovieId(id, pageable);
+    }
 }

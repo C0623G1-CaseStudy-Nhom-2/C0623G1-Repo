@@ -9,6 +9,7 @@ import com.example.movie_ticket.service.IMovieService;
 import com.example.movie_ticket.service.IShowTimeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -29,22 +30,29 @@ public class ShowtimeDashboardController {
     @Autowired
     private IEmployeeService employeeService;
 
-    @GetMapping
-    public ModelAndView showShowtimeList(@PageableDefault(value = 2) Pageable pageable) {
+    @GetMapping("/view-showtime/{id}")
+    public ModelAndView showShowtimeList(@PageableDefault(value = 2) Pageable pageable, @PathVariable Long id, Model model) {
+        Page<ShowTime> showTimeList = showTimeService.findByMovieId(id, pageable);
+        Movie movie = movieService.findMovieById(id);
+        model.addAttribute("movie", movie);
         return new ModelAndView("/showtime/view-showtime",
-                "showtimeList", showTimeService.findAllShowtime(pageable));
+                "showtimeList", showTimeList);
     }
 
-    @GetMapping("/add")
-    public ModelAndView showAddNewShowtime(Model model) {
+    @GetMapping("/add/{id}")
+    public ModelAndView showAddNewShowtime(Model model, @PathVariable Long id) {
         List<Employee> employeeList = employeeService.findAllEmployee();
         model.addAttribute("employeeList", employeeList);
-        return new ModelAndView("/showtime/add", "showtimeDto", new ShowtimeDto());
+        ShowtimeDto showtimeDto = new ShowtimeDto();
+        showtimeDto.setMovie(movieService.findMovieById(id));
+        return new ModelAndView("/showtime/add", "showtimeDto", showtimeDto);
     }
     @PostMapping("/confirm-add")
-    public ModelAndView addNewShowtime(@ModelAttribute ShowTime showTime) {
+    public ModelAndView addNewShowtime(@ModelAttribute ShowtimeDto showtimeDto) {
+        ShowTime showTime = new ShowTime();
+        BeanUtils.copyProperties(showtimeDto, showTime);
         showTimeService.saveNewShowtime(showTime);
-        return new ModelAndView("redirect:/dashboard/showtime");
+        return new ModelAndView("redirect:/dashboard/movies");
     }
     @GetMapping("/update/{id}")
     public ModelAndView showUpdateShowtime(@PathVariable Long id, Model model) {
@@ -61,7 +69,8 @@ public class ShowtimeDashboardController {
     @GetMapping("/delete/{id}")
     public ModelAndView deleteShowtime(@PathVariable Long id) {
         ShowTime showTime = showTimeService.findShowtimeById(id);
-        showTime.setDeleted(true);
-        return new ModelAndView("redirect:/dashboard/showtime");
+        showTime.setDeleted(1);
+        showTimeService.saveNewShowtime(showTime);
+        return new ModelAndView("redirect:/dashboard/movies");
     }
 }

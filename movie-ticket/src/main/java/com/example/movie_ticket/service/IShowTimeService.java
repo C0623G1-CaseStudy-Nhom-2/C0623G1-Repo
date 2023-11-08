@@ -15,4 +15,5 @@ public interface IShowTimeService {
     Page<ShowTime> findAllShowtime(Pageable pageable);
     ShowTime findShowtimeById(Long id);
     List<ShowTime> findAll();
+    Page<ShowTime> findByMovieId(Long id, Pageable pageable);
 }

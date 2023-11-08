@@ -16,7 +16,9 @@
                     <a href="/dashboard/movies"><i class="fa-solid fa-arrow-left"></i> &nbsp; Quay lại</a>
                 </div>
                 <h3>Thêm mới suất chiếu</h3>
-                <form action="/dashboard/movies/confirm-add" method="post" th:object="${showtime}">
+                <form action="/dashboard/showtime/confirm-add" method="post" th:object="${showtime}">
+                    <input th:field="*{movie}" th:value="${showtime.movie.id}" hidden="hidden">
+                    <input th:field="*{id}" th:value="${showtime.id}" hidden="hidden">
                     <div class="mb-3">
                         <label class="form-label" for="startTime">Thời gian bắt đầu</label>
                         <input class="form-control" id="startTime" th:field="*{startTime}" type="time" required>
@@ -29,7 +31,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="showDate">Ngày chiếu</label>
-                        <input class="form-control" id="showDate" th:field="*{showDate}" type="date" required>
+                        <input class="form-control" id="showDate" th:field="*{showDate}" th:value="${showtime.showDate}" type="date" required>
                         <p style="color: #e20442" th:errors="*{showDate}"
                            th:if="${#fields.hasErrors('showDate')}"></p>
                     </div>
@@ -40,10 +42,19 @@
                            th:if="${#fields.hasErrors('roomNumber')}"></p>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="employeeId">ID nhân viên</label>
-                        <input class="form-control" id="employeeId" th:field="*{employee.id}" type="number" required readonly>
-                        <p style="color: #e20442" th:errors="*{employee.id}"
-                           th:if="${#fields.hasErrors('employee')}"></p>
+                        <label class="form-label" for="price">Giá tiền <sub style="color: red">( * )</sub></label>
+                        <input class="form-control" id="price" required th:field="*{price}" th:value="${showtime.price}" type="number">
+                        <p style="color: #e20442" th:errors="*{price}"
+                           th:if="${#fields.hasErrors('price')}"></p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="employee">Nhân viên <sub style="color: red">( * )</sub></label>
+                        <select aria-label="Default select example" class="form-select" id="employee" name="employee"
+                                th:field="*{employee}">
+                            <option th:each="empl : ${employeeList}" th:text="${empl.fullName}"
+                                    th:value="${empl.id}">Open this select menu
+                            </option>
+                        </select>
                     </div>
                     <div class="mb3">
                         <input class="btn btn-primary" type="submit" value="Xác nhận">

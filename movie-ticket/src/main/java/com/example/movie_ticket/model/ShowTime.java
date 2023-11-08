@@ -26,7 +26,7 @@ public class ShowTime {
     private Employee employee;
     @OneToMany(mappedBy = "showTime")
     private Set<Booking> booking;
-    private boolean deleted;
+    private int deleted;
 
     public ShowTime() {
     }
@@ -104,11 +104,11 @@ public class ShowTime {
         this.booking = booking;
     }
 
-    public boolean isDeleted() {
+    public int getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(int deleted) {
         this.deleted = deleted;
     }
 }

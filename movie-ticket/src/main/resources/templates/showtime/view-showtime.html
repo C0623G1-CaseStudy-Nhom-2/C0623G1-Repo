@@ -11,43 +11,37 @@
                 <div th:replace="~{layout::sidebar-admin}"></div>
             </div>
             <div class="col-lg-9 ps-5 table-dashboard order">
+                <a href="/dashboard/movies"><h2 style="text-align: center;" th:text="${movie.title}"><i class="fa-solid fa-arrow-left"></i>Tên phim</h2></a>
                 <div class="create">
-                    <a href="/dashboard/movies/add"><i class="fa-solid fa-square-plus"></i> Thêm suất chiếu</a>
+                    <a th:href="@{/dashboard/showtime/add/__${movie.id}__}"><i class="fa-solid fa-square-plus"></i> Thêm
+                        suất chiếu</a>
                 </div>
                 <div class="table-main">
-                    <div class="search-table">
-                        <form action="/dashboard/movies/search">
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <div class="col-lg-6 form-floating mb-3">
-                                        <input class="form-control" id="idMovie" name="idMovie" placeholder=""
-                                               type="text">
-                                        <label for="idMovie"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo mã
-                                            phim</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 d-flex justify-content-between">
-                                    <div class="col-auto form-floating mt-1">
-                                        <a style="font-size: 1.4em; color: #e20442" href="/dashboard/movies" title="Tải lại"><i class="fa-solid fa-rotate-right"></i></a>
-                                    </div>
-                                    <div class="col-auto form-floating mb-3">
-                                        <input class="form-control" id="nameFilm" name="nameMovie" placeholder=""
-                                               type="text" required>
-                                        <label for="nameFilm"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo tên
-                                            phim</label>
-                                    </div>
-                                    <div class="col-auto form-floating mb-3">
-                                        <input class="form-control" id="dateOrder" type="date" disabled>
-                                        <label for="dateOrder"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo
-                                            thời gian</label>
-                                    </div>
-                                    <div class="col-lg-2 form-floating mb-3">
-                                        <input class="form-control btn btn-primary" type="submit" value="Tìm">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+<!--                    <div class="search-table">-->
+<!--                        <form action="/dashboard/movies/search">-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-lg-5">-->
+<!--                                    <div class="col-lg-6 form-floating mb-3">-->
+<!--                                        <input type="date" class="form-control" id="idCategory" name="dateSearch"-->
+<!--                                               placeholder="Chọn ngày" disabled>-->
+<!--                                        <label for="idCategory"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo-->
+<!--                                            ngày chiếu</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-lg-7 d-flex justify-content-end">-->
+<!--                                    <div class="col-auto form-floating mb-3 me-3">-->
+<!--                                        <input type="text" class="form-control" id="nameCategory" name="phoneSearch"-->
+<!--                                               placeholder="Nhập số điện thoại" disabled>-->
+<!--                                        <label for="nameCategory"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo-->
+<!--                                            ngày chiếu</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-lg-2 form-floating mb-3">-->
+<!--                                        <input type="submit" class="form-control btn btn-primary" value="Tìm" disabled>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                    </div>-->
                     <table class="table table-hover" style="text-align: center">
                         <thead>
                         <tr>
@@ -55,33 +49,34 @@
                             <th scope="col">KHUNG GIỜ CHIẾU</th>
                             <th scope="col">NGÀY CHIẾU</th>
                             <th scope="col">NHÂN VIÊN TRỰC</th>
-                            <th scope="col">PHIM</th>
                             <th scope="col">GIÁ TIỀN</th>
                             <th scope="col" style="text-align: center">THAO TÁC</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr><td colspan="6" th:if="${showtimeList.isEmpty()}" style="text-align: center">Không có kết quả</td></tr>
-                        <tr th:unless="${showtimeList.isEmpty()}" th:each="showtime, count : ${showtimeList}">
-                            <td th:text="${(showtimeList.number)*showtimeList.pageable.pageSize+count.count}">#12921</td>
+                        <tr>
+                            <td colspan="6" style="text-align: center" th:if="${showtimeList.isEmpty()}">Không có kết
+                                quả
+                            </td>
+                        </tr>
+                        <tr th:each="showtime, count : ${showtimeList}" th:unless="${showtimeList.isEmpty()}">
+                            <td th:text="${(showtimeList.number)*showtimeList.pageable.pageSize+count.count}">#12921
+                            </td>
                             <td th:text="${showtime.startTime + ' - ' + showtime.endTime}">Vầng Trăng Máu</td>
-<!--                            <td>- </td>-->
-<!--                            <td th:text="${showtime.endTime}">Phạm Văn Thành</td>-->
                             <td th:text="${showtime.showDate}">15h30 28/10/2023</td>
                             <td><a th:href="@{/dashboard/employee/view/__${showtime.employee.id}__}"
                                    th:text="${showtime.employee.fullName}"></a></td>
-                            <td><a th:href="@{/dashboard/movie/details/__${showtime.movie.id}__}"
-                                   th:text="${showtime.movie.title}"></a></td>
-                            <td th:text="${showtime.price}">15h30 28/10/2023</td>
+                            <td th:text="${showtime.price}">100000</td>
 
                             <td style="text-align: center">
-<!--                                <a th:href="@{/dashboard/movies/detail/__${movie.id}__}" title="Xem chi tiết"><i-->
-<!--                                        class="fa-solid fa-file-lines"></i></a>-->
+                                <!--                                <a th:href="@{/dashboard/movies/detail/__${movie.id}__}" title="Xem chi tiết"><i-->
+                                <!--                                        class="fa-solid fa-file-lines"></i></a>-->
                                 <a th:href="@{/dashboard/showtime/update/__${showtime.id}__}" title="Sửa"><i
                                         class="fa-solid fa-pen-to-square"></i></a>
                                 <!--<a th:href="@{/dashboard/movies/delete/__${movie.id}__}" title="Xóa"><i class="fa-solid fa-trash-can"></i></a>-->
                                 <a data-bs-target="#exampleModal" data-bs-toggle="modal"
-                                   role="button" th:attr="onclick=|sendDataModal('${showtime.id}','${showtime.showDate}')|"
+                                   role="button"
+                                   th:attr="onclick=|sendDataModal('${showtime.id}','${showtime.showDate}')|"
                                    title="Xóa"><i
                                         class="fa-solid fa-trash-can"></i></a>
                             </td>
@@ -136,7 +131,7 @@
             </div>
             <div class="modal-body">
                 Bạn có chắc chắn muốn xóa lịch chiếu vào ngày <span class="text-danger"
-                                                     id="date-delete"></span> không?
+                                                                    id="date-delete"></span> không?
                 Hành động này sẽ không thể khôi phục lại!
             </div>
             <div class="modal-footer">
