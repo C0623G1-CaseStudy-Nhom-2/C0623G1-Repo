@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -61,6 +62,10 @@ public class BookingController {
         if (booking != null){
             bookingService.deleteBooking(id);
             redirectAttributes.addFlashAttribute("success","Xóa đơn hàng thành công");
+            List<Booking> bookingList = bookingService.showBookingCancel(booking.getShowTime().getMovie().getId());
+            for (int i = 0; i < bookingList.size(); i++) {
+                bookingService.sendEmailCancel(bookingList.get(i));
+            }
         }
         return "redirect:/dashboard/booking";
     }

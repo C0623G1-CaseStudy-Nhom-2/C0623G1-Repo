@@ -28,14 +28,14 @@ public interface IBookingRepo extends JpaRepository<Booking, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = " update bookings set is_deleted = 1" +
+     @Query(value = " update bookings set is_deleted = 1" +
             " where bookings.id =:id", nativeQuery = true)
     void deleteById(@Param("id") Long id);
 
     @Modifying
     @Transactional
     @Query(value = " update bookings set is_deleted = 2" +
-            " where bookings.id =:id", nativeQuery = true)
+            " where  bookings.id =:id ", nativeQuery = true)
     void cancelBooking(@Param("id") Long id);
 
     @Query(value = "select * " +
@@ -50,6 +50,27 @@ public interface IBookingRepo extends JpaRepository<Booking, Long> {
             "            where year(date_purchased) = year(now()) " +
             "            order by date(date_purchased) ",nativeQuery = true)
     List<Booking> showHistoryBookingYear();
+    @Query(value = "select * from bookings " +
+            "            where month(date_purchased) =:month " +
+            "            order by date(date_purchased) ",nativeQuery = true)
+    List<Booking> showHistoryBookingOfMonth(@Param("month") int month);
+
+    @Query(value = "select * from bookings bk" +
+            " join show_time st on st.id = bk.showtime_id " +
+            "            where is_deleted = 0 and date(st.show_date) < date(now())",nativeQuery = true)
+    List<Booking> showHistoryBookingSuccess();
+
+    @Query(value = "select * from bookings " +
+            "            where is_deleted = 2",nativeQuery = true)
+    List<Booking> showHistoryBookingCancel();
+    @Query(value = "select * from bookings bk" +
+            " join show_time st on st.id = bk.showtime_id " +
+            "            where is_deleted = 0 and date(st.show_date) > date(now())",nativeQuery = true)
+    List<Booking> showHistoryBookingLoading();
+    @Query(value = "select * from bookings bk" +
+            " join show_time st on st.id = bk.showtime_id " +
+            "            where is_deleted = 0 and date(st.show_date) > date(now()) and st.movie_id=:id",nativeQuery = true)
+    List<Booking> showBookingCancel(@Param("id") Long id);
 
 }
 

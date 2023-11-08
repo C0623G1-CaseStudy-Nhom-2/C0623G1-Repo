@@ -79,18 +79,18 @@ public class BookingServiceImpl implements IBookingService {
         String content = "<body style=\"margin: 0; padding: 0\">\n" +
                 "<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse\">\n" +
                 "  <tr>\n" +
-                "    <td  style=\" background: #5cb1e7; \">\n" +
+                "    <td  style=\" background: #f8f8f8; \">\n" +
                 "    </td>\n" +
                 "  </tr>\n" +
                 "  <tr>\n" +
                 "    <td bgcolor=\"#eaeaea\" style=\"padding: 30px 20px 40px 30px;\">\n" +
-                "      <p>Thân gửi :<span style=\"color: #0db9e0;font-size: 14px;font-weight: bold;\"> " + booking.getCustomer().getFullName() + "</span></p>\n" +
-                "      <p>MOVIES24H xin xác nhận bạn đã huỷ vé xem phim thành công.Thông tin vé như sau:</p>\n" +
+                "      <p style=\"font-weight:bold;\">\nXin chào :<span\"> " + booking.getCustomer().getAccount().getUsername() + "</span></p>\n" +
+                "      <p>MOVIES24H xin xác nhận bạn đã đặt vé xem phim thành công.</p>\n" +
                 "      <ul>\n" +
+                "        <li>Mã đơn hàng: " + booking.getCodeBooking() + "</li>\n" +
                 "        <li>Tên phim: " + booking.getShowTime().getMovie().getTitle() + "</li>\n" +
                 "        <li>Ngày: " + booking.getShowTime().getShowDate() + "</li>\n" +
                 "        <li>Giá: " + booking.getTotalPrice() + "</li>\n" +
-                "        <li>Chúng tôi sẽ hoàn tiền trong 2 - 4 giờ</li>\n" +
                 "        <li>Cảm ơn bạn đã tin tưởng và sử dụng dịch vụ tại MOVIES24H!</li>\n" +
                 "      </ul>\n" +
                 "    </td>\n" +
@@ -125,5 +125,55 @@ public class BookingServiceImpl implements IBookingService {
     @Override
     public List<Booking> showHistoryBookingYear() {
        return bookingRepo.showHistoryBookingYear();
+    }
+
+    @Override
+    public List<Booking> showHistoryBookingOfMonth(int month) {
+        return bookingRepo.showHistoryBookingOfMonth(month);
+    }
+
+    @Override
+    public void sendEmailCancel(Booking booking) {
+        String toAddress = booking.getCustomer().getEmail();
+        String fromAddress = "trung11041990a1@gmail.com";
+        String senderName = "DATPHIM";
+        String subject = "Thư Thông Báo Hủy Đơn Hàng";
+        String content = "<body style=\"margin: 0; padding: 0\">\n" +
+                "<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse\">\n" +
+                "  <tr>\n" +
+                "    <td  style=\" background: #f8f8f8; \">\n" +
+                "    </td>\n" +
+                "  </tr>\n" +
+                "  <tr>\n" +
+                "    <td bgcolor=\"#eaeaea\" style=\"padding: 30px 20px 40px 30px;\">\n" +
+                "      <p style=\"font-weight:bold;\">\nXin chào :<span\"> " + booking.getCustomer().getAccount().getUsername() + "</span></p>\n" +
+                "      <p>MOVIES24H xin lỗi về vấn đề bản quyền nên chúng tôi không thể tiếp tục phát sóng phim </p>\n <span\">" + booking.getShowTime().getMovie().getTitle() + "</span></p>\n" +
+                "      <ul>\n" +
+                "        <li>Chúng tôi sẽ hoàn số tiền <span\">" + booking.getTotalPrice() + "</span> vào thời gian 3 - 6 tiếng </li>\n" +
+                "        <li>Cảm ơn bạn đã tin tưởng và sử dụng dịch vụ tại MOVIES24H!</li>\n" +
+                "        <li>Rất xin lỗi quý khách về vấn đề này!</li>\n" +
+                "      </ul>\n" +
+                "    </td>\n" +
+                "  </tr>\n" +
+                "</table>\n" +
+                "</body>";
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8"); // Đặt encoding là UTF-8
+        try {
+            helper.setFrom(fromAddress, senderName);
+            helper.setTo(toAddress);
+            helper.setSubject(subject);
+            helper.setText(content, true); // Sử dụng HTML
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        mailSender.send(message);
+    }
+
+    @Override
+    public List<Booking> showBookingCancel(Long id) {
+        return bookingRepo.showBookingCancel(id);
     }
 }

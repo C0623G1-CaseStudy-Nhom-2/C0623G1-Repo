@@ -1,13 +1,15 @@
 package com.example.movie_ticket.controller;
 
-import com.example.movie_ticket.config.ConfigVNPay;
 import com.example.movie_ticket.model.*;
 import com.example.movie_ticket.service.*;
+import com.example.movie_ticket.ultils.NumberRandom;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -57,6 +59,28 @@ public class ShowTimeController {
         model.addAttribute("booking", new Booking());
         return new ModelAndView("checkout");
     }
+
+//    @PostMapping("/booking-success")
+//    public ModelAndView saveBooking(@RequestParam Set<String> seatSelect,
+//                                    @RequestParam Long customer,
+//                                    @RequestParam Float totalPrice,
+//                                    @RequestParam Long showTimeOrder){
+//        Customer customerFind = customerService.findCustomerbyId(customer);
+//        ShowTime showTimeFind = showTimeService.getShowTimeById(showTimeOrder);
+//        Booking booking = new Booking();
+//        booking.setCustomer(customerFind);
+//        booking.setCodeBooking(NumberRandom.codeRandom());
+//        booking.setShowTime(showTimeFind);
+//        booking.setTotalPrice(totalPrice);
+//        bookingService.saveBooking(booking);
+//        for (String seat : seatSelect) {
+//            SeatBooking seatBooking = new SeatBooking();
+//            seatBooking.setBooking(booking);
+//            seatBooking.setSeat(seat);
+//            seatBookingService.saveSeatBooking(seatBooking);
+//        }
+//        return new ModelAndView("redirect:/");
+//    }
 }
 //else {
 //            Customer customerFind = customerService.findCustomerbyId(customer);
