@@ -33,4 +33,14 @@ public class AccountService implements IAccountService {
     public List<Account> getAllAccounts() {
         return accountRepo.findAll();
     }
+
+    @Override
+    public Account findByEmail(String email) {
+        return accountRepo.findByEmail(email);
+    }
+
+    @Override
+    public Account findByPhone(String phone) {
+        return accountRepo.findByPhone(phone);
+    }
 }

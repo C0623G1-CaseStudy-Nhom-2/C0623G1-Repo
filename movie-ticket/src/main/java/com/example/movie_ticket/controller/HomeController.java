@@ -66,6 +66,12 @@ public class HomeController {
         if (accountService.findByUsername(signUpDto.getUsername()) != null){
             bindingResult.rejectValue("username",null,"Username đã tồn tại trong hệ thống");
         }
+        if (accountService.findByEmail(signUpDto.getEmail()) != null){
+            bindingResult.rejectValue("email",null,"Email đã được đăng kí tài khoản khác trong hệ thống");
+        }
+        if (accountService.findByPhone(signUpDto.getPhoneNumber()) != null){
+            bindingResult.rejectValue("phoneNumber",null,"Số điện thoại đã được đăng kí tài khoản khác trong hệ thống");
+        }
         if (bindingResult.hasFieldErrors()) {
             return new ModelAndView("signup", "signUpDto", signUpDto);
         } else {

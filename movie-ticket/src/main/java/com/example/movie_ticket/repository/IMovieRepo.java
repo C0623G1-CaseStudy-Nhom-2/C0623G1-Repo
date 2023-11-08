@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -21,5 +22,8 @@ public interface IMovieRepo extends JpaRepository<Movie, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * from movies where deleted = 0 ORDER BY release_date")
     Page<Movie> findAllOrderByDate(Pageable pageable);
+    @Query(nativeQuery = true, value = "SELECT * FROM movies WHERE release_date >= :dateStart AND release_date <= :dateEnd AND deleted = 0 AND title LIKE CONCAT('%', :title, '%')")
+    Page<Movie> findMovieByIdAndDateOrder(@Param("dateStart") String dateStart, @Param("dateEnd") String dateEnd, @Param("title") String title, Pageable pageable);
+
 
 }

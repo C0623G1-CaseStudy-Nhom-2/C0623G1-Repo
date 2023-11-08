@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -67,15 +69,15 @@ public class MovieDashboardController {
     }
 
     @GetMapping("/search")
-    public ModelAndView searchMovie(@RequestParam(name = "idMovie", required = false) Long idMovie,
-                                    String nameMovie, String date, Model model,
+    public ModelAndView searchMovie(String startDate, String endDate, String nameMovie,  Model model,
                                     @PageableDefault(value = 2) Pageable pageable) {
-        Page<Movie> movies = movieService.findMovieByIdAndName(idMovie, nameMovie, pageable);
+        Page<Movie> movies = movieService.findMovieByIdAndDateOrder(startDate,endDate,nameMovie,pageable);
         if (movies.isEmpty()) {
+            model.addAttribute("movies",movies);
             return new ModelAndView("/movie/movies", "empty", "Không có kết quả");
         }
         model.addAttribute("nameMovie", nameMovie);
-        model.addAttribute("idMovie", idMovie);
+//        model.addAttribute("dateOrder", dateOrder);
         return new ModelAndView("/movie/movies", "movies", movies);
     }
 

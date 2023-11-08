@@ -70,6 +70,11 @@ public class MovieService implements IMovieService {
     }
 
     @Override
+    public Page<Movie> findMovieByIdAndDateOrder(String dateStart,String dateEnd,String title,Pageable pageable) {
+        return movieRepo.findMovieByIdAndDateOrder(dateStart,dateEnd,title,pageable);
+    }
+
+    @Override
     public Page<Movie> findMovieOrderByDate(Pageable pageable) {
         return movieRepo.findAllOrderByDate(pageable);
     }
