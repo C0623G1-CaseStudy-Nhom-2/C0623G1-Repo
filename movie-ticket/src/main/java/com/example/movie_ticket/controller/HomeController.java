@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.security.auth.login.LoginContext;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -48,7 +49,7 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public ModelAndView showLogin(){
+    public ModelAndView showLogin() {
         return new ModelAndView("login");
     }
 
@@ -60,6 +61,9 @@ public class HomeController {
     public ModelAndView showSignUp(@Valid @ModelAttribute(name = "signup") SignUpDto signUpDto,
                                    BindingResult bindingResult){
         signUpDto.validate(signUpDto,bindingResult);
+        if (accountService.findByUsername(signUpDto.getUsername()) != null){
+            bindingResult.rejectValue("username",null,"Username đã tồn tại trong hệ thống");
+        }
         if (bindingResult.hasFieldErrors()) {
             return new ModelAndView("signup", "signUpDto", signUpDto);
         } else {

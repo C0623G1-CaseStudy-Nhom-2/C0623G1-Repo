@@ -109,6 +109,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Top phim</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Bài viết</a>
+                </li>
             </ul>
             <form class="d-flex px-3" role="search" action="/search">
                 <input type="search" class="form-control" name="search-film" placeholder="Tìm kiếm" aria-label="Search">
@@ -136,61 +139,6 @@
             <div sec:authorize="!isAuthenticated()" id="modal-login">
                 <a class="btn-login btn btn-primary" data-bs-toggle="modal" href="#userLogin" role="button">Đăng
                     nhập</a>
-                <div class="modal fade" id="userSignup" aria-hidden="true" aria-labelledby="userSignupLabel"
-                     tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div id="sign-up" class="wrapper">
-                                <div class="form">
-                                    <form id="form-signup">
-                                        <div class="card text-bg-dark">
-                                            <img src="/image/5b636a2a0d9e069d6a5852547ea877e7.png" class="card-img"
-                                                 alt="...">
-                                            <div class="card-img-overlay" style="padding: 50px;">
-                                                <div class="logo-website text-center mb-4">
-                                                    <img class="text-center" src="/image/logo-MOVIES24H.png" alt="">
-                                                </div>
-                                                <div class="text-center">
-                                                    <h3>Đăng kí</h3>
-                                                    <p>Tạo tài khoản để có thể sử dụng toàn bộ các dịch vụ của chúng
-                                                        tôi</p>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="usernameSignUp" class="form-label">Tên đăng nhập</label>
-                                                    <input id="usernameSignUp" type="text" class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="passwordSignUp" class="form-label">Mật khẩu</label>
-                                                    <input id="passwordSignUp" type="password" class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="emailSignUp" class="form-label">Email</label>
-                                                    <input id="emailSignUp" type="email" class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="confirmEmailSignUp" class="form-label">Nhập lại
-                                                        email</label>
-                                                    <input id="confirmEmailSignUp" type="email" class="form-control">
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <button type="submit" class="btn btn-primary w-100">Đăng kí</button>
-                                                </div>
-                                                <div class="col-lg-12 my-3">
-                                                    <p class="text-secondary-custom">Bạn đã có tài khoản, <a
-                                                            style="color: #E20442" data-bs-target="#userLogin"
-                                                            data-bs-toggle="modal" data-bs-dismiss="modal"
-                                                            role="button">đăng nhập tại đây</a></p>
-                                                    <p>Việc bạn tiếp tục sử dụng trang web này đồng nghĩa bạn đồng ý với
-                                                        điều khoản sử dụng của chúng tôi</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="modal fade" id="userLogin" aria-hidden="true" aria-labelledby="userLoginLabel"
                      tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
@@ -226,9 +174,7 @@
                                             </div>
                                             <div class="col-lg-12 my-3">
                                                 <p class="text-secondary-custom">Bạn chưa có tài khoản, <a
-                                                        style="color: #E20442" data-bs-target="#userSignup"
-                                                        data-bs-toggle="modal" data-bs-dismiss="modal"
-                                                        role="button">đăng kí tại đây</a></p>
+                                                        style="color: #E20442" href="/signup" role="button">đăng kí tại đây</a></p>
                                                 <p>Việc bạn tiếp tục sử dụng trang web này đồng nghĩa bạn đồng ý với
                                                     điều khoản sử dụng của chúng tôi</p>
                                             </div>

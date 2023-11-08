@@ -17,7 +17,6 @@ tinymce.init({
             reader.addEventListener('load', () => {
                 const formData = new FormData();
                 formData.append('file', file);
-                debugger;
                 fetch('/upload/image', {
                     method: 'POST',
                     body: formData

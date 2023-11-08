@@ -7,10 +7,10 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 
 @Configuration
 public class AppConfiguration {
-    @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("validation-message");
-        return messageSource;
-    }
+//    @Bean
+//    public MessageSource messageSource() {
+//        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+//        messageSource.setBasenames("validation-message");
+//        return messageSource;
+//    }
 }

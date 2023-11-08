@@ -43,7 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard").permitAll();
-
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
     }
 
