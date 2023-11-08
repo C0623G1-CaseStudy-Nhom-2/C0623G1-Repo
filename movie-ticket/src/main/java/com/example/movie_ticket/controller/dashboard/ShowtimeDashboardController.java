@@ -31,7 +31,7 @@ public class ShowtimeDashboardController {
     private IEmployeeService employeeService;
 
     @GetMapping("/view-showtime/{id}")
-    public ModelAndView showShowtimeList(@PageableDefault(value = 2) Pageable pageable, @PathVariable Long id, Model model) {
+    public ModelAndView showShowtimeList(@PageableDefault(value = 6) Pageable pageable, @PathVariable Long id, Model model) {
         Page<ShowTime> showTimeList = showTimeService.findByMovieId(id, pageable);
         Movie movie = movieService.findMovieById(id);
         model.addAttribute("movie", movie);
