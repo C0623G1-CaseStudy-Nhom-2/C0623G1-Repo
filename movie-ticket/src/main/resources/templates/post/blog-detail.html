@@ -13,7 +13,7 @@
                 <p th:text="${post.description}">Cập nhật các Blog về phim ảnh hay nhất trên thị trường với đầy đủ thể
                     loại, quốc gia. Giải mã những nội
                     dung phim gây tò mò và hấp dẫn.</p>
-                <p class="text-secondary-custom" th:text="${post.createdAt}"></p>
+                <p class="text-secondary-custom" th:text="${#dates.format(post.createdAt, 'dd-MM-yyyy')}"></p>
             </div>
         </div>
     </section>
