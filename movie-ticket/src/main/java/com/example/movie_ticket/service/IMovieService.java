@@ -28,4 +28,5 @@ public interface IMovieService {
     Page<Movie> findMovieByIdAndName(Long idMovie, String nameMovie, Pageable pageable);
 
     Page<Movie> findMovieOrderByDate(Pageable pageable);
+    Page<Movie> findMoviesByCategoryId(Long id, Pageable pageable);
 }

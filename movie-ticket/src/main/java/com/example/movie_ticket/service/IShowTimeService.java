@@ -14,4 +14,6 @@ public interface IShowTimeService {
     void deleteShowtime(Long id);
     Page<ShowTime> findAllShowtime(Pageable pageable);
     ShowTime findShowtimeById(Long id);
+    List<ShowTime> findAll();
+    Page<ShowTime> findByMovieId(Long id, Pageable pageable);
 }

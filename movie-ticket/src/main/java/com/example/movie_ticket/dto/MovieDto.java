@@ -1,11 +1,9 @@
 package com.example.movie_ticket.dto;
 
 import com.example.movie_ticket.model.Category;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -26,11 +24,12 @@ public class MovieDto implements Validator {
     private String avatar;
     @NotBlank(message = "Không được để trống link ảnh")
     private String banner;
+    private int deleted;
 
     public MovieDto() {
     }
 
-    public MovieDto(Long id, String title, String description, String releaseDate, Category category, String director, String avatar, String banner) {
+    public MovieDto(Long id, String title, String description, String releaseDate, Category category, String director, String avatar, String banner, int deleted) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -39,6 +38,7 @@ public class MovieDto implements Validator {
         this.director = director;
         this.avatar = avatar;
         this.banner = banner;
+        this.deleted = deleted;
     }
 
     public Long getId() {
@@ -108,6 +108,14 @@ public class MovieDto implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
         return false;
+    }
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
     }
 
     @Override

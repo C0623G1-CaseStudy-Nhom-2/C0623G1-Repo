@@ -37,7 +37,7 @@ public class ShowTimeService implements IShowTimeService {
 
     @Override
     public Page<ShowTime> findAllShowtime(Pageable pageable) {
-        return showTimeRepo.findAll(pageable);
+        return showTimeRepo.findAllOrOrderByShowDate(pageable);
     }
 
     @Override
@@ -46,5 +46,15 @@ public class ShowTimeService implements IShowTimeService {
         return showTimeRepo.findById(id).get();
     }
         return null;
+    }
+
+    @Override
+    public List<ShowTime> findAll() {
+        return showTimeRepo.findAll();
+    }
+
+    @Override
+    public Page<ShowTime> findByMovieId(Long id, Pageable pageable) {
+        return showTimeRepo.findShowTimeByMovieId(id, pageable);
     }
 }

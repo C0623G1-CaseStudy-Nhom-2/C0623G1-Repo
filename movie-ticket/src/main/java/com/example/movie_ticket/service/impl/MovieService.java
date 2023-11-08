@@ -73,4 +73,9 @@ public class MovieService implements IMovieService {
     public Page<Movie> findMovieOrderByDate(Pageable pageable) {
         return movieRepo.findAllOrderByDate(pageable);
     }
+
+    @Override
+    public Page<Movie> findMoviesByCategoryId(Long id, Pageable pageable) {
+        return movieRepo.findMoviesByCategoryId(id, pageable);
+    }
 }
