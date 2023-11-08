@@ -42,7 +42,7 @@ public class MovieDashboardController {
     }
 
     @PostMapping("/confirm-add")
-    public String addNewMovie(@Valid @ModelAttribute MovieDto movieDto, BindingResult bindingResult, Model model) {
+    public String addNewMovie(@Valid @ModelAttribute MovieDto movieDto, BindingResult bindingResult, Model model,RedirectAttributes redirectAttributes) {
         new MovieDto().validate(movieDto, bindingResult);
         List<Category> categoryList = categoryService.getAllCategory();
         model.addAttribute("categoryList", categoryList);
@@ -52,15 +52,17 @@ public class MovieDashboardController {
             Movie movie = new Movie();
             BeanUtils.copyProperties(movieDto, movie);
             movieService.saveMovie(movie);
+            redirectAttributes.addFlashAttribute("success","Thêm phim thành công");
             return "redirect:/dashboard/movies";
         }
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteMovie(@PathVariable Long id) {
+    public String deleteMovie(@PathVariable Long id,RedirectAttributes redirectAttributes) {
         Movie movie = movieService.findMovieById(id);
         movie.setDeleted(1);
         movieService.saveMovie(movie);
+        redirectAttributes.addFlashAttribute("success","Xóa phim thành công");
         return "redirect:/dashboard/movies";
     }
 
@@ -99,6 +101,8 @@ public class MovieDashboardController {
             Movie movieTarget = new Movie();
             BeanUtils.copyProperties(movieDto, movieTarget);
             movieService.saveMovie(movieTarget);
+            redirectAttributes.addFlashAttribute("success","Cập nhật phim thành công");
+
             return new ModelAndView("redirect:/dashboard/movies");
         }
     }
