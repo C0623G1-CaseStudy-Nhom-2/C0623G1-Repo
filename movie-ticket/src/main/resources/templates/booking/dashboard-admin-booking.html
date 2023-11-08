@@ -18,15 +18,21 @@
                     <div class="search-table">
                         <form action="/dashboard/booking/">
                             <div class="row">
-                                <div class="col-lg-5">
+                                <div class="col-lg-3">
                                     <div class="col-lg-6 form-floating mb-3">
                                         <input type="date" class="form-control" id="idCategory" name="dateSearch"
                                                placeholder="Chọn ngày" th:value="${dateSearch}">
-                                        <label for="idCategory"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo
-                                            ngày chiếu</label>
+                                        <label for="idCategory"><i class="fa-solid fa-magnifying-glass"></i> Ngày bắt đầu</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-7 d-flex justify-content-end">
+                                <div class="col-lg-3">
+                                    <div class="col-lg-6 form-floating mb-3">
+                                        <input type="date" class="form-control" id="date" name="dateSearch"
+                                               placeholder="Chọn ngày" th:value="${dateSearch2}">
+                                        <label for="idCategory"><i class="fa-solid fa-magnifying-glass"></i> Ngày kết thúc</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 d-flex justify-content-end">
                                     <div class="col-auto form-floating mb-3 me-3">
                                         <input type="text" class="form-control" id="nameCategory" name="phoneSearch"
                                                placeholder="Nhập số điện thoại" th:value="${phoneSearch}">
@@ -65,13 +71,6 @@
                             <td>
                                 <a th:href="@{/dashboard/booking/view(id=${item.id})}" title="Xem chi tiết"><i
                                         class="fa-solid fa-file-lines"></i></a>
-                                <a th:href="@{/dashboard/booking/edit/__${item.id}__(movie=${item.showTime.movie.id})}"
-                                   title="Sửa"><i
-                                        class="fa-solid fa-pen-to-square"></i></a>
-                                <a type="button" th:attr="onclick=|sendDataModal('${item.id}','${item.codeBooking}')|"
-                                   title="Xóa"
-                                   role="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                        class="fa-solid fa-trash-can"></i></a>
                             </td>
                         </tr>
                         </tbody>
@@ -85,6 +84,7 @@
                             ${#httpServletRequest.getRequestURI()}+ '?page=' +
                             ${bookingPage.number - 1} +
                             ${dateSearch != null && dateSearch != '' ? '&dateSearch='+dateSearch:''} +
+                            ${dateSearch2 != null && dateSearch2 != '' ? '&dateSearch2='+dateSearch2:''} +
                             ${phoneSearch != null && phoneSearch != '' ? '&phoneSearch='+phoneSearch:''}
                             }">Trước</a>
                         </li>
@@ -93,6 +93,7 @@
                             <a class="page-link" th:text="${i + 1}" th:href="@{
                             ${#httpServletRequest.getRequestURI()} + '?page=' + ${i} +
                             ${dateSearch != null && dateSearch != '' ? '&dateSearch='+dateSearch:''} +
+                            ${dateSearch2 != null && dateSearch2 != '' ? '&dateSearch2='+dateSearch2:''} +
                             ${phoneSearch != null && phoneSearch != '' ? '&phoneSearch='+phoneSearch:''}
                             }"></a>
                         </li>
@@ -101,6 +102,7 @@
                             ${#httpServletRequest.getRequestURI()} + '?page=' +
                             ${bookingPage.number + 1} +
                             ${dateSearch != null && dateSearch != '' ? '&dateSearch='+dateSearch:''} +
+                            ${dateSearch2 != null && dateSearch2 != '' ? '&dateSearch2='+dateSearch2:''} +
                             ${phoneSearch != null && phoneSearch != '' ? '&phoneSearch='+phoneSearch:''}
                             }">Tiếp</a>
                         </li>

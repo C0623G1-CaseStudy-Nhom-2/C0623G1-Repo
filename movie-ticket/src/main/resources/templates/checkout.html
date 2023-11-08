@@ -6,7 +6,7 @@
 <div class="container">
     <header th:replace="~{layout::header}"></header>
     <section id="check-out">
-        <form action="/showtime/booking-success" method="post">
+        <form onsubmit="disableButton()" action="/showtime/booking-success" method="post">
             <div class="row my-5">
                 <div class="col-lg-6 info-user">
                     <h2>Thông tin khách hàng</h2>
@@ -116,7 +116,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <button type="submit" class="btn btn-primary w-100">Tiếp tục</button>
+                            <button type="submit" id="pay" class="btn btn-primary w-100">Tiếp tục</button>
                         </div>
                     </div>
                 </div>
@@ -125,5 +125,46 @@
     </section>
 </div>
 <footer th:replace="~{layout::footer}"></footer>
+<script>
+    $(document).ready(function () {
+        $("#pay").click(function () {
+            let timerInterval;
+            let userInteracted = false;
+
+            Swal.fire({
+                html: "Bạn vui lòng chờ trong <b></b> giây",
+                timer: 6000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    const timer = Swal.getPopup().querySelector("b");
+                    let remainingTime = Math.floor(Swal.getTimerLeft() / 1000);
+                    timer.textContent = remainingTime;
+                    timerInterval = setInterval(() => {
+                        if (!userInteracted) {
+                            remainingTime--;
+                            timer.textContent = remainingTime;
+                            if (remainingTime <= 0) {
+                                clearInterval(timerInterval);
+                                Swal.close();
+                            }
+                        }
+                    }, 1000);
+                },
+            });
+
+            Swal.getPopup().addEventListener("mouseover", function () {
+                userInteracted = true;
+            });
+
+        })
+    });
+</script>
+<script>
+    function disableButton (){
+        document.getElementById("btn-submit").disabled = true;
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

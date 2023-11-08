@@ -48,6 +48,11 @@ public class MovieService implements IMovieService {
     }
 
     @Override
+    public List<Movie> movieCancel(Long movie) {
+        return movieRepo;
+    }
+
+    @Override
     public Page<Movie> findMovieByName(String keyword, Pageable pageable) {
         return movieRepo.findByTitleContaining(keyword, pageable);
     }

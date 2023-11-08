@@ -3,6 +3,7 @@ package com.example.movie_ticket.service;
 import com.example.movie_ticket.model.Booking;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,4 +23,7 @@ public interface IBookingService {
     List<Booking> showHistoryBookingMonth();
     List<Booking> showHistoryBookingYear();
     List<Booking> showHistoryBookingOfMonth(int month);
+
+    void sendEmailCancel(Booking booking);
+    List<Booking> showBookingCancel(Long id);
 }

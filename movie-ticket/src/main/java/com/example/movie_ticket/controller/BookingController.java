@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -38,12 +39,20 @@ public class BookingController {
     @GetMapping
     public String showAllBooking(@RequestParam(defaultValue = "0",required = false) int page,
                                  @RequestParam(defaultValue = "",required = false) String dateSearch,
+                                 @RequestParam(defaultValue = "",required = false) String dateSearch2,
                                  @RequestParam(defaultValue = "",required = false) String phoneSearch,
                                  Model model){
         Pageable pageable = PageRequest.of(page,10);
-        Page<Booking> bookingPage = bookingService.showAllBooking(pageable,phoneSearch,dateSearch);
+        if (dateSearch2.equals("")&& !dateSearch.equals("")){
+            dateSearch2 = LocalDate.now() +"";
+            model.addAttribute("dateSearch2",dateSearch2);
+            model.addAttribute("dateSearch",dateSearch);
+            model.addAttribute("phoneSearch",phoneSearch);
+        }
+        Page<Booking> bookingPage = bookingService.showAllBooking(pageable,phoneSearch,dateSearch,dateSearch2);
         model.addAttribute("bookingPage",bookingPage);
         model.addAttribute("dateSearch",dateSearch);
+        model.addAttribute("dateSearch2",dateSearch2);
         model.addAttribute("phoneSearch",phoneSearch);
         return "/booking/dashboard-admin-booking";
     }
@@ -62,6 +71,10 @@ public class BookingController {
         if (booking != null){
             bookingService.deleteBooking(id);
             redirectAttributes.addFlashAttribute("success","Xóa đơn hàng thành công");
+            List<Booking> bookingList = bookingService.showBookingCancel(booking.getShowTime().getMovie().getId());
+            for (int i = 0; i < bookingList.size(); i++) {
+                bookingService.sendEmailCancel(bookingList.get(i));
+            }
         }
         return "redirect:/dashboard/booking";
     }
