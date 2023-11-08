@@ -8,6 +8,8 @@ import com.example.movie_ticket.repository.IAccountRepo;
 import com.example.movie_ticket.service.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,8 +39,8 @@ public class HomeController {
     @Autowired
     private IRoleService roleService;
     @GetMapping
-    public String showHome(Model model) {
-        model.addAttribute("movies",movieService.getAllMovie());
+    public String showHome(Model model, @PageableDefault(value = 12) Pageable pageable) {
+        model.addAttribute("movies",movieService.findMovieOrderByDate(pageable));
         model.addAttribute("categories",categoryService.getAllCategory());
         return "index";
     }
