@@ -28,4 +28,9 @@ public class AccountService implements IAccountService {
     public void signUpAccount(Account account) {
         accountRepo.save(account);
     }
+
+    @Override
+    public List<Account> getAllAccounts() {
+        return accountRepo.findAll();
+    }
 }

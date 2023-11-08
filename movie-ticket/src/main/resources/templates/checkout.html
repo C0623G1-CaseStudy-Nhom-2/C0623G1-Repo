@@ -6,7 +6,7 @@
 <div class="container">
     <header th:replace="~{layout::header}"></header>
     <section id="check-out">
-        <form action="/showtime/booking-success" method="post">
+        <form action="/payment" method="post">
             <div class="row my-5">
                 <div class="col-lg-6 info-user">
                     <h2>Thông tin khách hàng</h2>
@@ -100,16 +100,16 @@
                             <h5>Phương thức thanh toán</h5>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="payment" id="banking"
-                                       value="banking">
+                                       value="vnpay">
                                 <label class="form-check-label" for="banking">
-                                    Chuyển khoản ngân hàng
+                                    Thanh toán bằng VNPay
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="payment" id="card-payment"
-                                       value="card">
+                                       value="momo">
                                 <label class="form-check-label" for="card-payment">
-                                    Thanh toán bằng thẻ tín dụng
+                                    Thanh toán qua momo
                                 </label>
                             </div>
                         </div>

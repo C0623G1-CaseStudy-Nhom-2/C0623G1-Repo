@@ -7,6 +7,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 public class BookingDto implements Validator {

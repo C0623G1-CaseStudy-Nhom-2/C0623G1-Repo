@@ -20,7 +20,7 @@
                     <input type="hidden" th:field="*{id}">
                     <input type="hidden" th:field="*{customer}">
                     <input type="hidden" th:field="*{codeBooking}">
-                    <input type="hidden" th:field="*{datePurchased}">
+                    <input type="hidden" th:field="*{showTime}">
                     <div class="mb-3 row">
                         <label for="customer" class="col-sm-2 col-form-label">Khách hàng</label>
                         <div class="col-sm-10">
@@ -37,7 +37,14 @@
                     <div class="mb-3 row">
                         <label for="time" class="col-sm-2 col-form-label">Ngày mua</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="time"
+                            <input type="text" readonly class="form-control-plaintext" id="inputTimes"
+                                   th:value="${bookingDto.showTime.showDate + ' '+bookingDto.showTime.startTime}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="datePurchased" class="col-sm-2 col-form-label">Ngày mua</label>
+                        <div class="col-sm-10">
+                            <input th:field="*{datePurchased}" type="text" readonly class="form-control-plaintext" id="datePurchased"
                                    th:value="${bookingDto.datePurchased}">
                         </div>
                     </div>

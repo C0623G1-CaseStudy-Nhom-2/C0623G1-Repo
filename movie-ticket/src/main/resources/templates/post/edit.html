@@ -15,8 +15,8 @@
                 <div class="create mb-4">
                     <a href="/dashboard/posts"><i class="fa-solid fa-arrow-left"></i> &nbsp; Quay lại</a>
                 </div>
-                <h3>Thêm bài viết mới</h3>
-                <form action="/dashboard/posts/add" method="post" th:object="${post}">
+                <h3>Chỉnh sửa bài viết</h3>
+                <form method="post" th:object="${post}">
                     <div class="mb-3">
                         <label class="form-label" for="title">Tiêu đề phim</label>
                         <input class="form-control" id="title" th:field="*{title}" type="text" required>

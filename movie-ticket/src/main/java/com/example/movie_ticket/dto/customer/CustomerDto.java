@@ -3,16 +3,10 @@ package com.example.movie_ticket.dto.customer;
 import com.example.movie_ticket.model.Account;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.lang.annotation.Annotation;
+
 
 public class CustomerDto implements Validator {
 
@@ -116,18 +110,23 @@ public class CustomerDto implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CustomerDto customerDto = (CustomerDto) target;
-        if (customerDto.getFullName().length() < 5){
-            errors.rejectValue("fullName",null,"Tổng số ký tự của tên khách hàng phải lớn hơn hoặc bằng 5");
-        } else if (customerDto.getFullName().length() > 45) {
-            errors.rejectValue("fullName",null,"Tổng số ký tự của tên khách hàng phải bé hơn hoặc bằng 45");
-        } else if (!customerDto.getEmail().matches("^.+@.+\\..+$")) {
-            errors.rejectValue("email",null,"Gmail khách hàng nhập chưa đứng yêu cầu xin vui lòng nhập lại");
-            } else if (!customerDto.getPhoneNumber().matches("^0\\d{9}$")) {
-            errors.rejectValue("phoneNumber",null,"Số điện thoại bạn nhập chưa đúng xin lòng nhập lại");
-        } else if (customerDto.getBirthday().matches("^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[012])\\1(?:19|20)\\d\\d$")) {
-            errors.rejectValue("birthday",null,"Ngày tháng năm sinh bạn nhập chưa đúng yêu cầu xin vui lòng nhập lại");
-        } else if (!customerDto.getIdCard().matches("(^\\d{9}$)|(^\\d{12}$)")) {
-            errors.rejectValue("idCard",null,"Số CCCD/CMND khách hàng đã bị sai xin vui lòng nhập lại");
+        if (customerDto.getFullName().length() < 5) {
+            errors.rejectValue("fullName", null, "Tổng số ký tự của tên khách hàng phải lớn hơn hoặc bằng 5");
+        }
+        if (customerDto.getFullName().length() > 45) {
+            errors.rejectValue("fullName", null, "Tổng số ký tự của tên khách hàng phải bé hơn hoặc bằng 45");
+        }
+        if (!customerDto.getEmail().matches("^.+@.+\\..+$")) {
+            errors.rejectValue("email", null, "Gmail khách hàng nhập chưa đứng yêu cầu xin vui lòng nhập lại");
+        }
+        if (!customerDto.getPhoneNumber().matches("^0\\d{9}$")) {
+            errors.rejectValue("phoneNumber", null, "Số điện thoại bạn nhập chưa đúng xin lòng nhập lại");
+        }
+        if (customerDto.getBirthday().matches("^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[012])\\1(?:19|20)\\d\\d$")) {
+            errors.rejectValue("birthday", null, "Ngày tháng năm sinh bạn nhập chưa đúng yêu cầu xin vui lòng nhập lại");
+        }
+        if (!customerDto.getIdCard().matches("(^\\d{9}$)|(^\\d{12}$)")) {
+            errors.rejectValue("idCard", null, "Số CCCD/CMND khách hàng đã bị sai xin vui lòng nhập lại");
         }
     }
 }
