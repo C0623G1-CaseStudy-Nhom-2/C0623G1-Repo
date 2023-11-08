@@ -62,6 +62,10 @@ public class BookingController {
         if (booking != null){
             bookingService.deleteBooking(id);
             redirectAttributes.addFlashAttribute("success","Xóa đơn hàng thành công");
+            List<Booking> bookingList = bookingService.showBookingCancel(booking.getShowTime().getMovie().getId());
+            for (int i = 0; i < bookingList.size(); i++) {
+                bookingService.sendEmailCancel(bookingList.get(i));
+            }
         }
         return "redirect:/dashboard/booking";
     }
