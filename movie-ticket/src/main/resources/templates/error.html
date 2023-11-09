@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{layout::head}">
+</head>
+<body>
+<div class="container">
+  <header th:replace="~{layout::header}"></header>
+  <div class="row">
+    <section id="banner-detail">
+      <div class="row mt-5">
+        <div class="col-md-12">
+          <div class="card text-bg-dark">
+            <img src="https://w0.peakpx.com/wallpaper/315/283/HD-wallpaper-error-404-error-computer-typography-black-dark.jpg" class="card-img" height="700px">
+            <div class="card-img-overlay d-flex align-items-center">
+              <div class="col-lg-12 text-center">
+                <h3 class="display-5 fw-bold">Trang web đang bảo trì</h3>
+                <p class="text-secondary-custom">Vui lòng quay lại vào thời gian khác !</p>
+                <a href="/" class="btn btn-primary">Quay lại trang chính</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<footer th:replace="~{layout::footer}"></footer>
+</body>
+</html>

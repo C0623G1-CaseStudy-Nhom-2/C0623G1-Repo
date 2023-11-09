@@ -28,6 +28,12 @@
                             <p class="field-error" th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
                         </div>
                         <div class="mb-3">
+                            <label for="passwordAgain" class="form-label">Nhập lại
+                                Mật khẩu</label>
+                            <input th:field="*{passwordAgain}" id="passwordAgain" type="password" class="form-control">
+                            <p class="field-error" th:errors="*{passwordAgain}" th:if="${#fields.hasErrors('passwordAgain')}"></p>
+                        </div>
+                        <div class="mb-3">
                             <label for="name" class="form-label">Họ Và Tên</label>
                             <input th:field="*{fullName}" id="name" type="text" class="form-control" required>
                             <p class="field-error" th:errors="*{fullName}" th:if="${#fields.hasErrors('fullName')}"></p>
@@ -41,12 +47,6 @@
                             <label for="emailSignUp" class="form-label">Email</label>
                             <input th:field="*{email}" id="emailSignUp" type="email" class="form-control" required>
                             <p class="field-error" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="confirmEmailSignUp" class="form-label">Nhập lại
-                                email</label>
-                            <input th:field="*{emailAgain}" id="confirmEmailSignUp" type="email" class="form-control">
-                            <p class="field-error" th:errors="*{emailAgain}" th:if="${#fields.hasErrors('emailAgain')}"></p>
                         </div>
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-primary w-100">Đăng kí</button>

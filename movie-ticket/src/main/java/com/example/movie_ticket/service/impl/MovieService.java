@@ -24,7 +24,11 @@ public class MovieService implements IMovieService {
 
     @Override
     public Movie findMovieById(Long id) {
+        if (movieRepo.findById(id).isPresent()) {
         return movieRepo.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -71,7 +75,17 @@ public class MovieService implements IMovieService {
     }
 
     @Override
+    public Page<Movie> findMovieByIdAndDateOrder(String dateStart,String dateEnd,String title,Pageable pageable) {
+        return movieRepo.findMovieByIdAndDateOrder(dateStart,dateEnd,title,pageable);
+    }
+
+    @Override
     public Page<Movie> findMovieOrderByDate(Pageable pageable) {
         return movieRepo.findAllOrderByDate(pageable);
+    }
+
+    @Override
+    public Page<Movie> findMoviesByCategoryId(Long id, Pageable pageable) {
+        return movieRepo.findMoviesByCategoryId(id, pageable);
     }
 }

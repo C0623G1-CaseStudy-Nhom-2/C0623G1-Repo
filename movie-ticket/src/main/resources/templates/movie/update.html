@@ -19,24 +19,25 @@
                 <form action="/dashboard/movies/confirm-update" method="post" th:object="${movieDto}">
                     <input hidden="hidden" name="id" th:field="*{id}" type="number">
                     <div class="mb-3">
-                        <label class="form-label" for="title">Tên phim</label>
+                        <label class="form-label" for="title">Tên phim <sub style="color: red">( * )</sub></label>
                         <input class="form-control" id="title" th:field="*{title}" type="text" required>
                         <p style="color: #e20442" th:errors="*{title}" th:if="${#fields.hasErrors('title')}"></p>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="director">Đạo diễn</label>
+                        <label class="form-label" for="director">Đạo diễn <sub style="color: red">( * )</sub></label>
                         <input class="form-control" id="director" th:field="*{director}" type="text" required>
                         <p style="color: #e20442" th:errors="*{director}" th:if="${#fields.hasErrors('director')}"></p>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="release">Ngày công chiếu</label>
+                        <label class="form-label" for="release">Ngày công chiếu <sub style="color: red">( * )</sub></label>
                         <input class="form-control" id="release" th:field="*{releaseDate}" type="date" required>
                         <p style="color: #e20442" th:errors="*{releaseDate}"
                            th:if="${#fields.hasErrors('releaseDate')}"></p>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label" for="category">Thể loại <sub style="color: red">( * )</sub></label>
                         <select aria-label="Default select example" class="form-select" name="category"
-                                th:field="*{category}">
+                                th:field="*{category}" id="category">
                             <option th:each="category : ${categoryList}" th:text="${category.nameCategory}"
                                     th:value="${category.id}">Open this select menu
                             </option>
@@ -45,7 +46,7 @@
                     <div class="row mb-3">
                         <div class="col-sm-12">
                             <div>
-                                <label for="image2" class="col-sm-2 col-form-label">Ảnh phim</label>
+                                <label for="image2" class="col-sm-2 col-form-label">Ảnh phim <sub style="color: red">( * )</sub></label>
                                 <input accept=".jpg, .jpeg, .png" class="form-control" id="upload-file" multiple
                                        onchange="limitFiles(this,1)" type="file">
                                 <input id="image2" name="image2" required th:value="${movieDto.avatar}" th:field="*{avatar}" type="hidden">
@@ -65,7 +66,7 @@
                     <div class="row mb-3">
                         <div class="col-sm-12">
                             <div>
-                                <label for="image3" class="col-sm-2 col-form-label">Ảnh bìa</label>
+                                <label for="image3" class="col-sm-2 col-form-label">Ảnh bìa <sub style="color: red">( * )</sub></label>
                                 <input accept=".jpg, .jpeg, .png" class="form-control" id="upload-banner" multiple
                                        onchange="limitFiles(this,1)" type="file">
                                 <input id="image3" name="image3" required th:value="${movieDto.banner}" th:field="*{banner}" type="hidden">
@@ -83,7 +84,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="description">Mô tả phim</label>
+                        <label class="form-label" for="description">Mô tả phim <sub style="color: red">( * )</sub></label>
                         <textarea style="width: 100%" id="description" th:field="*{description}" required></textarea>
                         <p style="color: #e20442" th:errors="*{description}"
                            th:if="${#fields.hasErrors('description')}"></p>
@@ -97,6 +98,7 @@
     </section>
 </div>
 <footer th:replace="~{layout::footer}"></footer>
+<div th:replace="~{layout::js}"></div>
 <script>
     function limitFiles(input, maxFiles) {
         if (input.files.length > maxFiles) {

@@ -46,8 +46,13 @@ public class BookingServiceImpl implements IBookingService {
     }
 
     @Override
+<<<<<<< HEAD
     public Page<Booking> showAllBooking(Pageable pageable, String phone, String name,String date) {
         return bookingRepo.showAllBooking(pageable, "%" + phone + "%", "%" + name + "%","%" + date + "%");
+=======
+    public Page<Booking> showAllBooking(Pageable pageable, String phone, String dateStart,String dateEnd) {
+        return bookingRepo.showAllBooking(pageable, "%" + phone + "%", dateStart,dateEnd);
+>>>>>>> e3e1b7669e5a4466a8fbf8baebebfe9f7e74e4c0
     }
 
     @Override
@@ -197,6 +202,7 @@ public class BookingServiceImpl implements IBookingService {
         String fromAddress = "trung11041990a1@gmail.com";
         String senderName = "DATPHIM";
         String subject = "Thư Thông Báo Hủy Đơn Hàng";
+<<<<<<< HEAD
         String content = "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<head>\n" +
@@ -258,6 +264,27 @@ public class BookingServiceImpl implements IBookingService {
                 "  </div>\n" +
                 "</body>\n" +
                 "</html>";
+=======
+        String content = "<body style=\"margin: 0; padding: 0\">\n" +
+                "<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse\">\n" +
+                "  <tr>\n" +
+                "    <td  style=\" background: #f8f8f8; \">\n" +
+                "    </td>\n" +
+                "  </tr>\n" +
+                "  <tr>\n" +
+                "    <td bgcolor=\"#eaeaea\" style=\"padding: 30px 20px 40px 30px;\">\n" +
+                "      <p style=\"font-weight:bold;\">\nXin chào :<span\"> " + booking.getCustomer().getAccount().getUsername() + "</span></p>\n" +
+                "      <p>MOVIES24H xin lỗi về vấn đề bản quyền nên chúng tôi không thể tiếp tục phát sóng phim </p>\n <span\">" + booking.getShowTime().getMovie().getTitle() + "</span></p>\n" +
+                "      <ul>\n" +
+                "        <li>Chúng tôi sẽ hoàn số tiền <span\">" + booking.getTotalPrice() + "</span> vào thời gian 3 - 6 tiếng </li>\n" +
+                "        <li>Cảm ơn bạn đã tin tưởng và sử dụng dịch vụ tại MOVIES24H!</li>\n" +
+                "        <li>Rất xin lỗi quý khách về vấn đề này!</li>\n" +
+                "      </ul>\n" +
+                "    </td>\n" +
+                "  </tr>\n" +
+                "</table>\n" +
+                "</body>";
+>>>>>>> e3e1b7669e5a4466a8fbf8baebebfe9f7e74e4c0
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8"); // Đặt encoding là UTF-8
         try {
@@ -277,4 +304,8 @@ public class BookingServiceImpl implements IBookingService {
     public List<Booking> showBookingCancel(Long id) {
         return bookingRepo.showBookingCancel(id);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e3e1b7669e5a4466a8fbf8baebebfe9f7e74e4c0

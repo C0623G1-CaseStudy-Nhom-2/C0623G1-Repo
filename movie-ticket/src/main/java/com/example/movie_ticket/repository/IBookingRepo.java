@@ -22,9 +22,15 @@ public interface IBookingRepo extends JpaRepository<Booking, Long> {
             "            from bookings bk " +
             "            join customer cus on cus.id = bk.customer_id " +
             "            join show_time st on st.id = bk.showtime_id " +
+<<<<<<< HEAD
             "            where is_deleted = 0 and cus.phone_number like:phone and st.show_date between :dateSearch and :dateSearch2" +
             "            order by ABS(DATEDIFF(CURDATE(), st.show_date)) ", nativeQuery = true)
     Page<Booking> showAllBooking(Pageable pageable, @Param("phone") String phone, @Param("dateSearch") String dateSearch,@Param("dateSearch2") String dateSearch2);
+=======
+            "            where is_deleted = 0 and cus.phone_number like:phone and st.show_date >= :dateStart AND st.show_date <= :dateEnd" +
+            "            order by ABS(DATEDIFF(CURDATE(), st.show_date)) ", nativeQuery = true)
+    Page<Booking> showAllBooking(Pageable pageable, @Param("phone") String phone, @Param("dateStart") String dateSearch, @Param("dateEnd") String dateEnd);
+>>>>>>> e3e1b7669e5a4466a8fbf8baebebfe9f7e74e4c0
 
     @Modifying
     @Transactional

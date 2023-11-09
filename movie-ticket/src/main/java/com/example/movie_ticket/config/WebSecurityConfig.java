@@ -30,22 +30,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/dashboard/purchased**").hasRole("USER")
-                .antMatchers("/dashboard/category**",
-                        "/dashboard/employee**",
-                        "/dashboard/booking**",
-                        "/dashboard/customer**",
-                        "/dashboard/movies**",
-                        "/dashboard/blog**"
+                .antMatchers("/dashboard/purchased/**").hasRole("USER")
+                .antMatchers("/dashboard/category/**",
+                        "/dashboard/employee/**",
+                        "/dashboard/booking/**",
+                        "/dashboard/customer/**",
+                        "/dashboard/movies/**",
+                        "/dashboard/showtime/**",
+                        "/dashboard/blog/**"
                         ).hasRole("ADMIN")
-                .antMatchers("/dashboard","/showtime/check-out/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/dashboard","/showtime/check-out/**").hasAnyRole("ADMIN","USER","EMPLOYEE")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard").permitAll();
-
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
-
     }
 
 }

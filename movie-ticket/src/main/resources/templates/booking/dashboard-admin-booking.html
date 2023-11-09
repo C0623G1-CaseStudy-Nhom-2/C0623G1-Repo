@@ -20,9 +20,18 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="col-lg-6 form-floating mb-3">
+<<<<<<< HEAD
                                         <input type="date" class="form-control" id="idCategory" name="dateSearch"
                                                placeholder="Chọn ngày" th:value="${dateSearch}">
                                         <label for="idCategory"><i class="fa-solid fa-magnifying-glass"></i> Ngày bắt đầu</label>
+=======
+                                        <input style="min-width: 250px;" class="form-control" id="dateOrder"
+                                               type="text"/>
+                                        <input id="startDate" type="hidden" name="startDate"/>
+                                        <input id="endDate" type="hidden" name="endDate"/>
+                                        <label for="dateOrder"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo
+                                            thời gian</label>
+>>>>>>> e3e1b7669e5a4466a8fbf8baebebfe9f7e74e4c0
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -55,7 +64,7 @@
                             <th scope="col">TÊN PHIM</th>
                             <th scope="col">SỐ ĐIỆN THOẠI</th>
                             <th scope="col">NGÀY CHIẾU</th>
-                            <th scope="col">GIÁ(VNĐ)</th>
+                            <th scope="col">GIÁ (đ)</th>
                             <th scope="col">CHỨC NĂNG</th>
                         </tr>
                         </thead>
@@ -71,6 +80,16 @@
                             <td>
                                 <a th:href="@{/dashboard/booking/view(id=${item.id})}" title="Xem chi tiết"><i
                                         class="fa-solid fa-file-lines"></i></a>
+<<<<<<< HEAD
+=======
+<!--                                <a th:href="@{/dashboard/booking/edit/__${item.id}__(movie=${item.showTime.movie.id})}"-->
+<!--                                   title="Sửa"><i-->
+<!--                                        class="fa-solid fa-pen-to-square"></i></a>-->
+<!--                                <a type="button" th:attr="onclick=|sendDataModal('${item.id}','${item.codeBooking}')|"-->
+<!--                                   title="Xóa"-->
+<!--                                   role="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i-->
+<!--                                        class="fa-solid fa-trash-can"></i></a>-->
+>>>>>>> e3e1b7669e5a4466a8fbf8baebebfe9f7e74e4c0
                             </td>
                         </tr>
                         </tbody>
@@ -83,8 +102,13 @@
                             <a class="page-link" th:href="@{
                             ${#httpServletRequest.getRequestURI()}+ '?page=' +
                             ${bookingPage.number - 1} +
+<<<<<<< HEAD
                             ${dateSearch != null && dateSearch != '' ? '&dateSearch='+dateSearch:''} +
                             ${dateSearch2 != null && dateSearch2 != '' ? '&dateSearch2='+dateSearch2:''} +
+=======
+                            ${startDate != null && startDate != '' ? '&startDate='+startDate:''} +
+                            ${endDate != null && endDate != '' ? '&endDate='+endDate:''} +
+>>>>>>> e3e1b7669e5a4466a8fbf8baebebfe9f7e74e4c0
                             ${phoneSearch != null && phoneSearch != '' ? '&phoneSearch='+phoneSearch:''}
                             }">Trước</a>
                         </li>
@@ -92,8 +116,13 @@
                             th:class="${i == bookingPage.number ? 'page-item active' : 'page-item'}">
                             <a class="page-link" th:text="${i + 1}" th:href="@{
                             ${#httpServletRequest.getRequestURI()} + '?page=' + ${i} +
+<<<<<<< HEAD
                             ${dateSearch != null && dateSearch != '' ? '&dateSearch='+dateSearch:''} +
                             ${dateSearch2 != null && dateSearch2 != '' ? '&dateSearch2='+dateSearch2:''} +
+=======
+                            ${startDate != null && startDate != '' ? '&startDate='+startDate:''} +
+                            ${endDate != null && endDate != '' ? '&endDate='+endDate:''} +
+>>>>>>> e3e1b7669e5a4466a8fbf8baebebfe9f7e74e4c0
                             ${phoneSearch != null && phoneSearch != '' ? '&phoneSearch='+phoneSearch:''}
                             }"></a>
                         </li>
@@ -101,8 +130,13 @@
                             <a class="page-link" th:href="@{
                             ${#httpServletRequest.getRequestURI()} + '?page=' +
                             ${bookingPage.number + 1} +
+<<<<<<< HEAD
                             ${dateSearch != null && dateSearch != '' ? '&dateSearch='+dateSearch:''} +
                             ${dateSearch2 != null && dateSearch2 != '' ? '&dateSearch2='+dateSearch2:''} +
+=======
+                            ${startDate != null && startDate != '' ? '&startDate='+startDate:''} +
+                            ${endDate != null && endDate != '' ? '&endDate='+endDate:''} +
+>>>>>>> e3e1b7669e5a4466a8fbf8baebebfe9f7e74e4c0
                             ${phoneSearch != null && phoneSearch != '' ? '&phoneSearch='+phoneSearch:''}
                             }">Tiếp</a>
                         </li>
@@ -152,6 +186,26 @@
 </div>
 <footer th:replace="~{layout::footer}"></footer>
 <script>
+    $(document).ready(function () {
+        $('#dateOrder').daterangepicker({
+            startDate: '08/11/2023',
+            endDate: '11/11/2023',
+            locale: {
+                format: 'DD-MM-YYYY'
+            },
+            language: 'vi'
+
+        }, function (start, end, label) {
+            let startDate = start.format("YYYY-MM-DD");
+            let endDate = end.format("YYYY-MM-DD");
+            $("#startDate").val(startDate);
+            $("#endDate").val(endDate);
+        });
+
+        $('#startDate').val('2023-11-08');
+        $('#endDate').val('2023-11-11');
+    });
+
     function sendDataModal(id, name) {
         document.getElementById("name").innerHTML = name;
         document.getElementById("id").value = id;

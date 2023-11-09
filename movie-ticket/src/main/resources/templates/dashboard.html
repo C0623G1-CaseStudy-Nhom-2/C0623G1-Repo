@@ -19,7 +19,7 @@
             <img src="https://github.com/mdo.png" alt="mdo" width="100px" height="100px" class="rounded-circle">
           </div>
           <div class="info-user">
-            <h3 th:text="${account.customer.fullName}">Phạm Văn Thành</h3>
+            <h3 th:if="${account.customer.fullName}" th:text="${account.customer.fullName}">Phạm Văn Thành</h3>
             <p th:text="${'@'+account.username}">@thanhpv</p>
           </div>
         </div>
@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="row">
-          <button type="button" class="btn btn-primary">Sửa thông tin</button>
+<!--          <button type="button" class="btn btn-primary"></button>-->
         </div>
       </div>
     </div>

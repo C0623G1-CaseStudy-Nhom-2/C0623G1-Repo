@@ -1,8 +1,10 @@
 package com.example.movie_ticket.controller.dashboard;
 
 import com.example.movie_ticket.dto.MovieDto;
+import com.example.movie_ticket.model.Booking;
 import com.example.movie_ticket.model.Category;
 import com.example.movie_ticket.model.Movie;
+import com.example.movie_ticket.service.IBookingService;
 import com.example.movie_ticket.service.ICategoryService;
 import com.example.movie_ticket.service.IMovieService;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -27,6 +31,8 @@ public class MovieDashboardController {
     private IMovieService movieService;
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private IBookingService bookingService;
 
     @GetMapping
     public ModelAndView showMovieLIst(@PageableDefault(value = 6) Pageable pageable) {
@@ -42,7 +48,7 @@ public class MovieDashboardController {
     }
 
     @PostMapping("/confirm-add")
-    public String addNewMovie(@Valid @ModelAttribute MovieDto movieDto, BindingResult bindingResult, Model model) {
+    public String addNewMovie(@Valid @ModelAttribute MovieDto movieDto, BindingResult bindingResult, Model model,RedirectAttributes redirectAttributes) {
         new MovieDto().validate(movieDto, bindingResult);
         List<Category> categoryList = categoryService.getAllCategory();
         model.addAttribute("categoryList", categoryList);
@@ -52,26 +58,34 @@ public class MovieDashboardController {
             Movie movie = new Movie();
             BeanUtils.copyProperties(movieDto, movie);
             movieService.saveMovie(movie);
+            redirectAttributes.addFlashAttribute("success","Thêm phim thành công");
             return "redirect:/dashboard/movies";
         }
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteMovie(@PathVariable Long id) {
-        movieService.deleteMovie(id);
+    public String deleteMovie(@PathVariable Long id,RedirectAttributes redirectAttributes) {
+        Movie movie = movieService.findMovieById(id);
+        movie.setDeleted(1);
+        movieService.saveMovie(movie);
+        List<Booking> bookingList = bookingService.showBookingCancel(id);
+        for (int i = 0; i < bookingList.size(); i++) {
+            bookingService.sendEmailCancel(bookingList.get(i));
+        }
+        redirectAttributes.addFlashAttribute("success","Xóa phim thành công");
         return "redirect:/dashboard/movies";
     }
 
     @GetMapping("/search")
-    public ModelAndView searchMovie(@RequestParam(name = "idMovie", required = false) Long idMovie,
-                                    String nameMovie, String date, Model model,
+    public ModelAndView searchMovie(String startDate, String endDate, String nameMovie,  Model model,
                                     @PageableDefault(value = 2) Pageable pageable) {
-        Page<Movie> movies = movieService.findMovieByIdAndName(idMovie, nameMovie, pageable);
+        Page<Movie> movies = movieService.findMovieByIdAndDateOrder(startDate,endDate,nameMovie,pageable);
         if (movies.isEmpty()) {
+            model.addAttribute("movies",movies);
             return new ModelAndView("/movie/movies", "empty", "Không có kết quả");
         }
         model.addAttribute("nameMovie", nameMovie);
-        model.addAttribute("idMovie", idMovie);
+//        model.addAttribute("dateOrder", dateOrder);
         return new ModelAndView("/movie/movies", "movies", movies);
     }
 
@@ -97,6 +111,8 @@ public class MovieDashboardController {
             Movie movieTarget = new Movie();
             BeanUtils.copyProperties(movieDto, movieTarget);
             movieService.saveMovie(movieTarget);
+            redirectAttributes.addFlashAttribute("success","Cập nhật phim thành công");
+
             return new ModelAndView("redirect:/dashboard/movies");
         }
     }

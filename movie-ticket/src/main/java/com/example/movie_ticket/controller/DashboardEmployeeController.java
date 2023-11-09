@@ -28,7 +28,7 @@ public class DashboardEmployeeController {
     private IAccountService accountService;
 
     @GetMapping
-    public String showDashboardEmployee(@PageableDefault(value = 2) Pageable pageable,
+    public String showDashboardEmployee(@PageableDefault(value = 5) Pageable pageable,
                                         Model model) {
         model.addAttribute("employees",employeeService.findAllEmployee(pageable));
         return "/employee/dashboard-admin-employee";

@@ -1,23 +1,29 @@
 package com.example.movie_ticket.dto;
 
+import com.example.movie_ticket.repository.IAccountRepo;
+import com.example.movie_ticket.service.IAccountService;
+import com.example.movie_ticket.service.impl.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
+@Component
 public class SignUpDto implements Validator {
+    @Autowired
+    private IAccountService accountService;
     @Size(min = 8, max = 50, message = "Username phải từ 8 đến 50 kí tự")
     private String username;
     @Size(min = 8, max = 20, message = "Mật khẩu phải từ 8 đến 20 kí tự")
     private String password;
+    private String passwordAgain;
     private boolean isEnabled = true;
     private String fullName;
     @Email
     private String email;
-    private String emailAgain;
-
     @Pattern(regexp = "(84|0[3|5|7|8|9])+([0-9]{8})",message = "Không đúng định dạng số điện thoại")
     private String phoneNumber;
 
@@ -68,12 +74,12 @@ public class SignUpDto implements Validator {
         return phoneNumber;
     }
 
-    public String getEmailAgain() {
-        return emailAgain;
+    public String getPasswordAgain() {
+        return passwordAgain;
     }
 
-    public void setEmailAgain(String emailAgain) {
-        this.emailAgain = emailAgain;
+    public void setPasswordAgain(String passwordAgain) {
+        this.passwordAgain = passwordAgain;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -88,8 +94,8 @@ public class SignUpDto implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         SignUpDto signUpDto = (SignUpDto) target;
-        if (!signUpDto.getEmail().equals(signUpDto.getEmailAgain())) {
-            errors.rejectValue("emailAgain", null, "Email nhập lại không khớp");
+        if (!signUpDto.getPassword().equals(signUpDto.getPasswordAgain())) {
+            errors.rejectValue("passwordAgain", null, "Mật khẩu nhập lại không khớp");
         }
     }
 }

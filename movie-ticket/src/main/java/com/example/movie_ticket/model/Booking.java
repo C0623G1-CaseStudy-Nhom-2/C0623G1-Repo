@@ -2,6 +2,8 @@ package com.example.movie_ticket.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

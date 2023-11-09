@@ -16,16 +16,16 @@
                     <div class="row mb-3">
                         <label for="inputNameCategory" class="col-sm-2 col-form-label">Tên danh mục</label>
                         <div class="col-sm-10">
-                            <input th:field="*{nameCategory}" type="text" class="form-control" id="inputNameCategory" required>
+                            <input th:field="*{nameCategory}" type="text" class="form-control" id="inputNameCategory"
+                                   required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Hình ảnh danh mục</label>
                         <div class="col-sm-10">
                             <div>
-                                <input class="form-control" type="file" id="upload-file" multiple
-                                       accept=".jpg, .jpeg, .png" onchange="limitFiles(this,1)">
-                                <input name="image2" type="hidden" id="image2" th:field="*{image}" required>
+                                <input class="form-control" type="file" id="image" multiple accept=".jpg, .jpeg, .png">
+                                <input name="image2" type="hidden" id="image-result" th:field="*{image}" required>
                             </div>
                         </div>
                     </div>
@@ -33,8 +33,7 @@
                         <div class="col-sm-2"><label class="col-form-label">Hình ảnh xem trước</label></div>
                         <div class="col-sm-10">
                             <div id="image-preview-container2" class="img-thumbnail">
-                                <img th:src="*{image}" alt="image chose" src=""/>
-                                <input type="hidden" th:value="*{image}" required>
+                                <img id="image-preview" th:src="*{image}" alt="image chose" src=""/>
                             </div>
                         </div>
                     </div>
@@ -48,37 +47,24 @@
 </div>
 <footer th:replace="~{layout::footer}"></footer>
 <script>
-    function limitFiles(input, maxFiles) {
-        if (input.files.length > maxFiles) {
-            alert(`Chỉ được chọn đúng ${maxFiles} tệp.`);
-            input.value = ""; // Xóa tệp đã chọn nếu vượt quá giới hạn
-        }
-    }
-
-    document.getElementById("upload-file").addEventListener("change", function (e) {
-        document.getElementById("preview-image-add").style.display = "flex";
-        const container = document.getElementById("image-preview-container2");
-        container.innerHTML = "";
-        const maxFiles = 1;
-        const files = e.target.files;
-        if (files.length !== maxFiles) {
-            alert(`Bạn phải chọn đúng ${maxFiles} tệp.`);
-            e.target.value = "";
-            return;
-        }
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const img = document.createElement("img");
-            img.src = URL.createObjectURL(file);
-            img.style.width = "300px"
-            img.style.height = "150px"
-            container.appendChild(img);
-        }
+    $(document).ready(function () {
+        $("#image").change(function () {
+            const formData = new FormData();
+            let file = $("#image")[0].files[0];
+            formData.append('file', file);
+            $.ajax({
+                url: "/upload/image",
+                type: "POST",
+                data: formData,
+                success: function (data) {
+                    $("#image-result").val(data.url);
+                    $("#image-result").attr("src",data.url);
+                },
+                processData: false,
+                contentType: false
+            });
+        });
     });
 </script>
-<script type="module" src="/js/configulation.js"></script>
-<script type="module" src="/js/upload.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
 </body>
 </html>

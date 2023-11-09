@@ -26,7 +26,7 @@ public class DashboardPurchasedUserController {
 
     @GetMapping
     @ResponseBody
-    public ModelAndView showDashboardPurchased(@PageableDefault(value = 2,sort = "id",direction = Sort.Direction.DESC) Pageable pageable,
+    public ModelAndView showDashboardPurchased(@PageableDefault(value = 10,sort = "id",direction = Sort.Direction.DESC) Pageable pageable,
                                                Model model, Principal principal) {
         Page<Booking> bookings = bookingService.findBookingUsername(principal.getName(),pageable);
         model.addAttribute("bookings", bookings);

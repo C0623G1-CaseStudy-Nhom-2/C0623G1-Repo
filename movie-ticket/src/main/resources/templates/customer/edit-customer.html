@@ -11,12 +11,15 @@
                 <div th:replace="~{layout::sidebar-admin}"></div>
             </div>
             <div class="col-lg-9 ps-5 table-dashboard category">
-                <h3 th:text="${'Chỉnh sửa thông tin khách hàng ' + customerDto.fullName }">Chỉnh sửa danh mục phim</h3>
+                <h3 th:text="${'Chỉnh sửa thông tin khách hàng : ' + customerDto.fullName }">Chỉnh sửa danh mục phim</h3>
                 <form class="edit-item my-4" th:object="${customerDto}" method="post" action="/dashboard/customer/edit">
                     <div class="row mb-3">
                         <label for="inputNameCategory" class="col-sm-2 col-form-label">Chỉnh sửa tên khách hàng</label>
+                        <input th:field="*{id}" style="display: none">
+                        <input th:field="*{account.id}" style="display: none">
                         <div class="col-sm-10">
                             <input th:field="*{fullName}" type="text" class="form-control" id="inputNameCategory">
+                            <span  th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" style="color: red"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -97,6 +100,8 @@
                         <div class="col-sm-10">
                             <div>
                                 <input th:field="*{email}" type="text" class="form-control" id="inputEmailCustomer">
+                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></span>
+                                <p style="color: red" th:text="${messageEmail}"></p>
                             </div>
                         </div>
                     </div>
@@ -105,6 +110,7 @@
                         <label class="col-sm-2 col-form-label">Chỉnh sửa ngày tháng năm sinh khách hàng</label>
                         <div class="col-sm-10">
                             <input type="date" class="form-control" id="dateOrder" th:field="*{birthday}">
+                            <span th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" style="color: red"></span>
                         </div>
                     </div>
 
@@ -113,6 +119,8 @@
                         <div class="col-sm-10">
                             <div>
                                 <input th:field="*{phoneNumber}" type="text" class="form-control" id="inputPhoneNumberCustomer">
+                                <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color: red"></span>
+                                <p style="color: red" th:text="${messagePhoneNumber}"></p>
                             </div>
                         </div>
                     </div>
@@ -121,7 +129,9 @@
                         <label class="col-sm-2 col-form-label">Chỉnh sửa sổ thẻ CCCD/CMND khách hàng</label>
                         <div class="col-sm-10">
                             <div>
-                                <input th:field="*{idCard}" type="text" class="form-control" id="inputIdcardCustomer">
+                                <input th:field="*{idCard}" type="text" class="form-control" id="inputIdcardCustomer" >
+                                <span th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}" style="color: red"></span>
+                                <p style="color: red" th:text="${messageIdCard}"></p>
                             </div>
                         </div>
                     </div>

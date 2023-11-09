@@ -14,7 +14,7 @@ public class Customer {
     private String email;
     private String phoneNumber;
     private String birthday;
-    private Long idCard;
+    private String idCard;
     private String address;
     private boolean statis = true;
     @OneToOne
@@ -25,6 +25,18 @@ public class Customer {
     private Set<Booking> bookings;
 
     public Customer() {
+    }
+
+    public Customer(Long id, String fullName, String email, String phoneNumber, String birthday, String idCard, String address, Account account, Set<Booking> bookings) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.birthday = birthday;
+        this.idCard = idCard;
+        this.address = address;
+        this.account = account;
+        this.bookings = bookings;
     }
 
     public Long getId() {
@@ -67,11 +79,11 @@ public class Customer {
         this.birthday = birthday;
     }
 
-    public Long getIdCard() {
+    public String getIdCard() {
         return idCard;
     }
 
-    public void setIdCard(Long idCard) {
+    public void setIdCard(String idCard) {
         this.idCard = idCard;
     }
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{layout::head}">
+</head>
+<body>
+<div class="container">
+    <header th:replace="~{layout::header}"></header>
+    <section id="blog-detail">
+        <div class="col-lg-12">
+            <img th:src="${post.image}" class="img-fluid" alt="...">
+            <div>
+                <h2 th:text="${post.title}">Blog Phim Ảnh</h2>
+                <p th:text="${post.description}">Cập nhật các Blog về phim ảnh hay nhất trên thị trường với đầy đủ thể
+                    loại, quốc gia. Giải mã những nội
+                    dung phim gây tò mò và hấp dẫn.</p>
+                <p class="text-secondary-custom" th:text="${#dates.format(post.createdAt, 'dd-MM-yyyy')}"></p>
+            </div>
+        </div>
+    </section>
+    <section id="detail-post">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content" th:utext="${post.content}"></div>
+            </div>
+            <div class="col-lg-3">
+                <div class="box-ads">
+                    ADS
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer th:replace="~{layout::footer}"></footer>
+</body>
+</html>

@@ -6,7 +6,11 @@
 <div class="container">
     <header th:replace="~{layout::header}"></header>
     <section id="check-out">
+<<<<<<< HEAD
         <form onsubmit="disableButton()" action="/showtime/booking-success" method="post">
+=======
+        <form action="/payment" method="post">
+>>>>>>> e3e1b7669e5a4466a8fbf8baebebfe9f7e74e4c0
             <div class="row my-5">
                 <div class="col-lg-6 info-user">
                     <h2>Thông tin khách hàng</h2>
@@ -25,7 +29,7 @@
                         <input type="tel" class="form-control" id="phone" th:value="${account.customer.phoneNumber}">
                     </div>
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="confirm-payment">
+                        <input type="checkbox" class="form-check-input" id="confirm-payment" checked>
                         <label class="form-check-label" for="confirm-payment">Bạn đồng ý với chính sách sử dụng dữ liệu
                             của chúng tôi</label>
                     </div>
@@ -100,16 +104,16 @@
                             <h5>Phương thức thanh toán</h5>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="payment" id="banking"
-                                       value="banking">
+                                       value="vnpay" checked>
                                 <label class="form-check-label" for="banking">
-                                    Chuyển khoản ngân hàng
+                                    Thanh toán bằng VNPay
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="payment" id="card-payment"
-                                       value="card">
+                                       value="momo">
                                 <label class="form-check-label" for="card-payment">
-                                    Thanh toán bằng thẻ tín dụng
+                                    Thanh toán qua Momo
                                 </label>
                             </div>
                         </div>

@@ -10,4 +10,5 @@ public interface IAccountService {
     List<Account> findAllAccount();
     Account findByUsername(String username);
     void signUpAccount(Account account);
+    List<Account> getAllAccounts();
 }

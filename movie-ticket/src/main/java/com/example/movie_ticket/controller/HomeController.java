@@ -8,13 +8,17 @@ import com.example.movie_ticket.repository.IAccountRepo;
 import com.example.movie_ticket.service.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.security.auth.login.LoginContext;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,8 +41,8 @@ public class HomeController {
     @Autowired
     private IRoleService roleService;
     @GetMapping
-    public String showHome(Model model) {
-        model.addAttribute("movies",movieService.getAllMovie());
+    public String showHome(Model model, @PageableDefault(value = 12) Pageable pageable) {
+        model.addAttribute("movies",movieService.findMovieOrderByDate(pageable));
         model.addAttribute("categories",categoryService.getAllCategory());
         return "index";
     }
@@ -48,7 +52,7 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public ModelAndView showLogin(){
+    public ModelAndView showLogin() {
         return new ModelAndView("login");
     }
 
@@ -58,7 +62,16 @@ public class HomeController {
     }
     @PostMapping("/signup")
     public ModelAndView showSignUp(@Valid @ModelAttribute(name = "signup") SignUpDto signUpDto,
-                                   BindingResult bindingResult){
+                                   BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        if (accountService.findByUsername(signUpDto.getUsername()) != null){
+            bindingResult.rejectValue("username",null,"Username đã tồn tại trong hệ thống");
+        }
+        if (customerService.findByEmail(signUpDto.getEmail()) != null){
+            bindingResult.rejectValue("email",null,"Email đã được đăng kí tài khoản khác trong hệ thống");
+        }
+        if (customerService.findByPhone(signUpDto.getPhoneNumber()) != null){
+            bindingResult.rejectValue("phoneNumber",null,"Số điện thoại đã được đăng kí tài khoản khác trong hệ thống");
+        }
         signUpDto.validate(signUpDto,bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return new ModelAndView("signup", "signUpDto", signUpDto);
@@ -74,7 +87,8 @@ public class HomeController {
             BeanUtils.copyProperties(signUpDto,customer);
             customer.setAccount(account);
             customerService.saveCustomer(customer);
-            return new ModelAndView("signup","signup",new SignUpDto());
+            redirectAttributes.addFlashAttribute("signupSuccess","Đăng kí thành công, vui lòng đăng nhập để tiếp tục");
+            return new ModelAndView("redirect:/login");
         }
     }
 

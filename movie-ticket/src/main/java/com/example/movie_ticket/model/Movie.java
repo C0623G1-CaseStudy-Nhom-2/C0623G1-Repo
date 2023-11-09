@@ -24,6 +24,7 @@ public class Movie {
     private String banner;
     @OneToMany(mappedBy = "movie")
     private Set<ShowTime> showTimes;
+    private int deleted;
 
     public Movie() {
     }
@@ -98,6 +99,14 @@ public class Movie {
 
     public void setShowTimes(Set<ShowTime> showTimes) {
         this.showTimes = showTimes;
+    }
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
     }
 
     public Map<String, List<ShowTime>> showTimesMap() {

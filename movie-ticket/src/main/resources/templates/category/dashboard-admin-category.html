@@ -19,11 +19,6 @@
                         <form action="/dashboard/category/search">
                             <div class="row">
                                 <div class="col-lg-5">
-                                    <div class="col-lg-6 form-floating mb-3">
-                                        <input type="text" class="form-control" id="idCategory" name="idCategory"
-                                               placeholder="Nhập id" th:value="${idCategory}">
-                                        <label for="idCategory"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo ID</label>
-                                    </div>
                                 </div>
                                 <div class="col-lg-7 d-flex justify-content-end">
                                     <div class="col-auto form-floating mb-3 me-3">
@@ -130,6 +125,24 @@
 </div>
 <footer th:replace="~{layout::footer}"></footer>
 <script>
+    $(document).ready(function () {
+        $("#image").change(function () {
+            const formData = new FormData();
+            let file = $("#image")[0].files[0];
+            formData.append('file', file);
+            $.ajax({
+                url: "/upload/image",
+                type: "POST",
+                data: formData,
+                success: function (data) {
+                    $("#image-result").val(data.url);
+                    $("#image-result").attr("src",data.url);
+                },
+                processData: false,
+                contentType: false
+            });
+        });
+    });
     function sendDataModal(id, name) {
         $("#name-delete").html(name)
         $("#active-delete").attr("href", "/dashboard/category/delete/" + id)
