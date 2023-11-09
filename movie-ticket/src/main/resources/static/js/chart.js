@@ -42,13 +42,6 @@ function processData() {
                 data: [int[0], int[1], int[2], int[3], int[4], int[5], int[6], int[7], int[8], int[9], int[10], int[11]],
                 tension: 0.4
             },
-            {
-                label: 'Biến động doanh thu',
-                backgroundColor: 'green',
-                borderColor: 'green',
-                data: [int[0],int[1]-int[0], int[2]-int[1], int[3]-int[2], int[4]-int[3], int[5]-int[4], int[6]-int[5],int[7]-int[6],int[8]-int[7],int[9]-int[8],int[10]-int[9],int[11]-int[10]],
-                tension: 0.4
-            },
         ],
     };
 

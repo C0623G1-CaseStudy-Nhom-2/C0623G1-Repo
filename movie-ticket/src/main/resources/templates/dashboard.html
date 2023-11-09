@@ -8,7 +8,7 @@
 <div class="container">
   <header th:replace="~{layout::header}"></header>
 <!--  Danh cho role User-->
-  <section sec:authorize="hasRole('USER') && !hasRole('ADMIN') && !hasRole('EMPLOYEE')">
+  <section sec:authorize="hasRole('USER') && !hasRole('ADMIN')">
     <div class="row my-5 dashboard-user">
       <div class="col-lg-3 sidebar-user">
           <div th:replace="~{layout::sidebar-user}"></div>

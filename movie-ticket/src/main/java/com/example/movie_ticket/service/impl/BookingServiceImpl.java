@@ -45,8 +45,8 @@ public class BookingServiceImpl implements IBookingService {
     }
 
     @Override
-    public Page<Booking> showAllBooking(Pageable pageable, String phone, String name) {
-        return bookingRepo.showAllBooking(pageable, "%" + phone + "%", "%" + name + "%");
+    public Page<Booking> showAllBooking(Pageable pageable, String phone, String dateStart,String dateEnd) {
+        return bookingRepo.showAllBooking(pageable, "%" + phone + "%", dateStart,dateEnd);
     }
 
     @Override

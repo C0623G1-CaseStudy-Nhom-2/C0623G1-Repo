@@ -14,9 +14,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -48,7 +50,11 @@ public class ShowtimeDashboardController {
         return new ModelAndView("/showtime/add", "showtimeDto", showtimeDto);
     }
     @PostMapping("/confirm-add")
-    public ModelAndView addNewShowtime(@ModelAttribute ShowtimeDto showtimeDto) {
+    public ModelAndView addNewShowtime(@Valid @ModelAttribute ShowtimeDto showtimeDto, BindingResult bindingResult) {
+        new ShowtimeDto().validate(showtimeDto,bindingResult);
+        if (bindingResult.hasErrors()){
+            return new ModelAndView("/showtime/add", "showtimeDto", showtimeDto);
+        }
         ShowTime showTime = new ShowTime();
         BeanUtils.copyProperties(showtimeDto, showTime);
         showTimeService.saveNewShowtime(showTime);

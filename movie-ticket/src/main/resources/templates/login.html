@@ -12,6 +12,8 @@
                         <div class="logo-website text-center mb-4">
                             <img class="text-center" src="/image/logo-MOVIES24H.png" alt="">
                         </div>
+                        <div th:if="${signupSuccess}" th:text="${signupSuccess}" class="alert alert-success" role="alert">
+                        </div>
                         <div class="text-center">
                             <h3>Đăng nhập</h3>
                             <p>Vui lòng đăng nhập để có thể sử dụng toàn bộ các dịch vụ của chúng

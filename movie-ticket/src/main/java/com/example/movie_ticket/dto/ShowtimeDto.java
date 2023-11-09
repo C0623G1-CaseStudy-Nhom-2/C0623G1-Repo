@@ -7,10 +7,10 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 public class ShowtimeDto implements Validator {
     private Long id;
-    @NotBlank(message = "Không được bỏ trống ID phim")
     private Movie movie;
     @NotBlank(message = "Không được bỏ trống ngày chiếu")
     private String showDate;
@@ -18,26 +18,12 @@ public class ShowtimeDto implements Validator {
     private String startTime;
     @NotBlank(message = "Không được bỏ trống giờ kết thúc")
     private String endTime;
-    @NotBlank(message = "Không được bỏ trống số phòng")
-    private String roomNumber;
-    @NotBlank(message = "Không được để trống giá tiền")
     private Float price;
-    @NotBlank(message = "Không được để trống ID nhân viên")
     private Employee employee;
 
     public ShowtimeDto() {
     }
 
-    public ShowtimeDto(Long id, Movie movie, String showDate, String startTime, String endTime, String roomNumber, Float price, Employee employee) {
-        this.id = id;
-        this.movie = movie;
-        this.showDate = showDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.roomNumber = roomNumber;
-        this.price = price;
-        this.employee = employee;
-    }
 
     public Long getId() {
         return id;
@@ -79,13 +65,7 @@ public class ShowtimeDto implements Validator {
         this.endTime = endTime;
     }
 
-    public String getRoomNumber() {
-        return roomNumber;
-    }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
-    }
 
     public Float getPrice() {
         return price;
@@ -110,6 +90,9 @@ public class ShowtimeDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
+        ShowtimeDto showtimeDto = (ShowtimeDto) target;
+        if (LocalDate.parse(showtimeDto.showDate).isAfter(LocalDate.now())){
+            errors.rejectValue("showDate",null,"Không được nhập ngày quá khứ");
+        }
     }
 }

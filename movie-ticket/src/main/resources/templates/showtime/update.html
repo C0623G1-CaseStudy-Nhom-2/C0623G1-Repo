@@ -15,7 +15,7 @@
                 <div class="create mb-4">
                     <a href="/dashboard/movies"><i class="fa-solid fa-arrow-left"></i> &nbsp; Quay lại</a>
                 </div>
-                <h3>Thêm mới suất chiếu</h3>
+                <h3>Cập nhật mới suất chiếu</h3>
                 <form action="/dashboard/showtime/confirm-add" method="post" th:object="${showtime}">
                     <input th:field="*{movie}" th:value="${showtime.movie.id}" hidden="hidden">
                     <input th:field="*{id}" th:value="${showtime.id}" hidden="hidden">
@@ -36,14 +36,8 @@
                            th:if="${#fields.hasErrors('showDate')}"></p>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="roomNumber">Số phòng</label>
-                        <input class="form-control" id="roomNumber" th:field="*{roomNumber}" type="number" required>
-                        <p style="color: #e20442" th:errors="*{roomNumber}"
-                           th:if="${#fields.hasErrors('roomNumber')}"></p>
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label" for="price">Giá tiền <sub style="color: red">( * )</sub></label>
-                        <input class="form-control" id="price" required th:field="*{price}" th:value="${showtime.price}" type="number">
+                        <input class="form-control" id="price" required th:field="*{price}" th:value="${showtime.price}" type="text">
                         <p style="color: #e20442" th:errors="*{price}"
                            th:if="${#fields.hasErrors('price')}"></p>
                     </div>

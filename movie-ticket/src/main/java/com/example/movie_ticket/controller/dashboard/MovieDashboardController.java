@@ -1,8 +1,10 @@
 package com.example.movie_ticket.controller.dashboard;
 
 import com.example.movie_ticket.dto.MovieDto;
+import com.example.movie_ticket.model.Booking;
 import com.example.movie_ticket.model.Category;
 import com.example.movie_ticket.model.Movie;
+import com.example.movie_ticket.service.IBookingService;
 import com.example.movie_ticket.service.ICategoryService;
 import com.example.movie_ticket.service.IMovieService;
 import org.springframework.beans.BeanUtils;
@@ -29,6 +31,8 @@ public class MovieDashboardController {
     private IMovieService movieService;
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private IBookingService bookingService;
 
     @GetMapping
     public ModelAndView showMovieLIst(@PageableDefault(value = 6) Pageable pageable) {
@@ -64,6 +68,10 @@ public class MovieDashboardController {
         Movie movie = movieService.findMovieById(id);
         movie.setDeleted(1);
         movieService.saveMovie(movie);
+        List<Booking> bookingList = bookingService.showBookingCancel(id);
+        for (int i = 0; i < bookingList.size(); i++) {
+            bookingService.sendEmailCancel(bookingList.get(i));
+        }
         redirectAttributes.addFlashAttribute("success","Xóa phim thành công");
         return "redirect:/dashboard/movies";
     }

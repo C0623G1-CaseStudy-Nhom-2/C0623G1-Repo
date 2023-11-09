@@ -37,7 +37,7 @@
                     <label for="birthday" class="col-sm-2 col-form-label">Ngày, tháng, năm sinh</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="birthday"
-                               th:value="${#temporals.format(employee.birthday,'dd-MM-yyyy')}">
+                               th:value="${employee.birthday}">
                     </div>
                 </div>
                 <div class="mb-3 row">

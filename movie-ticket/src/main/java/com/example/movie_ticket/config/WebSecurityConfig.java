@@ -36,9 +36,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/dashboard/booking/**",
                         "/dashboard/customer/**",
                         "/dashboard/movies/**",
+                        "/dashboard/showtime/**",
                         "/dashboard/blog/**"
                         ).hasRole("ADMIN")
-                .antMatchers("/dashboard","/showtime/check-out/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/dashboard","/showtime/check-out/**").hasAnyRole("ADMIN","USER","EMPLOYEE")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login")

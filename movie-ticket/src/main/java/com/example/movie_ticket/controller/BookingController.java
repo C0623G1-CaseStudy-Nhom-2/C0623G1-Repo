@@ -36,14 +36,15 @@ public class BookingController {
     @Autowired
     private IMovieService movieService;
     @GetMapping
-    public String showAllBooking(@RequestParam(defaultValue = "0",required = false) int page,
-                                 @RequestParam(defaultValue = "",required = false) String dateSearch,
+    public String showAllBooking(String startDate, String endDate ,
+                                 @RequestParam(defaultValue = "0",required = false) int page,
                                  @RequestParam(defaultValue = "",required = false) String phoneSearch,
                                  Model model){
         Pageable pageable = PageRequest.of(page,10);
-        Page<Booking> bookingPage = bookingService.showAllBooking(pageable,phoneSearch,dateSearch);
+        Page<Booking> bookingPage = bookingService.showAllBooking(pageable,phoneSearch,startDate,endDate);
         model.addAttribute("bookingPage",bookingPage);
-        model.addAttribute("dateSearch",dateSearch);
+        model.addAttribute("startDate",startDate);
+        model.addAttribute("endDate",endDate);
         model.addAttribute("phoneSearch",phoneSearch);
         return "/booking/dashboard-admin-booking";
     }

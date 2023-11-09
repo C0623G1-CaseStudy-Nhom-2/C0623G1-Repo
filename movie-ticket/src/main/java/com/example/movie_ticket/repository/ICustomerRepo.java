@@ -23,4 +23,6 @@ public interface ICustomerRepo extends JpaRepository<Customer,Long> {
 
     @Query(value = "select * from customer where statis = 1 and customer.full_name like :name and customer.phone_number like :phone",nativeQuery = true)
     Page<Customer> getAllCustomerPageable(Pageable pageable , @Param("name") String name,@Param("phone")String phone);
+    Customer findCustomerByEmail(String email);
+    Customer findCustomerByPhoneNumber(String phone);
 }

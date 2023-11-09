@@ -34,7 +34,7 @@ public class DashboardCustomerController {
                                         @RequestParam(defaultValue = "", required = false) String name,
                                         @RequestParam(defaultValue = "", required = false) String phone,
                                         @RequestParam(defaultValue = "0", required = false) int page) {
-        Pageable pageable = PageRequest.of(page, 1);
+        Pageable pageable = PageRequest.of(page, 10);
         Page<Customer> customerPage = customerService.getAllCustomerPageable(pageable, name, phone);
         model.addAttribute("customerList", customerPage);
         model.addAttribute("name", name);

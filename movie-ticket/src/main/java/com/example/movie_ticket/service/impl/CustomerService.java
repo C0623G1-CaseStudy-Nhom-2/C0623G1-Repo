@@ -49,4 +49,14 @@ public class CustomerService implements ICustomerService {
     public Page<Customer> getAllCustomerPageable(Pageable pageable, String name,String phone) {
         return customerRepo.getAllCustomerPageable(pageable,'%'+name+'%','%'+phone+'%');
     }
+
+    @Override
+    public Customer findByEmail(String email) {
+        return customerRepo.findCustomerByEmail(email);
+    }
+
+    @Override
+    public Customer findByPhone(String phone) {
+        return customerRepo.findCustomerByPhoneNumber(phone);
+    }
 }

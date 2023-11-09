@@ -18,6 +18,7 @@
                 <h3>Thêm mới suất chiếu</h3>
                 <form action="/dashboard/showtime/confirm-add" method="post" th:object="${showtimeDto}">
                     <div class="mb-3">
+                        <input th:field="*{movie}" th:value="${showtimeDto.movie.id}" hidden="hidden">
                         <label class="form-label" for="startTime">Thời gian bắt đầu <sub style="color: red">( * )</sub></label>
                         <input class="form-control" id="startTime" required th:field="*{startTime}" type="time">
                         <p style="color: #e20442" th:errors="*{startTime}"
@@ -36,14 +37,8 @@
                            th:if="${#fields.hasErrors('showDate')}"></p>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="roomNumber">Số phòng <sub style="color: red">( * )</sub></label>
-                        <input class="form-control" id="roomNumber" required th:field="*{roomNumber}" type="number">
-                        <p style="color: #e20442" th:errors="*{roomNumber}"
-                           th:if="${#fields.hasErrors('roomNumber')}"></p>
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label" for="price">Giá tiền <sub style="color: red">( * )</sub></label>
-                        <input class="form-control" id="price" required th:field="*{price}" type="number">
+                        <input class="form-control" id="price" required th:field="*{price}" type="text">
                         <p style="color: #e20442" th:errors="*{price}"
                            th:if="${#fields.hasErrors('price')}"></p>
                     </div>

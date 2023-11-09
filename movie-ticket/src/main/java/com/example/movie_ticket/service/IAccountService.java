@@ -11,6 +11,4 @@ public interface IAccountService {
     Account findByUsername(String username);
     void signUpAccount(Account account);
     List<Account> getAllAccounts();
-    Account findByEmail(String email);
-    Account findByPhone(String phone);
 }

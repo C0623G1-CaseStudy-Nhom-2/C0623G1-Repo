@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.security.auth.login.LoginContext;
 import javax.validation.Valid;
@@ -61,17 +62,17 @@ public class HomeController {
     }
     @PostMapping("/signup")
     public ModelAndView showSignUp(@Valid @ModelAttribute(name = "signup") SignUpDto signUpDto,
-                                   BindingResult bindingResult){
-        signUpDto.validate(signUpDto,bindingResult);
+                                   BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if (accountService.findByUsername(signUpDto.getUsername()) != null){
             bindingResult.rejectValue("username",null,"Username đã tồn tại trong hệ thống");
         }
-        if (accountService.findByEmail(signUpDto.getEmail()) != null){
+        if (customerService.findByEmail(signUpDto.getEmail()) != null){
             bindingResult.rejectValue("email",null,"Email đã được đăng kí tài khoản khác trong hệ thống");
         }
-        if (accountService.findByPhone(signUpDto.getPhoneNumber()) != null){
+        if (customerService.findByPhone(signUpDto.getPhoneNumber()) != null){
             bindingResult.rejectValue("phoneNumber",null,"Số điện thoại đã được đăng kí tài khoản khác trong hệ thống");
         }
+        signUpDto.validate(signUpDto,bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return new ModelAndView("signup", "signUpDto", signUpDto);
         } else {
@@ -86,7 +87,8 @@ public class HomeController {
             BeanUtils.copyProperties(signUpDto,customer);
             customer.setAccount(account);
             customerService.saveCustomer(customer);
-            return new ModelAndView("signup","signup",new SignUpDto());
+            redirectAttributes.addFlashAttribute("signupSuccess","Đăng kí thành công, vui lòng đăng nhập để tiếp tục");
+            return new ModelAndView("redirect:/login");
         }
     }
 
