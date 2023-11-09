@@ -3,7 +3,7 @@ package com.example.movie_ticket.model;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
+@Entity(name = "employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class Employee {
 
     private String phoneNumber;
     private String birthday;
-    private Long idCard;
+    private String idCard;
     private String address;
     @OneToOne
     @JoinColumn(name = "account_id",referencedColumnName = "id")
@@ -76,11 +76,11 @@ public class Employee {
         this.birthday = birthday;
     }
 
-    public Long getIdCard() {
+    public String getIdCard() {
         return idCard;
     }
 
-    public void setIdCard(Long idCard) {
+    public void setIdCard(String idCard) {
         this.idCard = idCard;
     }
 
