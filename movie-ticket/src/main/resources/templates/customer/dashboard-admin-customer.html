@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="~{layout::head}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.11.0/dist/toastify.min.css">
+
+<!--    <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.11.0/dist/toastify.min.js"></script>-->
 </head>
 <body>
+<div th:if="${success}">
+    <span th:text="${success}" id="success" style="display: none"></span>
+</div>
+<div th:if="${error}">
+    <span th:text="${error}" id="error" style="display: none"></span>
+</div>
 <div class="container">
     <header th:replace="~{layout::header}"></header>
     <section>
@@ -11,9 +20,9 @@
                 <div th:replace="~{layout::sidebar-admin}"></div>
             </div>
             <div class="col-lg-9 ps-5 table-dashboard order">
-<!--                <div class="create">-->
-<!--                    <a href="/dashboard/customer/create"><i class="fa-solid fa-square-plus"></i> Thêm khách hàng</a>-->
-<!--                </div>-->
+                <!--                <div class="create">-->
+                <!--                    <a href="/dashboard/customer/create"><i class="fa-solid fa-square-plus"></i> Thêm khách hàng</a>-->
+                <!--                </div>-->
                 <div class="table-main">
                     <div class="search-table">
                         <form>
@@ -22,14 +31,16 @@
                                     <div class="col-lg-6 form-floating mb-3">
                                         <input type="text" class="form-control" name="name" id="nameCustomer"
                                                placeholder="name@example.com">
-                                        <label for="nameCustomer"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo tên khách hàng</label>
+                                        <label for="nameCustomer"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo
+                                            tên khách hàng</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 d-flex justify-content-between">
                                     <div class="col-auto form-floating mb-3">
                                         <input type="text" class="form-control" name="phone" id="phoneCustomer"
                                                placeholder="name@example.com">
-                                        <label for="phoneCustomer"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo số điện thoại</label>
+                                        <label for="phoneCustomer"><i class="fa-solid fa-magnifying-glass"></i> Tìm theo
+                                            số điện thoại</label>
                                     </div>
                                     <div class="col-lg-2 form-floating mb-3">
                                         <input type="submit" class="form-control btn btn-primary" value="Tìm">
@@ -42,32 +53,36 @@
                         <thead>
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">ĐỊA CHỈ</th>
                             <th scope="col">TÊN KHÁCH HÀNG</th>
                             <th scope="col">NGÀY THÁNG NĂM SINH</th>
+                            <th scope="col">ĐỊA CHỈ</th>
                             <th scope="col">SỐ ĐIỆN THOẠI</th>
-                            <th ></th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="customer , static: ${customerList}">
+                        <tr th:if="${customerList.totalPages != 0}" th:each="customer , static: ${customerList}">
                             <td th:text="${static.count}"></td>
-                            <td th:text="${customer.address}"></td>
                             <td th:text="${customer.fullName}"></td>
                             <td th:text="${customer.birthday}"></td>
+                            <td th:text="${customer.address}"></td>
                             <td th:text="${customer.phoneNumber}"></td>
                             <td>
                                 <a th:href="@{/dashboard/customer/view/__${customer.id}__}" title="Xem chi tiết"><i
                                         class="fa-solid fa-file-lines"></i></a>
                                 <a th:href="@{/dashboard/customer/edit/__${customer.id}__}" title="Sửa"><i
                                         class="fa-solid fa-pen-to-square"></i></a>
-                                <a th:attr="onclick=|sendDataModal('${customer.id}','${customer.fullName}')|" title="Xóa"
+                                <a th:attr="onclick=|sendDataModal('${customer.id}','${customer.fullName}')|"
+                                   title="Xóa"
                                    role="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
                                         class="fa-solid fa-trash-can"></i></a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                    <div th:if="${customerList.totalPages == 0}">
+                        <h2>Thông tin bạn muốn tìn kiếm không tồn tại</h2>
+                    </div>
                 </div>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
@@ -79,7 +94,8 @@
                             ${phone != null && phone != '' ? '&phone='+phone:''}
                             }">Trước</a>
                         </li>
-                        <li th:each="i : ${#numbers.sequence(0, customerList.totalPages - 1)}" th:class="${i == customerList.number ? 'page-item active' : 'page-item'}">
+                        <li th:each="i : ${#numbers.sequence(0, customerList.totalPages - 1)}"
+                            th:class="${i == customerList.number ? 'page-item active' : 'page-item'}">
                             <a class="page-link" th:text="${i + 1}" th:href="@{
                             ${#httpServletRequest.getRequestURI()} + '?page=' + ${i} +
                             ${name != null && name != '' ? '&name='+name:''} +
@@ -98,38 +114,39 @@
                 </nav>
 
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <div class="d-flex">
-                                        <div class="icon" style="color: red">
-                                            <i class="fa-regular fa-bell"></i>
-                                        </div>
-                                        <div class="box-header-modal">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: red">Cảnh báo</h1>
-                                            <p style="color: red">Hành động nguy hiểm !</p>
-                                        </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="d-flex">
+                                    <div class="icon" style="color: red">
+                                        <i class="fa-regular fa-bell"></i>
                                     </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                                            class="fa-solid fa-circle-xmark"></i></button>
+                                    <div class="box-header-modal">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: red">Cảnh
+                                            báo</h1>
+                                        <p style="color: red">Hành động nguy hiểm !</p>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    Bạn có chắc chắn muốn xóa khách hàng <span id="name-delete"
-                                                                               class="text-danger"></span> này không ?
-                                    Hành động này sẽ không thể khôi phục lại !
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                    <button id="active-delete" type="submit" class="btn btn-danger">
-                                        <a id="delete" style="color: white;text-decoration: none">Xóa</a>
-                                    </button>
-                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                                        class="fa-solid fa-circle-xmark"></i></button>
+                            </div>
+                            <div class="modal-body">
+                                Bạn có chắc chắn muốn xóa khách hàng <span id="name-delete"
+                                                                           class="text-danger"></span> này không ?
+                                Hành động này sẽ không thể khôi phục lại !
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <button id="active-delete" type="submit" class="btn btn-danger">
+                                    <a id="delete" style="color: white;text-decoration: none">Xóa</a>
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
 
             </div>
         </div>
@@ -142,6 +159,33 @@
         // $("#active-delete").attr("href", "/dashboard/customer/delete/" + id)
         $("#delete").attr("href", "/dashboard/customer/delete/" + id)
     }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let successMessage = document.getElementById("success").textContent;
+        console.log(successMessage)
+            Swal.fire({
+                title: successMessage,
+                icon: 'success',
+                timer: 2500,
+                timerProgressBar: true,
+                showConfirmButton: false
+            });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var errorMessage = document.getElementById("error").textContent;
+        console.log(errorMessage)
+        Swal.fire({
+            title: errorMessage,
+            icon: 'error',
+            timer: 2500,
+            timerProgressBar: true,
+            showConfirmButton: false
+        });
+
+    });
 </script>
 </body>
 </html>

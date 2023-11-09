@@ -110,20 +110,17 @@ public class CustomerDto implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CustomerDto customerDto = (CustomerDto) target;
-        if (customerDto.getFullName().length() < 5) {
-            errors.rejectValue("fullName", null, "Tổng số ký tự của tên khách hàng phải lớn hơn hoặc bằng 5");
-        }
-        if (customerDto.getFullName().length() > 45) {
-            errors.rejectValue("fullName", null, "Tổng số ký tự của tên khách hàng phải bé hơn hoặc bằng 45");
+        if (customerDto.getFullName().length() < 5 || customerDto.getFullName().length() > 45) {
+            errors.rejectValue("fullName", null, "Tổng số ký tự của tên khách hàng phải lớn hơn hoặc bằng 5 và bé hơn 45");
         }
         if (!customerDto.getEmail().matches("^.+@.+\\..+$")) {
-            errors.rejectValue("email", null, "Gmail khách hàng nhập chưa đứng yêu cầu xin vui lòng nhập lại");
+            errors.rejectValue("email", null, "Gmail khách hàng nhập chưa đúng yêu cầu xin vui lòng nhập lại");
         }
         if (!customerDto.getPhoneNumber().matches("^0\\d{9}$")) {
             errors.rejectValue("phoneNumber", null, "Số điện thoại bạn nhập chưa đúng xin lòng nhập lại");
         }
         if (customerDto.getBirthday().matches("^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[012])\\1(?:19|20)\\d\\d$")) {
-            errors.rejectValue("birthday", null, "Ngày tháng năm sinh bạn nhập chưa đúng yêu cầu xin vui lòng nhập lại");
+            errors.rejectValue("birthday", null, "Ngày tháng năm sinh bạn nhập/chọn chưa đúng yêu cầu xin vui lòng nhập/chọn lại");
         }
         if (!customerDto.getIdCard().matches("(^\\d{9}$)|(^\\d{12}$)")) {
             errors.rejectValue("idCard", null, "Số CCCD/CMND khách hàng đã bị sai xin vui lòng nhập lại");

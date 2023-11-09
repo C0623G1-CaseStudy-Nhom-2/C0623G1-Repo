@@ -16,7 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -34,7 +37,7 @@ public class DashboardCustomerController {
                                         @RequestParam(defaultValue = "", required = false) String name,
                                         @RequestParam(defaultValue = "", required = false) String phone,
                                         @RequestParam(defaultValue = "0", required = false) int page) {
-        Pageable pageable = PageRequest.of(page, 1);
+        Pageable pageable = PageRequest.of(page, 10);
         Page<Customer> customerPage = customerService.getAllCustomerPageable(pageable, name, phone);
         model.addAttribute("customerList", customerPage);
         model.addAttribute("name", name);
@@ -43,8 +46,16 @@ public class DashboardCustomerController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteCustomer(@PathVariable Long id) {
-        customerService.deleteCustomerById(id);
+    public String deleteCustomer(@PathVariable Long id,
+                                 RedirectAttributes redirectAttributes) {
+        Customer customer = customerService.getCustomerDelete(id);
+        if (customer == null) {
+            customerService.deleteCustomerById(id);
+            redirectAttributes.addFlashAttribute("success", "Khách hàng đã được xóa thành công");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Khách hàng này không thể xóa vì vấn đề liên quan đến đặt vé");
+
+        }
         return "redirect:/dashboard/customer";
     }
 
@@ -92,7 +103,7 @@ public class DashboardCustomerController {
                 if (customerDto.getPhoneNumber().equals(customerList.get(i).getPhoneNumber())) {
                     model.addAttribute("customerDto", customerDto);
                     model.addAttribute("messagePhoneNumber", " Số điện thoại đã tồn tại xin vui lòng xem lại thông tin của bạn");
-                    return "/customer/create-customer";
+                    return "/customer/edit-customer";
                 }
             }
         }
@@ -101,7 +112,7 @@ public class DashboardCustomerController {
                 if (customerDto.getIdCard().equals(customerList.get(i).getIdCard())) {
                     model.addAttribute("customerDto", customerDto);
                     model.addAttribute("messageIdCard", "Số CCCD/CMND đã tồn tại xin vui lòng xem lại thông tin của bạn");
-                    return "/customer/create-customer";
+                    return "/customer/edit-customer";
                 }
             }
         }

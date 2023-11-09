@@ -49,4 +49,9 @@ public class CustomerService implements ICustomerService {
     public Page<Customer> getAllCustomerPageable(Pageable pageable, String name,String phone) {
         return customerRepo.getAllCustomerPageable(pageable,'%'+name+'%','%'+phone+'%');
     }
+
+    @Override
+    public Customer getCustomerDelete(Long id) {
+        return customerRepo.getCustomerDelete(id);
+    }
 }

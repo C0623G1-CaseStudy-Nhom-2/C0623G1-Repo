@@ -14,4 +14,6 @@ public interface ICustomerService {
     Customer findCustomerbyId(Long id);
     void updateCustomer(Customer customer);
     Page<Customer> getAllCustomerPageable(Pageable pageable , String name, String phone);
+
+    Customer getCustomerDelete(Long id);
 }
