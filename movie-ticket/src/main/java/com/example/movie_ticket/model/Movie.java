@@ -1,5 +1,7 @@
 package com.example.movie_ticket.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -14,13 +16,15 @@ public class Movie {
     @Column(columnDefinition = "DATE")
     private String releaseDate;
     @ManyToOne
-    @JoinColumn(name = "category_id",referencedColumnName = "id")
+    @JsonBackReference
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
     private String director;
     private String avatar;
     private String banner;
     @OneToMany(mappedBy = "movie")
     private Set<ShowTime> showTimes;
+    private int deleted;
 
     public Movie() {
     }
@@ -96,6 +100,15 @@ public class Movie {
     public void setShowTimes(Set<ShowTime> showTimes) {
         this.showTimes = showTimes;
     }
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
+    }
+
     public Map<String, List<ShowTime>> showTimesMap() {
         Map<String, List<ShowTime>> showTime = new HashMap<>();
         for (ShowTime valueSet : getShowTimes()) {

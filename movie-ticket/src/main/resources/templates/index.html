@@ -6,33 +6,65 @@
 <div class="container">
     <header th:replace="~{layout::header}"></header>
     <section id="banner-home">
-        <div class="row mt-5">
-            <div class="col-md-12">
-                <div class="card text-bg-dark">
-                    <img src="/image/banner-source.png" class="card-img" alt="...">
-                    <div class="card-img-overlay d-flex align-items-end">
-                        <div class="p-lg-3 mb-lg-4 p-md-0 mb-md-0 bg-body-tertiary rounded-3">
-                            <div class="container">
-                                <h3 class="display-5 fw-bold">Vầng Trăng Máu</h3>
-                                <p class="text-secondary-custom">Thể loại: Hành động</p>
-                                <p class="text-secondary-custom">Đạo diễn: Martin Scorsese</p>
-                                <p class="text-secondary-custom">Diễn viên chính: Leonardo DiCaprio</p>
-                                <p class="text-secondary-custom">Khởi chiếu vào ngày 10/11/2023</p>
-                                <a href="#" role="button" class="btn btn-primary">Đặt vé ngay</a>
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div th:each="movie,loop: ${movies}" th:class="${loop.first ? 'carousel-item active':'carousel-item'}">
+                    <div th:if="${loop.count < 4}" class="col-md-12">
+                        <div class="card text-bg-dark">
+                            <img th:src="${movie.banner}" class="card-img" th:alt="${movie.title}">
+                            <div class="card-img-overlay d-flex align-items-end justify-content-center">
+                                <div class="p-lg-3 mb-lg-4 p-md-0 mb-md-0 bg-body-tertiary rounded-3">
+                                    <div class="container text-center">
+                                        <h3 class="display-5 fw-bold" th:text="${movie.title}">Vầng Trăng Máu</h3>
+                                        <p class="text-secondary-custom" th:text="${'Thể loại: '+ movie.category.nameCategory}">Thể loại: Hành động</p>
+                                        <p class="text-secondary-custom" th:text="${'Đạo diễn: '+ movie.director}">Đạo diễn: Martin Scorsese</p>
+                                        <p class="text-secondary-custom" th:text="${'Khởi chiếu vào ngày: '+ movie.releaseDate}">Khởi chiếu vào ngày 10/11/2023</p>
+                                        <a th:href="@{/movie/detail/__${movie.id}__}" role="button" class="btn btn-primary">Đặt vé ngay</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </section>
+<!--    <section id="banner-home">-->
+<!--        <div class="row mt-5">-->
+<!--            <div class="col-md-12">-->
+<!--                <div class="card text-bg-dark">-->
+<!--                    <img src="/image/banner-source.png" class="card-img" alt="...">-->
+<!--                    <div class="card-img-overlay d-flex align-items-end">-->
+<!--                        <div class="p-lg-3 mb-lg-4 p-md-0 mb-md-0 bg-body-tertiary rounded-3">-->
+<!--                            <div class="container">-->
+<!--                                <h3 class="display-5 fw-bold">Vầng Trăng Máu</h3>-->
+<!--                                <p class="text-secondary-custom">Thể loại: Hành động</p>-->
+<!--                                <p class="text-secondary-custom">Đạo diễn: Martin Scorsese</p>-->
+<!--                                <p class="text-secondary-custom">Diễn viên chính: Leonardo DiCaprio</p>-->
+<!--                                <p class="text-secondary-custom">Khởi chiếu vào ngày 10/11/2023</p>-->
+<!--                                <a href="#" role="button" class="btn btn-primary">Đặt vé ngay</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
     <section id="list-fim-home" class="my-5">
-        <h3>Phim chiếu rạp hot</h3>
+        <h3>Phim sắp chiếu</h3>
         <div class="row mt-3">
             <div th:each="movie: ${movies}" class="col-lg-2 my-3">
                 <a th:href="@{/movie/detail/__${movie.id}__}">
                     <div class="card text-bg-dark">
-                        <img src="/image/c1a96dc68209201a6eabd9e88ea99d9b.png" class="card-img" th:alt="${movie.title}">
+                        <img th:src="${movie.avatar}" class="card-img" th:alt="${movie.title}">
                         <div class="card-img-overlay">
                             <h5 class="card-title" th:text="${movie.title}">Đất Rừng Phương Nam</h5>
                             <p class="card-text" th:text="${'Thể loại: '+movie.category.nameCategory}">Thể loại: Gia
@@ -43,16 +75,18 @@
             </div>
         </div>
     </section>
-    <section id="category-film" class="my-5">
-        <h3>Thể loại Phim</h3>
+    <section class="my-5" id="category-film">
+        <h3>Thể loại phim</h3>
         <div class="row mt-3">
-            <div th:each="category: ${categories}" class="col-lg-3 my-3">
-                <div class="card text-bg-dark">
-                    <img th:src="${'/image/'+category.image}" class="card-img" th:alt="${category.nameCategory}">
-                    <div class="card-img-overlay d-flex justify-content-center align-items-center">
-                        <h5 class="card-title" th:text="${category.nameCategory}">Hành động</h5>
+            <div class="col-lg-3 my-3" th:each="category: ${categories}">
+                <a th:href="@{/movie/category/__${category.id}__}">
+                    <div class="card text-bg-dark">
+                        <img class="card-img" th:alt="${category.nameCategory}" th:src="${category.image}">
+                        <div class="card-img-overlay d-flex justify-content-center align-items-center">
+                            <h5 class="card-title" th:text="${category.nameCategory}">Hành động</h5>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
@@ -73,7 +107,12 @@
         </div>
     </section>
 </div>
-
 <footer th:replace="~{layout::footer}"></footer>
+<script>
+    const myCarouselElement = document.querySelector('#carouselExampleAutoplaying')
+    const carousel = new bootstrap.Carousel(myCarouselElement, {
+        interval: 3000
+    })
+</script>
 </body>
 </html>

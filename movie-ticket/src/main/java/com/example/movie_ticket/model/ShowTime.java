@@ -1,5 +1,6 @@
 package com.example.movie_ticket.model;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.persistence.*;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ public class ShowTime {
     private Employee employee;
     @OneToMany(mappedBy = "showTime")
     private Set<Booking> booking;
+    private int deleted;
 
     public ShowTime() {
     }
@@ -46,7 +48,8 @@ public class ShowTime {
     }
 
     public String getShowDate() {
-        return showDate;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(showDate, dateTimeFormatter).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
     public void setShowDate(String showDate) {
@@ -99,5 +102,13 @@ public class ShowTime {
 
     public void setBooking(Set<Booking> booking) {
         this.booking = booking;
+    }
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
     }
 }
